@@ -24,17 +24,8 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Lấy body qua method POST
-app.use(
-    express.urlencoded({
-        extended: true,
-    }),
-);
-// Trả về sữ liệu dạng JSON
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.render('home');
-});
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
