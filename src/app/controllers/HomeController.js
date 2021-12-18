@@ -3,7 +3,7 @@ const Subject =  require ('../models/subjects')
 
 class HomeController {
     index(req, res, next) {
-        res.render('home')
+        res.render('home/home')
     }
     showAll(req, res, next) {
         Subject.findAll()
@@ -25,7 +25,20 @@ class HomeController {
         .catch(next)
     }
     createUser(req, res, next) {
-        res.json(req.body)
-    }
+        const {id, name, credit, percentExam} = req.body
+        const credit1 = parseInt(credit)
+        const percentExam1 = parseInt(percentExam)
+
+        Subject.create({
+            subject_id: id,
+            name: name,
+            credit: credit1,
+            percentage_final_exam: percentExam1
+        })
+        .then(user => {
+            res.redirect('../user')
+        })
+        .catch(next)
+    }   
 }
 module.exports = new HomeController();
