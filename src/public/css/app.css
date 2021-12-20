@@ -1,2 +1,52 @@
 h1 {
   color: #ee850d; }
+
+.nav-item {
+  display: flex;
+  align-items: center; }
+
+a {
+  color: #000;
+  text-decoration: none; }
+
+a:hover {
+  color: #474747; }
+
+.nav-item__icon .nav-link {
+  display: flex;
+  align-items: center;
+  color: #fff; }
+
+.nav-item__icon .nav-item__icon-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; }
+  .nav-item__icon .nav-item__icon-user i {
+    padding: 6px 8px; }
+
+.container-login {
+  height: 100vh;
+  background: linear-gradient(to right, #0a346d, #1598ef);
+  display: flex;
+  align-items: center; }
+  .container-login .card-signin {
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    padding: 16px; }
+    .container-login .card-signin .card-title {
+      padding: 24px 0;
+      font-weight: 300;
+      font-size: 40px;
+      font-weight: 600; }
+    .container-login .card-signin form .btn-group {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center; }
+      .container-login .card-signin form .btn-group button {
+        width: 100%;
+        margin-bottom: 8px; }
+      .container-login .card-signin form .btn-group a {
+        width: 100%;
+        background-color: #1598ef; }

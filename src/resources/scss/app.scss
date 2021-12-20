@@ -1,4 +1,53 @@
 @import 'variable';
-h1 {
-    color: $red-color;
+@import 'common';
+.nav-item__icon {
+    .nav-link{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    }
+    .nav-item__icon-user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+        i{
+            padding: 6px 8px;
+        }
+    }
+}
+
+// LOGIN
+.container-login {
+    height: 100vh;
+    background: linear-gradient(to right, #0a346d, #1598ef);
+    display: flex;
+    align-items: center;
+    .card-signin {
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+        padding: 16px;
+        .card-title {
+            padding: 24px 0;
+            font-weight: 300;
+            font-size: 40px;
+            font-weight: 600;
+        }
+        form{
+            .btn-group{
+                margin-top: 12px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                button{
+                    width: 100%;
+                    margin-bottom: 8px;
+                }
+                a{
+                    width: 100%;
+                    background-color: #1598ef;
+                }
+            }
+        }
+    }
 }
