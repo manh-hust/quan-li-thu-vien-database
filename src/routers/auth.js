@@ -6,6 +6,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const AuthController = require('../app/controllers/AuthController');
 
 router.get('/login', AuthController.login);
-router.post('/post', urlencodedParser, AuthController.postLogin)
+router.post('/login', urlencodedParser, AuthController.postLogin)
+router.get('/logout', AuthController.logout);
 
 module.exports = router;

@@ -3,6 +3,7 @@ const handlebars = require('express-handlebars');
 const path = require('path');
 const app = express();
 const port = 3000;
+const bodyParser = require('body-parser')
 
 const route = require('./routers');
 const db = require('./config/pg_db');
@@ -16,14 +17,15 @@ app.engine(
         extname: '.hbs',
         //helpers: require('./helper/hanldebars'),
     }),
-);
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources', 'views'));
-
+    );
+    app.set('view engine', 'hbs');
+    app.set('views', path.join(__dirname, 'resources', 'views'));
+    
 // Public file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));
-
+    
 // Lấy body qua method POST
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

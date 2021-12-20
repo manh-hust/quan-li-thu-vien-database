@@ -5,7 +5,7 @@
         <div class="card card-signin">
           <h3 class="card-title text-center">Sign in</h3>
 
-          <form method="POST" action="/auth/post" class=" pt-5 pb-5 pl-3 pr-3 ">
+          <form method="POST" action="/auth/login" class=" pt-5 pb-5 pl-3 pr-3 ">
             <div class="form-group ">
               <label for="exampleInputEmail1">Email address</label>
               <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp"
@@ -14,8 +14,13 @@
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
               <input name="pass" type="password" class="form-control" id="password" placeholder="Password"
-                required="required" value={{pass}}>
+                required="required" value={{password}}>
             </div>
+            {{#if err}}
+            <div class="alert alert-danger mt-2" role="alert">
+              {{err}}
+            </div>
+            {{/if}}
             <div class="btn-group">
               <button type="submit" class="btn btn-primary">Login</button>
               <a href="#" class="btn btn-primary">Đăng kí</a>
