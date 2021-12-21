@@ -23,7 +23,7 @@
     "sequelize": "^6.7.0"
   },
   "devDependencies": {
-    "cookie-parser": "^1.4.5",
+    "cookie-parser": "^1.4.6",
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1"

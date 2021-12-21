@@ -20,9 +20,9 @@ class AuthController {
         })
         .then( user => {
             if(user){
-                res.redirect('/')
-                res.cookie('userId', user.userID.toString(), {
-                    signed: true,
+                res.redirect('/home')
+                res.cookie('userId', '123456', {
+                    signed : true
                 });
             }
             else{
@@ -39,9 +39,7 @@ class AuthController {
     }
     logout(req, res, next) {
         res.clearCookie('userId');
-        res.render('auth/login',{
-            layout: 'main1'
-        });
+        res.redirect('../auth/login');
     }
 }
 

@@ -1,5 +1,5 @@
 const Users = require('../models/user')
-const Subject =  require ('../models/subjects');
+// const Subject =  require ('../models/subjects');
 
 class HomeController {
     index(req, res, next) {

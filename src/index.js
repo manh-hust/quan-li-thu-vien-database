@@ -2,8 +2,9 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const path = require('path');
 const app = express();
-const port = 3000;
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
+const port = 3000;
 
 const route = require('./routers');
 const db = require('./config/pg_db');
@@ -28,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser('conchimxanh874'));
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
