@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cookieParser('conchimxanh874'));
+app.use(cookieParser('000000000'));
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);

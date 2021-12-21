@@ -4,7 +4,7 @@ const authMiddleware = require('../app/middleware/auth');
 
 function route(app) {
     app.use('/auth', authRouter)
-    app.use('/', authMiddleware.requireAuth, homeRouter);
+    app.use('/',homeRouter);
 }
 
 module.exports = route;

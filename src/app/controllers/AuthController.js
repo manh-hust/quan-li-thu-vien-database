@@ -20,10 +20,10 @@ class AuthController {
         })
         .then( user => {
             if(user){
-                res.redirect('/home')
-                res.cookie('userId', '123456', {
+                res.cookie('userID', user.userID, {
                     signed : true
                 });
+                res.redirect('/home')
             }
             else{
                 res.render('auth/login',
