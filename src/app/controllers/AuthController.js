@@ -1,5 +1,4 @@
 const Users = require('../models/user')
-const jwt = require('jsonwebtoken')
 
 class AuthController {
     // [GET] /auth/login
@@ -22,7 +21,7 @@ class AuthController {
             if(user){
                 res.cookie('userID', user.userID, {
                 });
-                res.redirect('/home')
+                res.redirect('/')
             }
             else{
                 res.render('auth/login',

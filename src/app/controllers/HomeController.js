@@ -4,9 +4,8 @@ const Users = require('../models/user')
 class HomeController {
     index(req, res, next) {
         const user = res.locals.user
-        res.render('home/home',{
-            name: user.firstName
-        })
+
+        res.render('home/home')
     }
     showAll(req, res, next) {
         Subject.findAll()
