@@ -51,3 +51,21 @@
         }
     }
 }
+
+// Privacy
+.privacy-image{
+    border: solid 1px #1598ef;
+    border-radius: 40%;
+    margin-top: 36px;
+}
+
+.container-navbar{
+    display: flex;
+    justify-content: flex-end;
+    ul{
+        margin-right: 32px !important;
+        li{
+            margin-right: 12px;
+        }
+    }
+}

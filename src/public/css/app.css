@@ -50,3 +50,16 @@ a:hover {
       .container-login .card-signin form .btn-group a {
         width: 100%;
         background-color: #1598ef; }
+
+.privacy-image {
+  border: solid 1px #1598ef;
+  border-radius: 40%;
+  margin-top: 36px; }
+
+.container-navbar {
+  display: flex;
+  justify-content: flex-end; }
+  .container-navbar ul {
+    margin-right: 32px !important; }
+    .container-navbar ul li {
+      margin-right: 12px; }

@@ -1,10 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="#">Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+  <div class="container ">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse container-navbar" id="navbarSupportedContent">
+      {{#if this.user}}
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" 
@@ -22,6 +25,8 @@
             <li><a class="dropdown-item" href="#">Giáo dục</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Lập trình</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/category">All</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -33,10 +38,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Mượn sách</a>
         </li>
-       
-      </ul>
-      <form class="d-flex">
-          <div class="dropdown nav-item__icon">
+        <li class="nav-item dropdown nav-item__icon">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{this.user.firstName}}
             <div class="nav-item__icon-user">
@@ -52,9 +54,23 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Lịch sử mượn sách</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/auth/logout">Log Out</a></li>
+            <li><a class="dropdown-item" href="/auth/logout">Log Out/Log In</a></li>
           </ul>
-        </div> 
+        </li> 
+      </ul>
+      {{else}}
+       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item dropdown nav-item__icon">
+          <a class="nav-link " href="auth/login" >
+            Login
+            <div class="nav-item__icon-user">
+              <i class="fas fa-user"></i>
+            </div>
+          </a>
+        </li>
+       </ul>
+      {{/if}}
+      <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>

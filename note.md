@@ -8,3 +8,6 @@
                 Thông báo
                 Mượn sách
                 Search
+# Thứ 5, ngày 23/12
+- Thêm trang đăng kí người dùng
+- Tạo trang detail chi tiết, chi tiết của chi tiết các loại sách
