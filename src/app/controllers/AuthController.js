@@ -21,7 +21,6 @@ class AuthController {
         .then( user => {
             if(user){
                 res.cookie('userID', user.userID, {
-                    signed : true
                 });
                 res.redirect('/home')
             }
@@ -38,7 +37,7 @@ class AuthController {
         .catch(next)
     }
     logout(req, res, next) {
-        res.clearCookie('userId');
+        res.clearCookie('userID');
         res.redirect('../auth/login');
     }
 }

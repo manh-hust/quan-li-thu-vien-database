@@ -1,10 +1,11 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const path = require('path');
-const app = express();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
+
 const port = 3000;
+const app = express();
 
 const route = require('./routers');
 const db = require('./config/pg_db');
