@@ -1,0 +1,26 @@
+
+<table class="table caption-top mt-5 table-striped table-success">
+  <caption>List of users</caption>
+  <thead>
+    <tr class="table-primary">
+      <th scope="col" >UserID</th>
+      <th scope="col" >FirstName</th>
+      <th scope="col" >LastName</th>
+      <th scope="col" >MSSV</th>
+      <th scope="col" >Email</th>
+      <th scope="col" >Authorize</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+    <tr>
+      <td>{{this.userID}}</td>
+      <td>{{this.firstName}}</td>
+      <td>{{this.lastName}}</td>
+      <td>{{this.MSSV}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.authorize}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

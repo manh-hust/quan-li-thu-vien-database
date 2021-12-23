@@ -1,5 +1,3 @@
-const { redirect } = require('express/lib/response');
-const User = require('../models/user');
 const Users = require('../models/user')
 
 class AuthController {
@@ -43,7 +41,7 @@ class AuthController {
         })
     }
     create(req, res, next) {
-        const {firstName, lastName, email, password} = req.body
+        const {firstName, lastName, email, password, MSSV} = req.body
         Users.findOne({
             where: {
                 email: email
@@ -52,7 +50,7 @@ class AuthController {
         .then(user => {
             if(user)
             res.render('auth/register',{
-                firstName,lastName,email,password,
+                firstName,lastName,email,password,MSSV,
                 err: 'Email đã được sử dụng'
             })
             else{
@@ -61,8 +59,9 @@ class AuthController {
                     userID: id,
                     firstName,
                     lastName,
+                    MSSV,
                     email,
-                    password
+                    password,
                 })
                 .then(user =>{
                     res.redirect('/auth/login')
