@@ -69,3 +69,15 @@
         }
     }
 }
+
+// Register
+.container-register{
+    border: 1px solid rgb(207, 207, 207);
+    width: 40%;
+    padding: 60px 30px 20px;
+    .group-btn{
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+    }
+}

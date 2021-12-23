@@ -63,3 +63,12 @@ a:hover {
     margin-right: 32px !important; }
     .container-navbar ul li {
       margin-right: 12px; }
+
+.container-register {
+  border: 1px solid #cfcfcf;
+  width: 40%;
+  padding: 60px 30px 20px; }
+  .container-register .group-btn {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between; }

@@ -35,6 +35,14 @@ class AuthController {
         })
         .catch(next)
     }
+    register(req, res, next) {
+        res.render('auth/register', {
+            layout: 'main1'
+        })
+    }
+    create(req, res, next) {
+        res.send(req.body)
+    }
     logout(req, res, next) {
         res.clearCookie('userID');
         res.redirect('../auth/login');

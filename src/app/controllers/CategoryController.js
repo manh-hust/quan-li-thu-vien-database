@@ -3,21 +3,20 @@ const Subjects = require('../models/subjects')
 class CategoryController {
 
     index(req, res, next) {
-        const userID = req.cookies.userID;
-        Users.findByPk(userID)
-        .then( user => {
-            if(user){
-                res.locals.user = user.dataValues
-            }
-            Subjects.findAll({
-                raw: true
-            })
-            .then( subjects => {
-                console.log(subjects)
-                res.render('category/category',{
-                    subjects: subjects
-                });
-            })            
+        Subjects.findAll({
+            raw: true
+        })
+        .then( subjects => {
+            res.render('category/category',{
+                subjects: subjects
+            });
+        })            
+    }
+
+    detail(req, res, next) {
+        const name = req.params.slug
+        res.render('category/detail',{
+            name: name
         })
     }
     
