@@ -1,3 +1,5 @@
+const { redirect } = require('express/lib/response');
+const User = require('../models/user');
 const Users = require('../models/user')
 
 class AuthController {
@@ -41,7 +43,32 @@ class AuthController {
         })
     }
     create(req, res, next) {
-        res.send(req.body)
+        const {firstName, lastName, email, password} = req.body
+        Users.findOne({
+            where: {
+                email: email
+            }
+        })
+        .then(user => {
+            if(user)
+            res.render('auth/register',{
+                firstName,lastName,email,password,
+                err: 'Email đã được sử dụng'
+            })
+            else{
+                const id = (Math.floor(Math.random()*1000000)).toString()
+                Users.create({
+                    userID: id,
+                    firstName,
+                    lastName,
+                    email,
+                    password
+                })
+                .then(user =>{
+                    res.redirect('/auth/login')
+                })
+            }
+        })
     }
     logout(req, res, next) {
         res.clearCookie('userID');

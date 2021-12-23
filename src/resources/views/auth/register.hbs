@@ -4,19 +4,24 @@
 <div class="container container-register">
     <form method="POST" >
         <div class="form-floating mb-3">
-            <input name="f-name"  class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input name="firstName"  class="form-control" id="floatingInput" placeholder="name@example.com" value='{{firstName}}' required="required">
             <label for="floatingInput">First Name</label>
         </div>
         <div class="form-floating mb-3">
-            <input name="l-name"  class="form-control" id="floatingPassword" placeholder="Password">
+            <input name="lastName"  class="form-control" id="floatingPassword" placeholder="Password" value='{{lastName}}' required="required">
             <label for="floatingPassword">Last Name</label>
         </div>
         <div class="form-floating mb-3">
-            <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" value='{{email}}' required="required">
             <label for="floatingInput">Email address</label>
         </div>
+        {{#if err}}
+        <div class="alert alert-danger" role="alert">
+            {{err}}
+        </div>
+        {{/if}}
         <div class="form-floating">
-            <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"  value='{{password}}' required="required">
             <label for="floatingPassword">Password</label>
         </div>
         <div class="group-btn">
