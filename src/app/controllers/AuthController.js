@@ -41,7 +41,7 @@ class AuthController {
         })
     }
     create(req, res, next) {
-        const {firstName, lastName, email, password, MSSV} = req.body
+        const {firstName, lastName, email, password, MSSV, SĐT, address} = req.body
         Users.findOne({
             where: {
                 email: email
@@ -62,6 +62,8 @@ class AuthController {
                     MSSV,
                     email,
                     password,
+                    SĐT,
+                    address
                 })
                 .then(user =>{
                     res.redirect('/auth/login')

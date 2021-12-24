@@ -1,18 +1,17 @@
 const homeRouter = require('./home');
 const authRouter = require('./auth')
 const privacyRouter = require('./privacy')
-const categoryRouter = require('./category')
+const searchRouter = require('./search')
 const usersRouter = require('./users')
 const authMiddleware = require('../app/middleware/auth');
 
-const cookieParser = require('cookie-parser');
 
 function route(app) {
     app.use('/auth', authRouter)
-    app.use('/category', cookieParser('000000'), authMiddleware.requireAuth, categoryRouter)
-    app.use('/users', cookieParser('000000'), authMiddleware.requireAuth, usersRouter)
+    app.use('/search', authMiddleware.requireAuth, searchRouter)
+    app.use('/users', authMiddleware.requireAuth, usersRouter)
     app.use('/privacy', privacyRouter)
-    app.use('/', cookieParser('000000'), homeRouter);
+    app.use('/', homeRouter);
 }
 
 module.exports = route;

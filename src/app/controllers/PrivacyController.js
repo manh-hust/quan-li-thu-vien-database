@@ -4,22 +4,24 @@ class PrivacyController{
     index(req, res, next){
         const user = res.locals.user
         const authorize = user.authorize
-        let numberAuthor
+        let isUser, isThuthu, isAdmin
         switch(authorize){
             case 'user' :
-                numberAuthor = null;
+                isUser = true;
                 break;
             case 'thuthu' :
-                numberAuthor = 2;
+                isThuthu: true;
                 break;
             case 'admin' :
-                numberAuthor = 3;
+                isAdmin = true;
                 break;
         }
         const fullName = `${user.lastName} ${user.firstName}`
         res.render('privacy/privacy', {
             fullName: fullName,
-            authorize: numberAuthor
+            isUser,
+            isAdmin,
+            isThuthu 
 
         })
     }
