@@ -1,19 +1,38 @@
-<h1 class="mt-3 mb-3">
-    {{title}}
-</h1>
+<div class="btn-group mt-4 btn-group-category" role="group" aria-label="Basic outlined example">
+  <a href="/search/category" type="button" class="btn btn-category btn-outline-primary">Thể loại</a>
+  <a href="/search/daicuong" type="button" class="btn btn-category btn-outline-primary">Đại cương</a>
+  <a href="/search/chuyennganh" type="button" class="btn btn-category btn-outline-primary">Chuyên ngành</a>
+  <a href="/search/author" type="button" class="btn btn-category btn-outline-primary">Tác giả</a>
+  <a href="/search/year" type="button" class="btn btn-category btn-outline-primary">Năm xuất bản</a>
+</div>
 <div class="container">
+    <h2 class="mt-3 mb-3 category-title">
+        {{title}}
+    </h2>
     <div class="row gx-4 gy-4">
         {{#each subjects}}
-        <div class="col-4">
+        <div class="col-3">
             <div class="card" >
                 <img src="/img/biasach.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{this.name}}</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href='/search/{{../params}}/{{this.name}}' class="btn btn-primary">Detail</a>
+                    <a href='/search/{{this.name}}' class="btn btn-primary">Detail</a>
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
 </div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-category')
+    const title = document.querySelector('.category-title').innerText
+  
+    for(let i = 0 ; i < btns.length; i++) {
+        if(btns[i].innerText == title){
+            btns[i].classList.add('active')
+        }
+    }
+
+</script>

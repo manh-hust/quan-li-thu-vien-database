@@ -1,30 +1,33 @@
 const Subjects = require('../models/subjects')
+const Users = require('../models/user')
+
 
 class SearchController {
 
     category(req, res, next) {
+        const title = 'Thể loại'
         Subjects.findAll({
             raw: true
         })
         .then( subjects => {
             res.render('search/category',{
                 subjects: subjects,
-                title: 'Thể loại sách',
-                params: req.params.slug1
+                title,
             });
         })            
     }
     daiCuong(req, res, next) {
+        const title = 'Đại cương'
         Subjects.findAll({
             raw: true
         })
         .then( subjects => {
             res.render('search/category',{
                 subjects: subjects,
-                title: 'Đại cương',
-                params: req.params.slug1
+                title,
             });
-        })            
+        })
+        .catch(next)            
     }
     chuyenNganh(req, res, next) {
         Subjects.findAll({
@@ -34,7 +37,6 @@ class SearchController {
             res.render('search/category',{
                 subjects: subjects,
                 title: 'Chuyên ngành',
-                params: req.params.slug1
             });
         })            
     }
@@ -46,7 +48,6 @@ class SearchController {
             res.render('search/category',{
                 subjects: subjects,
                 title: 'Tác giả',
-                params: req.params.slug1
             });
         })            
     }
@@ -57,15 +58,14 @@ class SearchController {
         .then( subjects => {
             res.render('search/category',{
                 subjects: subjects,
-                title: 'Năm phát hành',
-                params: req.params.slug1
+                title: 'Năm xuất bản',
             });
         })            
     }
     
 
     detailCategory(req, res, next) {
-        const name = req.params.slug2
+        const name = req.params.slug
         res.render('search/detail',{
             name: name
         })
