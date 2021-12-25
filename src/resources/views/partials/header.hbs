@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <div class="header-navbars">
     <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
@@ -9,6 +9,9 @@
     <div class="collapse navbar-collapse container-navbar" id="navbarSupportedContent">
       {{#if this.user}}
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+         <li class="nav-item">
+          <a class="nav-link" href="#">Tin tức</a>
+        </li>
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" 
           type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
@@ -36,6 +39,26 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Mượn sách</a>
         </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" 
+          type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
+          aria-expanded="false">
+            Hướng dẫn
+          </a>
+           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Đăng kí mượn sách Online</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Gia hạn mượn sách</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Thủ tục làm thẻ</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Nội quy</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Lịch phục vụ</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Bản đồ</a></li>
+          </ul>
+        </li>
         <li class="nav-item dropdown nav-item__icon">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{this.user.firstName}}
@@ -45,6 +68,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="/privacy">Thông tin cá nhân</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Thông báo</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Sách đang mượn</a></li>
             <li><hr class="dropdown-divider"></li>
@@ -58,8 +83,28 @@
       </ul>
       {{else}}
        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" 
+          type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
+          aria-expanded="false">
+            Hướng dẫn
+          </a>
+           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Đăng kí mượn sách Online</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Gia hạn mượn sách</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Thủ tục làm thẻ</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Nội quy</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Lịch phục vụ</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Bản đồ</a></li>
+          </ul>
+        </li>
         <li class="nav-item dropdown nav-item__icon">
-          <a class="nav-link " href="/auth/login" >
+          <a class="nav-link" href="/auth/login" >
             Login
             <div class="nav-item__icon-user">
               <i class="fas fa-user"></i>
