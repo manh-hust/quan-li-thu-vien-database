@@ -184,15 +184,14 @@ ul, li {
 .header-navbars {
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  padding: 0 36px; }
+  width: 100%; }
 
-.slider-home {
+.container-home .slider-home {
   margin-top: 24px; }
-  .slider-home .carousel-item {
+  .container-home .slider-home .carousel-item {
     width: 100%;
     height: 320px; }
-    .slider-home .carousel-item img {
+    .container-home .slider-home .carousel-item img {
       display: block;
       width: 100%;
       height: 100%; }
