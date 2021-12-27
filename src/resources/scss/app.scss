@@ -1,39 +1,13 @@
 @import 'variable';
 @import 'common';
 @import 'footer';
+@import 'home';
 // HOME
 .header-navbars{
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
-.container-home{
-    .slider-home{
-        margin-top: 24px;
-        .carousel-item{
-            width: 100%;
-            height: 320px;
-            img{
-                display: block;
-                width: 100%;
-                // max-width: 100%;
-                height: 100%;
-            }
-        }
-    }
-}
-.home-container{
-    width: 100%;
-    height: 100vh;
-    background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://images.unsplash.com/photo-1573169790341-483eec303e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    z-index: -1;
-}
-
 
 .nav-item__icon {
     .nav-link{
