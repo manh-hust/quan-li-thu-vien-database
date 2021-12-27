@@ -1,4 +1,7 @@
 const Users = require('../models/user')
+const Clazz = require('../models/clazz')
+const Student = require('../models/student');
+const { on } = require('pg/lib/query');
 
 class HomeController {
     index(req, res, next) {
@@ -37,5 +40,20 @@ class HomeController {
         ]
         })
     })}
+    test(req, res, next) {
+        Student.findAll({
+            include: [
+              {
+                model: Clazz
+              }
+            ],
+            attributes: [
+                'clazz_id'
+            ]
+        })
+        .then(clazz => {
+            res.send(clazz)
+        })
+    }
 }
 module.exports = new HomeController();
