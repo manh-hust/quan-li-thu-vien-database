@@ -35,7 +35,7 @@ const Student = db.define('student',{
 
 db.sync();
 
-// Clazz.belongsTo(Student, {foreignKey: 'monitor_id'})
+
 
 module.exports = Student
 

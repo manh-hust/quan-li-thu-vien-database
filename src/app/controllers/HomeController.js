@@ -1,7 +1,9 @@
 const Users = require('../models/user')
 const Clazz = require('../models/clazz')
 const Student = require('../models/student');
-const { on } = require('pg/lib/query');
+const sequelize = require('sequelize')
+const { Op } = require('sequelize');
+const { user } = require('pg/lib/defaults');
 
 class HomeController {
     index(req, res, next) {
@@ -41,18 +43,19 @@ class HomeController {
         })
     })}
     test(req, res, next) {
-        Clazz.findAll({
-            include: [
-            {
-                model: Student,
-                attributes: ['first_name', 'student_id', 'address' ]
-            
-            }
-            ],
-        
-        })
+        Clazz.sum('number_students')
         .then(clazz => {
-            res.send(clazz)
+            if(clazz.length < 1){
+                res.send({
+                    message: 'No data'
+                })
+            }
+            else{
+                res.send({
+                    message: 'success',
+                    data: clazz
+                })
+            }
         })
     }
 }

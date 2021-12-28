@@ -26,8 +26,11 @@ const Clazz = db.define('clazz',{
 
 db.sync();
 
-Clazz.hasOne(Student, {foreignKey: 'student_id'})
+Clazz.belongsTo(Student, {foreignKey: 'monitor_id', as: 'monitor'})
+Student.hasOne(Clazz, {foreignKey: 'monitor_id', as: 'monitor'})
 
+Clazz.hasMany(Student, {foreignKey: 'clazz_id', as: 'clazzz', constraints: false})
+Student.belongsTo(Clazz, {foreignKey: 'clazz_id', as: 'clazzz', constraints: false})
 
 
 module.exports = Clazz
