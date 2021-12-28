@@ -41,15 +41,15 @@ class HomeController {
         })
     })}
     test(req, res, next) {
-        Student.findAll({
+        Clazz.findAll({
             include: [
-              {
-                model: Clazz
-              }
+            {
+                model: Student,
+                attributes: ['first_name', 'student_id', 'address' ]
+            
+            }
             ],
-            attributes: [
-                'clazz_id'
-            ]
+        
         })
         .then(clazz => {
             res.send(clazz)

@@ -25,12 +25,8 @@ const Clazz = db.define('clazz',{
 })
 
 db.sync();
-Student.hasOne(Clazz, {foreignKey: {
-    name: 'clazz_id'
-}})
-Clazz.belongsTo(Student, {foreignKey: {
-    name: 'monitor_id'
-}})
+
+Clazz.hasOne(Student, {foreignKey: 'student_id'})
 
 
 

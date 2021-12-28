@@ -1,5 +1,5 @@
 .home-container{
-    padding: 0 12px;
+    padding: 0 12px 60px;
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.41);
     .home-slider{
         padding-top: 24px ;
@@ -21,6 +21,7 @@
             flex: 1;
             background-color: aqua;
             margin-right: 12px;
+            height: 100%;
             h4{
                 font-size: 1rem;
                 font-weight: bold;
@@ -50,9 +51,6 @@
                         background-color: rgb(187, 187, 187);
                         margin-bottom: 16px;
                         border-bottom: 1px solid #198754;
-                        border-left: 1px solid #198754;
-                        border-right: 1px solid #198754;
-
                     }
                     .mySwiper{
                         margin-bottom: 56px;
@@ -67,7 +65,9 @@
                         z-index: 10;
                         padding: 0 12px 6px;
                         color: blue;
-                        text-decoration: line;
+                        &:hover{
+                            text-decoration: underline blue;
+                        }
                     }
                 }
             }

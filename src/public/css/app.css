@@ -201,7 +201,7 @@ ul, li {
     margin: 30px; } }
 
 .home-container {
-  padding: 0 12px;
+  padding: 0 12px 60px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.41); }
   .home-container .home-slider {
     padding-top: 24px;
@@ -218,7 +218,8 @@ ul, li {
     .home-container .home-content .home-news {
       flex: 1;
       background-color: aqua;
-      margin-right: 12px; }
+      margin-right: 12px;
+      height: 100%; }
       .home-container .home-content .home-news h4 {
         font-size: 1rem;
         font-weight: bold;
@@ -243,9 +244,7 @@ ul, li {
           display: block;
           background-color: #bbbbbb;
           margin-bottom: 16px;
-          border-bottom: 1px solid #198754;
-          border-left: 1px solid #198754;
-          border-right: 1px solid #198754; }
+          border-bottom: 1px solid #198754; }
         .home-container .home-content .home-activity .list .item .mySwiper {
           margin-bottom: 56px; }
           .home-container .home-content .home-activity .list .item .mySwiper img {
@@ -256,8 +255,9 @@ ul, li {
           bottom: 0;
           z-index: 10;
           padding: 0 12px 6px;
-          color: blue;
-          text-decoration: line; }
+          color: blue; }
+          .home-container .home-content .home-activity .list .item a:hover {
+            text-decoration: underline blue; }
 
 .header-navbars {
   display: flex;
