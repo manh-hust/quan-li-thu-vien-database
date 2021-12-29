@@ -236,16 +236,16 @@ ul, li {
         color: #fff;
         padding: 12px; }
       .home-container .home-content .home-activity .list .item {
-        border-bottom: 1px solid #198754;
-        border-left: 1px solid #198754;
-        border-right: 1px solid #198754;
+        border-bottom: 1px dotted #198754;
+        border-left: 1px dotted #198754;
+        border-right: 1px dotted #198754;
         position: relative; }
         .home-container .home-content .home-activity .list .item .item-title {
           padding: 6px 12px;
           display: block;
           background-color: #bbbbbb;
           margin-bottom: 16px;
-          border-bottom: 1px solid #198754; }
+          border-bottom: 1px dotted #198754; }
         .home-container .home-content .home-activity .list .item .mySwiper {
           margin-bottom: 56px; }
           .home-container .home-content .home-activity .list .item .mySwiper img {
@@ -263,16 +263,45 @@ ul, li {
 .tutorial-container {
   padding-top: 60px; }
   .tutorial-container .tutorial-content .tutorial-left {
-    background-color: #d1cfcf; }
+    background-color: #d1cfcf;
+    position: relative; }
     .tutorial-container .tutorial-content .tutorial-left .list {
       padding: 0 8px; }
       .tutorial-container .tutorial-content .tutorial-left .list li {
-        border-bottom: 1px solid #198754;
+        border-bottom: 1px dotted #198754;
         padding: 12px 0; }
         .tutorial-container .tutorial-content .tutorial-left .list li:last-child {
           border: none; }
         .tutorial-container .tutorial-content .tutorial-left .list li .active {
           color: red; }
+  .tutorial-container .tutorial-content .tutorial-right .list-tutorial .item-tutorial {
+    border-bottom: 1px dotted #198754;
+    border-left: 1px dotted #198754;
+    border-right: 1px dotted #198754; }
+    .tutorial-container .tutorial-content .tutorial-right .list-tutorial .item-tutorial h3 {
+      background-color: #212529;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      width: 100%;
+      display: block;
+      padding: 10px;
+      text-transform: uppercase; }
+    .tutorial-container .tutorial-content .tutorial-right .list-tutorial .item-tutorial p {
+      padding: 12px; }
+  .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list {
+    margin: 12px;
+    border-bottom: 1px dotted #198754;
+    padding-bottom: 12px;
+    display: flex;
+    align-self: start; }
+    .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list:last-child {
+      border: none; }
+    .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list a {
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin: 0 12px; }
 
 .header-navbars {
   display: flex;

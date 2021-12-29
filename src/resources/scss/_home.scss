@@ -41,16 +41,16 @@
             }
             .list{
                 .item{
-                    border-bottom: 1px solid #198754;
-                    border-left: 1px solid #198754;
-                    border-right: 1px solid #198754;
+                    border-bottom: 1px dotted #198754;
+                    border-left: 1px dotted #198754;
+                    border-right: 1px dotted #198754;
                     position: relative;
                     .item-title{
                         padding: 6px 12px;
                         display: block;
                         background-color: rgb(187, 187, 187);
                         margin-bottom: 16px;
-                        border-bottom: 1px solid #198754;
+                        border-bottom: 1px dotted #198754;
                     }
                     .mySwiper{
                         margin-bottom: 56px;

@@ -7,11 +7,17 @@
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse container-navbar" id="navbarSupportedContent">
-      {{#if this.user}}
+      {{!-- Nav-bar-menu --}}
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
         <li class="nav-item">
-          <a class="nav-link" href="#">Tin tức</a>
+          <a class="nav-link" href="/news">Tin tức</a>
         </li>
+        <li class="nav-item dropdown">
+          <a href="/tutorial" class="nav-link ">
+            Hướng dẫn
+          </a>
+        </li>
+      {{#if this.user}}
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" 
           type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
@@ -39,26 +45,6 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Mượn sách</a>
         </li>
-        <li class="nav-item dropdown">
-          <a href="/tutorial" class="nav-link dropdown-toggle" 
-          type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
-          aria-expanded="false">
-            Hướng dẫn
-          </a>
-           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/tutorial/borrow">Đăng kí mượn sách Online</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/tutorial/extend">Gia hạn mượn sách</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/tutorial/create-card">Thủ tục làm thẻ</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/tutorial/regulation">Nội quy</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/tutorial/schedule">Lịch phục vụ</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/tutorial/map">Bản đồ</a></li>
-          </ul>
-        </li>
         <li class="nav-item dropdown nav-item__icon">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{this.user.firstName}}
@@ -69,7 +55,14 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="/privacy">Thông tin cá nhân</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Thông báo</a></li>
+            <li>
+              <a class="dropdown-item position-relative" href="#">
+                Thông báo
+                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                  <span class="visually-hidden">New alerts</span>
+                </span>
+              </a>
+            </li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Sách đang mượn</a></li>
             <li><hr class="dropdown-divider"></li>
@@ -80,32 +73,7 @@
             <li><a class="dropdown-item" href="/auth/logout">Log Out/Log In</a></li>
           </ul>
         </li> 
-      </ul>
       {{else}}
-       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Tin tức</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" 
-          type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
-          aria-expanded="false">
-            Hướng dẫn
-          </a>
-           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Đăng kí mượn sách Online</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Gia hạn mượn sách</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Thủ tục làm thẻ</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Nội quy</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Lịch phục vụ</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Bản đồ</a></li>
-          </ul>
-        </li>
         <li class="nav-item dropdown nav-item__icon">
           <a class="nav-link" href="/auth/login" >
             Login
@@ -114,8 +82,9 @@
             </div>
           </a>
         </li>
-       </ul>
       {{/if}}
+      </ul>
+      {{!-- Form-seach --}}
       <form class="d-flex">
         <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search" value={{q}}>
         <button class="btn btn-outline-success" type="submit">Search</button>

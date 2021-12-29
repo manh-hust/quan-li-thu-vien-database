@@ -1,0 +1,25 @@
+<div class="container home-container tutorial-container">
+  <div class="home-content tutorial-content">
+      <div class="home-news tutorial-left">
+        <h4>TIN TỨC</h4>
+        <ul class="list">
+            
+        </ul>
+      </div>
+      <div class="home-activity tutorial-right">
+        <div class="list-tutorial">
+          <div class="item-tutorial" id="borrow">
+            <h3 class="item-title-tutorial">Thông tin hoạt động - Nghiệp vụ</h3>
+            <ul>
+                {{#each posts}}
+                <li class="news-list">
+                    <img src={{this.thumbnailUrl}} alt="image">
+                    <a href="">{{this.title}}</a>
+                </li>
+                {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -3,10 +3,12 @@
     .tutorial-content{
         .tutorial-left{
             background-color: rgb(209, 207, 207);
+            position: relative;
             .list{
+                // position: fixed;
                 padding: 0 8px;
                 li{
-                    border-bottom: 1px solid #198754 ;
+                    border-bottom: 1px dotted #198754 ;
                     padding:  12px 0;
                     &:last-child{
                         border: none;
@@ -18,7 +20,42 @@
             }
         }
         .tutorial-right{
-
+            .list-tutorial{
+                .item-tutorial{
+                    border-bottom: 1px dotted #198754;
+                    border-left: 1px dotted #198754;
+                    border-right: 1px dotted #198754;
+                    h3{
+                        background-color: #212529;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        color: #fff;
+                        width: 100%;
+                        display:  block;
+                        padding: 10px;
+                        text-transform: uppercase;
+                    }
+                    p{
+                        padding: 12px;
+                    }
+                }
+                .news-list{
+                    margin: 12px;
+                    border-bottom: 1px dotted #198754;
+                    padding-bottom: 12px;
+                    display: flex;
+                    align-self: start;
+                    &:last-child{
+                        border: none;
+                    }
+                    a{
+                        text-transform: uppercase;
+                        font-size: 0.9rem;
+                        font-weight: bold;
+                        margin: 0 12px;
+                    }
+                }
+            }
         }
     }
 }
