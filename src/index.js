@@ -17,10 +17,10 @@ app.engine(
     handlebars({
         extname: '.hbs',
         //helpers: require('./helper/hanldebars'),
-    }),
+    })
     );
-    app.set('view engine', 'hbs');
-    app.set('views', path.join(__dirname, 'resources', 'views'));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'resources', 'views'));
     
 // Public file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));

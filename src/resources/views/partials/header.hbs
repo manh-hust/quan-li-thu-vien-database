@@ -40,23 +40,23 @@
           <a class="nav-link" href="#">Mượn sách</a>
         </li>
         <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" 
+          <a href="/tutorial" class="nav-link dropdown-toggle" 
           type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
           aria-expanded="false">
             Hướng dẫn
           </a>
            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Đăng kí mượn sách Online</a></li>
+            <li><a class="dropdown-item" href="/tutorial/borrow">Đăng kí mượn sách Online</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Gia hạn mượn sách</a></li>
+            <li><a class="dropdown-item" href="/tutorial/extend">Gia hạn mượn sách</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Thủ tục làm thẻ</a></li>
+            <li><a class="dropdown-item" href="/tutorial/create-card">Thủ tục làm thẻ</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Nội quy</a></li>
+            <li><a class="dropdown-item" href="/tutorial/regulation">Nội quy</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Lịch phục vụ</a></li>
+            <li><a class="dropdown-item" href="/tutorial/schedule">Lịch phục vụ</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Bản đồ</a></li>
+            <li><a class="dropdown-item" href="/tutorial/map">Bản đồ</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown nav-item__icon">
@@ -117,7 +117,7 @@
        </ul>
       {{/if}}
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search" value={{q}}>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

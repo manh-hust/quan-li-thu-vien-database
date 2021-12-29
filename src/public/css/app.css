@@ -9,7 +9,8 @@ h1, h2, h3, h4, h5 {
 
 a {
   color: #000;
-  text-decoration: none; }
+  text-decoration: none;
+  cursor: pointer; }
 
 a:hover {
   color: #474747; }
@@ -258,6 +259,20 @@ ul, li {
           color: blue; }
           .home-container .home-content .home-activity .list .item a:hover {
             text-decoration: underline blue; }
+
+.tutorial-container {
+  padding-top: 60px; }
+  .tutorial-container .tutorial-content .tutorial-left {
+    background-color: #d1cfcf; }
+    .tutorial-container .tutorial-content .tutorial-left .list {
+      padding: 0 8px; }
+      .tutorial-container .tutorial-content .tutorial-left .list li {
+        border-bottom: 1px solid #198754;
+        padding: 12px 0; }
+        .tutorial-container .tutorial-content .tutorial-left .list li:last-child {
+          border: none; }
+        .tutorial-container .tutorial-content .tutorial-left .list li .active {
+          color: red; }
 
 .header-navbars {
   display: flex;
