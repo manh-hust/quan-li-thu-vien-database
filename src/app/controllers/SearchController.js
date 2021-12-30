@@ -62,13 +62,16 @@ class SearchController {
             });
         })            
     }
-    
 
     detailCategory(req, res, next) {
-        const name = req.params.slug
-        res.render('search/detail',{
+        const name = req.params.category
+        res.render('search/detailCategory',{
             name: name
         })
+    }
+    detailID(req, res, next) {
+        console.log(req.params.detailID)
+        res.render('search/detailID')
     }
     
 }
