@@ -3,7 +3,7 @@
         <div class="row justify-content-around">
             <div class="col-6">
                 <h3>Thông tin cá nhân</h3>
-                <form class="mt-4" method="POST" action="/auth/update/{{this.user.userID}}">
+                <form class="mt-4 form-control-1" method="POST" action="/auth/update/{{this.user.userID}}" >
                     <div class="form-group mb-3">
                         <label >Chức vụ</label>
                         <input type="text" class="form-control" 
@@ -38,8 +38,18 @@
                         <input type="password" class="form-control control-js" id="password" name="password" value="{{this.user.password}}"
                         disabled>
                     </div>
+                    <div class="form-group mb-3 control-password">
+                        <label for="pass"> Forgot Password</label>
+                        <input type="password" class="form-control forgot-password ">
+                    </div>
+                    <div class="alert alert-warning alert-pass-fail" role="alert">
+                        Mật khẩu không khớp!
+                    </div>
+                    <div class="alert alert-success alert-pass-success" role="alert">
+                        Mật khẩu chính xác!
+                    </div>
                     <button type="button" class="btn btn-primary btn-edit btn-change">Chỉnh sửa</button>
-                    <button type="submit" class="btn btn-primary btn-edit ml-2">Lưu lại</button>
+                    <button type="button" class="btn btn-primary btn-edit ml-2 btn-submit">Lưu lại</button>
                 </form>
             </div>
             <div class="col-3 ">
@@ -57,11 +67,46 @@
 <script>
     const inputs = document.querySelectorAll('.control-js')
     const btnChange = document.querySelector('.btn-change')
+    const btnSubmit = document.querySelector('.btn-submit')
+    const alertPassFail = $('.alert-pass-fail')
+    const alertPassSuc = $('.alert-pass-success')
+
+    const form = document.querySelector('.form-control-1')
+    console.log(form)
+    const lengthInputs = inputs.length
+    const inputPass1 = inputs[lengthInputs - 1]
+    const inputPass2 = document.querySelector('.forgot-password')
+    const divInputPass2 = $('.control-password')
+
+    divInputPass2.hide()
+    alertPassFail.hide()
+    alertPassSuc.hide()
 
     btnChange.addEventListener('click' , () =>{
-        for(let i = 0 ; i < inputs.length ; i++){
+        for(let i = 0 ; i < lengthInputs ; i++){
             inputs[i].removeAttribute('disabled')
         }
     }) 
     
+    inputPass1.oninput = function(){
+        divInputPass2.show(250)
+
+    }
+    inputPass2.oninput =  function() {
+        if(inputPass1.value != inputPass2.value){
+            console.log(inputPass1.value, inputPass2.value)
+            alertPassFail.show(500)
+            alertPassSuc.hide()
+        }
+        else if(inputPass1.value == inputPass2.value){
+            alertPassSuc.show(500)
+            alertPassFail.hide()
+            btnSubmit.onclick = () => {
+                console.log(123)
+                form.submit()
+            }
+        }
+    }
+
+
 </script>

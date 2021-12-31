@@ -80,18 +80,22 @@ class AuthController {
     }
     // [POST] /auth/update
      async update(req, res, next) {
-        const {date, MSSV, SĐT, address, password} = req.body
-        const id = req.params.userID
-        const user = await User.findByPk(id)
-        user.set({
-            dob: date,
-            MSSV,
-            SĐT,
-            address,
-            password
-        })
-        await user.save();
-        res.send('OK !')
+        try {
+            const {dob, MSSV, SĐT, address, password} = req.body
+            const id = req.params.userID
+            const user = await User.findByPk(id)
+            user.set({
+                dob,
+                MSSV,
+                SĐT,
+                address,
+                password
+            })
+            await user.save();
+            res.redirect('back')
+        } catch (error) {   
+            res.send(error.message)
+        }
     }
     // [GET] /auth/logout
     logout(req, res, next) {
