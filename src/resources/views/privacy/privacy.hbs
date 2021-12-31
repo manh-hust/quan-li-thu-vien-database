@@ -1,37 +1,44 @@
 <div class="mt-4 ">
     <div class="container">
         <div class="row justify-content-around">
-
             <div class="col-6">
                 <h3>Thông tin cá nhân</h3>
-                <form class="mt-4">
+                <form class="mt-4" method="POST" action="/auth/update/{{this.user.userID}}">
                     <div class="form-group mb-3">
-                        <label for="admin">Chức vụ</label>
-                        <input type="text" class="form-control" id="admin" name="admin"
+                        <label >Chức vụ</label>
+                        <input type="text" class="form-control" 
                             value={{this.user.authorize}} disabled>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="name">Họ và Tên</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{fullName}}" disabled>
+                        <label >Họ và Tên</label>
+                        <input type="text" class="form-control" value="{{fullName}}" disabled>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="email">Tên đăng nhập/Email</label>
-                        <input type="text" class="form-control" id="email" name="email" value="{{this.user.email}}" disabled>
+                        <label >Ngày sinh</label>
+                        <input type="date" class="form-control control-js"  name="dob" value="{{dob}}" disabled>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label >MSSV</label>
+                        <input type="text" class="form-control control-js" name="MSSV" value="{{this.user.MSSV}}" disabled>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label >Tên đăng nhập/Email</label>
+                        <input type="text" class="form-control"  value="{{this.user.email}}" disabled>
                     </div>
                     <div class="form-group mb-3">
                         <label for="sdt">SĐT</label>
-                        <input type="text" class="form-control" id="sdt" name="SĐT" value="{{this.user.SĐT}}" disabled>
+                        <input type="text" class="form-control control-js" id="sdt" name="SĐT" value="{{this.user.SĐT}}" disabled>
                     </div>
                     <div class="form-group mb-3">
                         <label for="address">Địa chỉ</label>
-                        <input type="text" class="form-control" id="address" name="address" value="{{this.user.address}}" disabled>
+                        <input type="text" class="form-control control-js" id="address" name="address" value="{{this.user.address}}" disabled>
                     </div>
                     <div class="form-group mb-3">
                         <label for="pass">Password</label>
-                        <input type="password" class="form-control" id="pass" name="pass" value="9999999999"
-                            disabled>
+                        <input type="password" class="form-control control-js" id="password" name="password" value="{{this.user.password}}"
+                        disabled>
                     </div>
-                    <button type="button" class="btn btn-primary btn-edit">Chỉnh sửa</button>
+                    <button type="button" class="btn btn-primary btn-edit btn-change">Chỉnh sửa</button>
                     <button type="submit" class="btn btn-primary btn-edit ml-2">Lưu lại</button>
                 </form>
             </div>
@@ -46,3 +53,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    const inputs = document.querySelectorAll('.control-js')
+    const btnChange = document.querySelector('.btn-change')
+
+    btnChange.addEventListener('click' , () =>{
+        for(let i = 0 ; i < inputs.length ; i++){
+            inputs[i].removeAttribute('disabled')
+        }
+    }) 
+    
+</script>

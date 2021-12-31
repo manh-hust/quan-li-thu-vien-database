@@ -6,11 +6,20 @@ const User = db.define('', {
         type: sequelize.STRING,
         allowNull: false,
         primaryKey: true,
+        field: 'user_id'
     },
     firstName: {
-        type: sequelize.STRING
+        type: sequelize.STRING,
+        field: 'first_name'
     },
     lastName: {
+        type: sequelize.STRING,
+        field: 'last_name'
+    },
+    dob: {
+        type: sequelize.DATE
+    },
+    gender: {
         type: sequelize.STRING
     },
     email: {
@@ -23,13 +32,15 @@ const User = db.define('', {
         type: sequelize.STRING
     },
     SĐT: {
-        type: sequelize.STRING
+        type: sequelize.STRING,
+        field: 'phone_number'
     },
     address: {
         type: sequelize.STRING
     },
     authorize: {
         type: sequelize.STRING,
+        field: 'role',
         defaultValue: 'user'
     }
 },{

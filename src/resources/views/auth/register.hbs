@@ -12,15 +12,27 @@
             <label for="floatingPassword">Last Name</label>
         </div>
         <div class="form-floating mb-3">
-            <input name="MSSV"  class="form-control" id="floatingInput" placeholder="MSSV" value='{{email}}' required="required">
+            <input name="MSSV"  class="form-control" id="floatingInput" placeholder="MSSV" value='{{MSSV}}' >
             <label for="floatingInput">MSSV</label>
         </div>
+        <div class="form-floating mb-3 ">
+            <input name="dob" type="date"  class="form-control" id="floatingInput" placeholder="MSSV" value='{{dob}}' >
+            <label for="floatingInput">Ngày sinh</label>
+        </div>
+        <div class="input-group  mb-3">
+            <select class="form-select" name="gender" required="required">
+                <option selected> --- Giới tính ---</option>
+                <option value="M">Nam</option>
+                <option value="F">Nữ</option>
+                <option value="O">Khác</option>
+            </select>
+        </div>
         <div class="form-floating mb-3">
-            <input name="SĐT"  class="form-control" id="floatingInput" placeholder="SĐT" value='{{email}}' >
+            <input name="SĐT"  class="form-control" id="floatingInput" placeholder="SĐT" value='{{SĐT}}' >
             <label for="floatingInput">SĐT</label>
         </div>
         <div class="form-floating mb-3">
-            <input name="address"  class="form-control" id="floatingInput" placeholder="Address" value='{{email}}' >
+            <input name="address"  class="form-control" id="floatingInput" placeholder="Address" value='{{address}}' >
             <label for="floatingInput">Địa chỉ</label>
         </div>
         <div class="form-floating mb-3">

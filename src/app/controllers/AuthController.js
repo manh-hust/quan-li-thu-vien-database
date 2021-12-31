@@ -1,3 +1,4 @@
+const User = require('../models/user');
 const Users = require('../models/user')
 
 class AuthController {
@@ -7,6 +8,7 @@ class AuthController {
             layout: 'main1'
         });
     }
+    // [POST] /auth/login
     postLogin(req, res, next){
         const email = req.body.email
         const password = req.body.pass
@@ -35,13 +37,16 @@ class AuthController {
         })
         .catch(next)
     }
+    // [GET] /auth/register
     register(req, res, next) {
         res.render('auth/register', {
             layout: 'main1'
         })
     }
+    // [POST] /auth/register
     create(req, res, next) {
-        const {firstName, lastName, email, password, MSSV, SĐT, address} = req.body
+        const {firstName, lastName, email, password, MSSV, SĐT, address, gender, dob} = req.body
+        // res.send(req.body)
         Users.findOne({
             where: {
                 email: email
@@ -63,7 +68,9 @@ class AuthController {
                     email,
                     password,
                     SĐT,
-                    address
+                    address,
+                    dob,
+                    gender
                 })
                 .then(user =>{
                     res.redirect('/auth/login')
@@ -71,6 +78,22 @@ class AuthController {
             }
         })
     }
+    // [POST] /auth/update
+     async update(req, res, next) {
+        const {date, MSSV, SĐT, address, password} = req.body
+        const id = req.params.userID
+        const user = await User.findByPk(id)
+        user.set({
+            dob: date,
+            MSSV,
+            SĐT,
+            address,
+            password
+        })
+        await user.save();
+        res.send('OK !')
+    }
+    // [GET] /auth/logout
     logout(req, res, next) {
         res.clearCookie('userID');
         res.redirect('../auth/login');
