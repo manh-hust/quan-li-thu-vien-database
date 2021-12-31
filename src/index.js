@@ -8,9 +8,11 @@ const port = 3000;
 const app = express();
 
 const route = require('./routers');
-const db = require('./config/pg_db');
+const db = require('./config/pg_db/index');
+const client = require('./config/pg_db/client');
 
 db.connect();
+client.connected();
 // Set views engine
 app.engine(
     'hbs',

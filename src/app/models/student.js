@@ -30,6 +30,7 @@ const Student = db.define('student',{
         type: sequelize.STRING
     }
 },  {
+    freezeTableName: true,
     timestamps: false
 })
 

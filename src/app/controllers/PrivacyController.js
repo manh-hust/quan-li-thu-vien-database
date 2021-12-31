@@ -1,4 +1,3 @@
-const { user } = require("pg/lib/defaults");
 
 class PrivacyController{
     index(req, res, next){

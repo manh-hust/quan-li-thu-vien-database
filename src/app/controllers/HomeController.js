@@ -1,8 +1,6 @@
 const Users = require('../models/user')
-const Clazz = require('../models/clazz')
-const Student = require('../models/student');
 const axios = require('axios');
-
+const Client = require('../../config/pg_db/client')
 
 class HomeController {
     index(req, res, next) {
@@ -92,6 +90,13 @@ class HomeController {
         res.render('home/news', {
             posts: posts
         })
+    }
+    test(req, res, next){
+        Client.query('select * from teaching, subject where teaching.subject_id = subject.subject_id')
+        .then(user => {
+            res.send(user.rows)
+        })
+        .catch(next)
     }
 }
 module.exports = new HomeController();

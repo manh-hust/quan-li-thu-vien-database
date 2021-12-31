@@ -7,16 +7,17 @@ const db = new Sequelize({
     host: 'localhost',
     port: 5432,
     dialect: 'postgres',
-    logging: false
+    logging: false,
+    omitNull: true
 });
 
 db.connect = async function(){
     try{
         var database = await db.authenticate()
-        console.log("Connect Susscess!")
+        console.log("Connect Sever Susscess!")
     }
     catch(err){
-        console.error('Not connect');
+        console.error('Not connect Sever ');
     }     
 }
 
