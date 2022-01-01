@@ -73,7 +73,7 @@ class AuthController {
                     gender
                 })
                 .then(user =>{
-                    res.redirect('/auth/login')
+                    res.redirect('back')
                 })
             }
         })
