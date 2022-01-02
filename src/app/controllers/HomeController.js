@@ -1,4 +1,9 @@
 const Users = require('../models/user')
+const Author = require('../models/author')
+const Book = require('../models/book')
+const Language = require('../models/language')
+
+
 const axios = require('axios');
 const Client = require('../../config/pg_db/client')
 

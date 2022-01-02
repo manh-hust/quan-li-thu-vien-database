@@ -1,5 +1,6 @@
-const User = require('../models/user');
+const crypto = require("crypto");
 const Users = require('../models/user')
+const { Op } = require('sequelize');
 
 class AuthController {
     // [GET] /auth/login
@@ -46,20 +47,23 @@ class AuthController {
     // [POST] /auth/register
     create(req, res, next) {
         const {firstName, lastName, email, password, MSSV, SĐT, address, gender, dob} = req.body
-        // res.send(req.body)
         Users.findOne({
             where: {
-                email: email
+                [Op.or]:[
+                    {email: email},
+                    {MSSV: MSSV}
+                ]
+                
             }
         })
         .then(user => {
             if(user)
             res.render('auth/register',{
-                firstName,lastName,email,password,MSSV,
-                err: 'Email đã được sử dụng'
+                firstName,lastName,email,password,MSSV,gender,dob,SĐT,address,password,
+                err: 'Email hoặc MSSV đã được sử dụng'
             })
             else{
-                const id = (Math.floor(Math.random()*1000000)).toString()
+                const id = crypto.randomBytes(4).toString('hex');
                 Users.create({
                     userID: id,
                     firstName,

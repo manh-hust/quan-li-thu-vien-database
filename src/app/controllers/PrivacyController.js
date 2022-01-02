@@ -4,19 +4,15 @@ class PrivacyController{
         const user = res.locals.user
         const authorize = user.authorize
         const dob = user.dob
-        var date
+        var stringDate
         if(dob){
-            const day = dob.getDate()
-            if(day < 10){
-                date = `${dob.getFullYear()}-${dob.getMonth()+1}-0${dob.getDate()}`
-            }
-            else{
-                date = `${dob.getFullYear()}-${dob.getMonth()+1}-${dob.getDate()}`
-                console.log('render: '+ date)
-            }
+            const year = dob.getFullYear()
+            const month = `${dob.getMonth() + 1}`.padStart(2, "0")
+            const day = `${dob.getDate()}`.padStart(2, "0")
+            stringDate = [year, month, day].join("-")
         }
         else{
-            date = null
+            stringDate = null
         }
         let avatar
         if( authorize == 'admin'){
@@ -32,7 +28,7 @@ class PrivacyController{
         res.render('privacy/privacy', {
             fullName: fullName,
             avatar,
-            dob: date
+            dob: stringDate
         })
     }
 

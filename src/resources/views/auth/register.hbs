@@ -19,14 +19,28 @@
             <input name="dob" type="date"  class="form-control" id="floatingInput" placeholder="MSSV" value='{{dob}}' >
             <label for="floatingInput">Ngày sinh</label>
         </div>
-        <div class="input-group  mb-3">
+
+        <div class="form-check mb-3 form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M">
+        <label class="form-check-label" for="inlineRadio1">Nam</label>
+        </div>
+        <div class="form-check mb-3 form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F">
+        <label class="form-check-label" for="inlineRadio2">Nữ</label>
+        </div>
+        <div class="form-check mb-3 form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="O">
+        <label class="form-check-label" for="inlineRadio2">Khác</label>
+        </div>
+
+        {{!-- <div class="input-group  mb-3">
             <select class="form-select" name="gender" required="required">
                 <option selected> --- Giới tính ---</option>
                 <option value="M">Nam</option>
                 <option value="F">Nữ</option>
                 <option value="O">Khác</option>
             </select>
-        </div>
+        </div> --}}
         <div class="form-floating mb-3">
             <input name="SĐT"  class="form-control" id="floatingInput" placeholder="SĐT" value='{{SĐT}}' >
             <label for="floatingInput">SĐT</label>
@@ -53,26 +67,4 @@
             <a href="/auth/login" class="btn btn-success mt-3" >Login</a>
         </div>
     </form>
-    {{!-- Toast- Noti --}}
-   {{!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> --}}
-  {{!-- Launch demo modal
-    </button> --}}
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Đăng kí thành công!
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <a href="/auth/login"  class="btn btn-primary">Login</a>
-        </div>
-        </div>
-    </div>
-    </div>
 </div>

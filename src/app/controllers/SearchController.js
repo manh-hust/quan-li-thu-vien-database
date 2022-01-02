@@ -1,4 +1,3 @@
-const Subjects = require('../models/subjects')
 const Users = require('../models/user')
 
 

@@ -46,7 +46,7 @@ const User = db.define('', {
 },{
     timestamps: false,
     freezeTableName: true,
-    tableName: 'user'
+    tableName: 'users'
 })
   User.sync({ alter: true });
   
