@@ -11,7 +11,7 @@
             {{title}}
         </h2>
         <h2>
-            (10)
+            -({{total}})
         </h2>
     </div>
     <div class="row gx-4 gy-4">
@@ -20,9 +20,15 @@
             <div class="card" >
                 <img src="/img/biasach.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
+                    {{#if this.name}}
                     <h5 class="card-title">{{this.name}}[5]</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href='/search/{{this.name}}' class="btn btn-primary">Đi đến ==></a>
+                    {{else}}
+                    <h5 class="card-title">{{this.lastName}} {{this.firstName}}[5]</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href='/search/{{this.lastName}}{{this.firstName}}' class="btn btn-primary">Đi đến ==></a>
+                    {{/if}}
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ const router = express.Router();
 
 const searchController = require('../app/controllers/SearchController');
 
-router.get('/category', searchController.category);
+router.get('/category', searchController.ebooks);
 router.get('/daicuong', searchController.daiCuong);
 router.get('/chuyennganh', searchController.chuyenNganh);
 router.get('/author', searchController.author);

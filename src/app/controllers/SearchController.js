@@ -2,13 +2,13 @@ const Users = require('../models/user')
 const Type = require('../models/type')
 const Title = require('../models/title')
 const { Op } = require('sequelize');
-
+const Author = require('../models/author')
 
 class SearchController {
 
-    category(req, res, next) {
+    async ebooks(req, res, next) {
         const title = 'E-Book'
-        Title.findAll({
+        const data = await  Title.findAll({
             where: {
                 typeID: {
                     [Op.like]: '%EB%'
@@ -16,17 +16,23 @@ class SearchController {
             },
             raw: true
         })
-        .then( data => {
-            res.render('search/category',{
-                data: data,
-                title,
-            });
+        const total = await Title.count({
+            where: {
+                typeID: {
+                    [Op.like]: '%EB%'
+                }
+            },
+            distinct: true
         })
-        .catch(next)       
+        res.render('search/category',{
+            data: data,
+            title,
+            total
+        });
     }
-    daiCuong(req, res, next) {
+    async daiCuong(req, res, next) {
         const title = 'Đại cương'
-        Title.findAll({
+        const data = await Title.findAll({
             where: {
                 typeID: {
                     [Op.like]: '%DC%'
@@ -34,17 +40,23 @@ class SearchController {
             },
             raw: true
         })
-        .then( data => {
-            res.render('search/category',{
-                data: data,
-                title,
-            });
+        const total = await Title.count({
+            where: {
+                typeID: {
+                    [Op.like]: '%DC%'
+                }
+            },
+            distinct: true
         })
-        .catch(next)            
+        res.render('search/category',{
+            data: data,
+            title,
+            total
+        })
     }
-    chuyenNganh(req, res, next) {
+    async chuyenNganh(req, res, next) {
         const title = 'Chuyên ngành'
-        Title.findAll({
+        const data = await Title.findAll({
             where: {
                 typeID: {
                     [Op.like]: '%CN%'
@@ -52,42 +64,44 @@ class SearchController {
             },
             raw: true
         })
-        .then( data => {
-            res.render('search/category',{
-                data: data,
-                title,
-            });
-        })
-        .catch(next)        
-    }
-    author(req, res, next) {
-        const title = 'Tác giả'
-        Title.findAll({
+        const total = await Title.count({
             where: {
                 typeID: {
-                    [Op.like]: '%EB%'
+                    [Op.like]: '%CN%'
                 }
             },
-            raw: true
+            distinct: true
         })
-        .then( data => {
-            res.render('search/category',{
-                data: data,
-                title,
-            });
+        res.render('search/category',{
+            data: data,
+            title,
+            total
         })
-        .catch(next)  
     }
-    year(req, res, next) {
-        Type.findAll({
+    async author(req, res, next) {
+        const title = 'Tác giả'
+        const data = await Author.findAll({
             raw: true
         })
-        .then( type => {
-            res.render('search/category',{
-                type: type,
-                title: 'Năm xuất bản',
-            });
-        })            
+        const total = await Author.count({
+            distinct: true
+        })
+        res.render('search/category',{
+            data: data,
+            title,
+            total
+        });
+    }
+    async year(req, res, next) {
+        const title = 'Năm xuất bản'
+        const data = await Type.findAll({
+            raw: true
+        })
+        res.render('search/category',{
+            title,
+            data,
+            total
+        });
     }
 
     detailCategory(req, res, next) {
@@ -96,9 +110,14 @@ class SearchController {
             name: name
         })
     }
-    detailID(req, res, next) {
-        console.log(req.params.detailID)
-        res.render('search/detailID')
+    async detailID(req, res, next) {
+        const bookID = req.params.detailID
+        const book = await Title.findByPk(bookID,{
+            raw: true
+        })
+        res.render('search/detailID',{
+            book
+        })
     }
     
 }

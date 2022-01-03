@@ -1,0 +1,43 @@
+.container-detail{
+    margin-top: 36px;
+    padding: 6px;
+    box-shadow: 0 0 5px #0000002e;
+    .content{
+        
+        .image{
+            img{
+                width: 100%;
+            }
+        }
+        .title{
+            border: solid 1px #DDDDDD;
+            .name{
+                color: #00a9da;
+                font-size: 1.1rem;
+                font-weight: bold;
+                margin-top: 12px;
+            }
+            .list{
+                margin-top: 8px;
+                .item{
+                    padding: 6px 0;
+                    margin: 4px;
+                    span{
+                        font-weight: bold;
+                    }
+                    .item-infor{
+                        &:hover{
+                            color: #00a9da;
+                        }
+                    }
+                }
+            }
+            .btn-group1{
+                margin-top: 24px;
+                button{
+                    margin-right: 12px;
+                }
+            }
+        }
+    }
+}

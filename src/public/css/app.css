@@ -303,6 +303,33 @@ ul, li {
       font-weight: bold;
       margin: 0 12px; }
 
+.container-detail {
+  margin-top: 36px;
+  padding: 6px;
+  box-shadow: 0 0 5px #0000002e; }
+  .container-detail .content .image img {
+    width: 100%; }
+  .container-detail .content .title {
+    border: solid 1px #DDDDDD; }
+    .container-detail .content .title .name {
+      color: #00a9da;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-top: 12px; }
+    .container-detail .content .title .list {
+      margin-top: 8px; }
+      .container-detail .content .title .list .item {
+        padding: 6px 0;
+        margin: 4px; }
+        .container-detail .content .title .list .item span {
+          font-weight: bold; }
+        .container-detail .content .title .list .item .item-infor:hover {
+          color: #00a9da; }
+    .container-detail .content .title .btn-group1 {
+      margin-top: 24px; }
+      .container-detail .content .title .btn-group1 button {
+        margin-right: 12px; }
+
 .header-navbars {
   display: flex;
   justify-content: space-around;
