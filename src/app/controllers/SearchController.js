@@ -1,62 +1,90 @@
 const Users = require('../models/user')
+const Type = require('../models/type')
+const Title = require('../models/title')
+const { Op } = require('sequelize');
 
 
 class SearchController {
 
     category(req, res, next) {
-        const title = 'Thể loại'
-        Subjects.findAll({
+        const title = 'E-Book'
+        Title.findAll({
+            where: {
+                typeID: {
+                    [Op.like]: '%EB%'
+                }
+            },
             raw: true
         })
-        .then( subjects => {
+        .then( data => {
             res.render('search/category',{
-                subjects: subjects,
+                data: data,
                 title,
             });
-        })            
+        })
+        .catch(next)       
     }
     daiCuong(req, res, next) {
         const title = 'Đại cương'
-        Subjects.findAll({
+        Title.findAll({
+            where: {
+                typeID: {
+                    [Op.like]: '%DC%'
+                }
+            },
             raw: true
         })
-        .then( subjects => {
+        .then( data => {
             res.render('search/category',{
-                subjects: subjects,
+                data: data,
                 title,
             });
         })
         .catch(next)            
     }
     chuyenNganh(req, res, next) {
-        Subjects.findAll({
+        const title = 'Chuyên ngành'
+        Title.findAll({
+            where: {
+                typeID: {
+                    [Op.like]: '%CN%'
+                }
+            },
             raw: true
         })
-        .then( subjects => {
+        .then( data => {
             res.render('search/category',{
-                subjects: subjects,
-                title: 'Chuyên ngành',
+                data: data,
+                title,
             });
-        })            
+        })
+        .catch(next)        
     }
     author(req, res, next) {
-        Subjects.findAll({
+        const title = 'Tác giả'
+        Title.findAll({
+            where: {
+                typeID: {
+                    [Op.like]: '%EB%'
+                }
+            },
             raw: true
         })
-        .then( subjects => {
+        .then( data => {
             res.render('search/category',{
-                subjects: subjects,
-                title: 'Tác giả',
+                data: data,
+                title,
             });
-        })            
+        })
+        .catch(next)  
     }
     year(req, res, next) {
-        Subjects.findAll({
+        Type.findAll({
             raw: true
         })
-        .then( subjects => {
+        .then( type => {
             res.render('search/category',{
-                subjects: subjects,
+                type: type,
                 title: 'Năm xuất bản',
             });
         })            

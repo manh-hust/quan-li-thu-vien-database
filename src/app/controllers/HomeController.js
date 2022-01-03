@@ -2,6 +2,12 @@ const Users = require('../models/user')
 const Author = require('../models/author')
 const Book = require('../models/book')
 const Language = require('../models/language')
+const Type = require('../models/type')
+const Position = require('../models/position')
+const Publisher = require('../models/publisher')
+const Title = require('../models/title')
+const Borrow = require('../models/borrow')
+
 
 
 const axios = require('axios');
