@@ -8,7 +8,7 @@ router.get('/daicuong', searchController.daiCuong);
 router.get('/chuyennganh', searchController.chuyenNganh);
 router.get('/author', searchController.author);
 router.get('/year', searchController.year);
-router.get('/:category', searchController.detailCategory);
+router.get('/:authorID', searchController.detailAuthor);
 router.get('/detail/:detailID', searchController.detailID);
 
 module.exports = router;

@@ -31,6 +31,8 @@ class PrivacyController{
             dob: stringDate
         })
     }
-
+    favorite(req, res, next){
+        res.render('privacy/favorite')
+    }
 }
 module.exports = new PrivacyController();

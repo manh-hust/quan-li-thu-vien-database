@@ -103,11 +103,29 @@ class SearchController {
             total
         });
     }
-
-    detailCategory(req, res, next) {
-        const name = req.params.category
-        res.render('search/detailCategory',{
-            name: name
+    async detailAuthor(req, res, next) {
+        const authorID = req.params.authorID
+        const author = await Author.findByPk(authorID,{
+            raw: true
+        })
+        const name = `${author.lastName} ${author.firstName}`
+        const data = await Title.findAll({
+            where: {
+                authorID: authorID
+            },
+            raw: true
+        })
+        const total = await Title.count({
+            where: {
+                authorID: authorID
+            },
+            raw: true,
+            distinct: true
+        })
+        res.render('search/detailAuthor',{
+            name,
+            data,
+            total
         })
     }
     async detailID(req, res, next) {
@@ -126,15 +144,30 @@ class SearchController {
         const type = await Type.findByPk(book.typeID,{
             raw: true
         })
+        const list = await Title.findAll({
+            where: {
+                typeID: book.typeID
+            },
+            raw: true,
+            limit: 8
+        })
+        const news = await Title.findAll({
+            where: {
+                typeID: book.typeID
+            },
+            raw: true,
+            limit: 6
+        })
         res.render('search/detailID',{
             book: {
                 name: book.name,
                 author: authorName,
-                type: type.name
+                type: type.name,
+                list,
+                news
             }
         })
     }
-    
 }
 
 module.exports = new SearchController();

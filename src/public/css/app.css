@@ -307,35 +307,85 @@ ul, li {
   margin-top: 36px;
   padding: 6px;
   box-shadow: 0 0 5px #0000002e; }
-  .container-detail .content .content-top .image {
-    height: 440px; }
-    .container-detail .content .content-top .image img {
-      width: 100%;
-      object-fit: cover; }
-  .container-detail .content .content-top .title {
-    border: solid 1px #DDDDDD;
-    position: relative; }
-    .container-detail .content .content-top .title .name {
-      color: #00a9da;
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-top: 12px; }
-    .container-detail .content .content-top .title .list {
-      margin-top: 8px; }
-      .container-detail .content .content-top .title .list .item {
-        padding: 6px 0;
-        margin: 4px; }
-        .container-detail .content .content-top .title .list .item span {
+  .container-detail .content {
+    padding-right: 0; }
+    .container-detail .content .content-top {
+      height: 440px; }
+      .container-detail .content .content-top .image img {
+        width: 100%;
+        object-fit: cover; }
+      .container-detail .content .content-top .title .title-body {
+        padding: 0 12px;
+        height: 100%;
+        position: relative;
+        border: solid 1px #DDDDDD; }
+        .container-detail .content .content-top .title .title-body .name {
+          color: #00a9da;
+          font-size: 1.4rem;
+          font-weight: bold;
+          margin-top: 12px; }
+        .container-detail .content .content-top .title .title-body .list {
+          margin-top: 8px; }
+          .container-detail .content .content-top .title .title-body .list .item {
+            padding: 6px 0;
+            margin: 4px; }
+            .container-detail .content .content-top .title .title-body .list .item span {
+              font-weight: bold; }
+            .container-detail .content .content-top .title .title-body .list .item .item-infor {
+              margin-left: 12px; }
+              .container-detail .content .content-top .title .title-body .list .item .item-infor:hover {
+                color: #00a9da; }
+        .container-detail .content .content-top .title .title-body .btn-group1 {
+          position: absolute;
+          bottom: 12px; }
+          .container-detail .content .content-top .title .title-body .btn-group1 button {
+            margin-right: 12px; }
+    .container-detail .content .content-image {
+      margin-top: 24px;
+      padding-right: 0; }
+    .container-detail .content .content-slider {
+      padding-top: 6px; }
+      .container-detail .content .content-slider .card-item {
+        height: 400px; }
+        .container-detail .content .content-slider .card-item .card-image {
+          width: 100%;
+          overflow: hidden;
+          border: solid 1px #eee;
+          padding: 2px; }
+          .container-detail .content .content-slider .card-item .card-image img {
+            width: 100%;
+            height: 100%;
+            transition: all 0.2s linear;
+            padding-left: 0; }
+            .container-detail .content .content-slider .card-item .card-image img:hover {
+              transform: scale(1.02); }
+        .container-detail .content .content-slider .card-item .card-body .card-title {
+          color: #00a9da;
+          text-align: center;
+          font-size: 1rem;
           font-weight: bold; }
-        .container-detail .content .content-top .title .list .item .item-infor {
-          margin-left: 12px; }
-          .container-detail .content .content-top .title .list .item .item-infor:hover {
-            color: #00a9da; }
-    .container-detail .content .content-top .title .btn-group1 {
-      position: absolute;
-      bottom: 12px; }
-      .container-detail .content .content-top .title .btn-group1 button {
-        margin-right: 12px; }
+  .container-detail .new .new-body {
+    border: #00a9da 1px solid; }
+    .container-detail .new .new-body .list {
+      margin-top: 16px; }
+      .container-detail .new .new-body .list .item {
+        position: relative;
+        display: flex;
+        padding: 4px;
+        border-bottom: 1px dotted #00a9da; }
+        .container-detail .new .new-body .list .item .item-name {
+          margin-left: 4px; }
+        .container-detail .new .new-body .list .item .view {
+          position: absolute;
+          bottom: 8px;
+          right: 8px;
+          font-size: 1rem; }
+
+.theloai {
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #00a9da;
+  padding: 6px; }
 
 .header-navbars {
   display: flex;

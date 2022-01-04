@@ -21,13 +21,13 @@
                 <img src="/img/biasach.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     {{#if this.name}}
-                    <h5 class="card-title">{{this.name}}[5]</h5>
+                    <h5 class="card-title">{{this.name}}</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href='/search/{{this.name}}' class="btn btn-primary">Đi đến ==></a>
+                    <a href='/search/detail/{{this.titleID}}' class="btn btn-primary">Xem thông tin</a>
                     {{else}}
-                    <h5 class="card-title">{{this.lastName}} {{this.firstName}}[5]</h5>
+                    <h5 class="card-title">{{this.lastName}} {{this.firstName}}</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href='/search/{{this.lastName}}{{this.firstName}}' class="btn btn-primary">Đi đến ==></a>
+                    <a href='/search/{{this.authorID}}' class="btn btn-primary">Các tác phẩm</a>
                     {{/if}}
                 </div>
             </div>

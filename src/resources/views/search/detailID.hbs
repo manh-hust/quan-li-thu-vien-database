@@ -6,53 +6,83 @@
                     <img src="https://www.dtv-ebook.com/images/files_2/2021/082021/bi-quyet-hoc-nhanh-nho-lau.jpg" alt="">
                 </div>
                 <div class="col-8 title">
-                    <h4 class="name text-center">
+                    <div class="title-body">
+                        <h4 class="name text-center">
                         {{book.name}}
-                    </h4>
-                    <ul class="list">
-                        <li class="item">
-                            <span>Tác giả: </span>
-                            <a href="#" class="item-infor">{{book.author}}</a>
-                        </li>
-                        <li class="item">
-                            <span>Thể loại: </span>
-                            <a href="#" class="item-infor">{{book.type}}</a>
-                        </li>
-                        <li class="item">
-                            <span>Lượt mượn: </span>
-                            <a href="#" class="item-infor">1202</a>
-                        </li>
-                        <li class="item">
-                            <span>Số lượng: </span>
-                            <a href="#" class="item-infor">1202</a>
-                        </li>
-                        <li class="item">
-                            <span>Vị trí: </span>
-                            <a href="#" class="item-infor">Lầu 1</a>
-                        </li>
-                        <li class="item">
-                            <span>Nhà xuất bản: </span>
-                            <a href="#" class="item-infor">
-                                Đại học Bách Khoa Hà Nội
-                            </a>
-                        </li>
-                        <li class="item">
-                            <span>Ngôn ngữ: </span>
-                            <a href="#" class="item-infor">Tiếng Việt</a>
-                        </li>
-                    </ul>
-                    <div class="btn-group1">
-                        <button class="btn btn-danger">Thêm vào danh sách yêu thích</button>
-                        <button class="btn btn-success">Mượn</button>
+                        </h4>
+                        <ul class="list">
+                            <li class="item">
+                                <span>Tác giả: </span>
+                                <a href="#" class="item-infor">{{book.author}}</a>
+                            </li>
+                            <li class="item">
+                                <span>Thể loại: </span>
+                                <a href="#" class="item-infor">{{book.type}}</a>
+                            </li>
+                            <li class="item">
+                                <span>Lượt mượn: </span>
+                                <a href="#" class="item-infor">1202</a>
+                            </li>
+                            <li class="item">
+                                <span>Số lượng: </span>
+                                <a href="#" class="item-infor">1202</a>
+                            </li>
+                            <li class="item">
+                                <span>Vị trí: </span>
+                                <a href="#" class="item-infor">Lầu 1</a>
+                            </li>
+                            <li class="item">
+                                <span>Nhà xuất bản: </span>
+                                <a href="#" class="item-infor">
+                                    Đại học Bách Khoa Hà Nội
+                                </a>
+                            </li>
+                            <li class="item">
+                                <span>Ngôn ngữ: </span>
+                                <a href="#" class="item-infor">Tiếng Việt</a>
+                            </li>
+                        </ul>
+                        <div class="btn-group1">
+                            <button class="btn btn-danger">Thêm vào danh sách yêu thích</button>
+                            <button class="btn btn-success">Mượn</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row content-bottom">
-
+            <div class="row content-image">
+                <img src="https://www.dtv-ebook.com/images/banner/azbooks.jpg" alt="image">
+            </div>
+            <h2 class="theloai">Cùng thể loại</h2>
+            <div class="content-slider row">
+                    {{#each book.list}}
+                    <div class="col-3 card-item">
+                        <div class="card-image">
+                            <img src="https://www.dtv-ebook.com/cache/images/10121/185x217//images/files_2/2019/cam-nang-tu-duy-hoc-tap-va-nghien-cuu-richard-paul-&-linda-elder.jpg"  alt="..."/>
+                        </div>
+                        <div class="card-body">
+                            <a href="/search/detail/{{this.titleID}}" class="card-title">{{this.name}}</a>
+                        </div>
+                    </div>
+                    {{/each}}
             </div>
         </div>
-        <div class="col-3">
-
+        <div class="col-3 new">
+            <div class="new-body">
+                <div class="new-title theloai">
+                    Xem nhiều nhất
+                </div>
+                <ul class="list">
+                    {{#each book.news}}
+                    <li class="item">
+                        <img src="https://www.dtv-ebook.com/cache/images/1255/78x126/images/truyen-online/ebook-David-Copefield-full-prc-pdf-epub.jpg" alt="" class="item-img">
+                        <a href="/search/detail/{{this.titleID}}" class="item-name">{{this.name}}</a>
+                        <h5 class="view">
+                            120 lượt
+                        </h5>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
         </div>
     </div>
 </div>
