@@ -307,27 +307,34 @@ ul, li {
   margin-top: 36px;
   padding: 6px;
   box-shadow: 0 0 5px #0000002e; }
-  .container-detail .content .image img {
-    width: 100%; }
-  .container-detail .content .title {
-    border: solid 1px #DDDDDD; }
-    .container-detail .content .title .name {
+  .container-detail .content .content-top .image {
+    height: 440px; }
+    .container-detail .content .content-top .image img {
+      width: 100%;
+      object-fit: cover; }
+  .container-detail .content .content-top .title {
+    border: solid 1px #DDDDDD;
+    position: relative; }
+    .container-detail .content .content-top .title .name {
       color: #00a9da;
-      font-size: 1.1rem;
+      font-size: 1.4rem;
       font-weight: bold;
       margin-top: 12px; }
-    .container-detail .content .title .list {
+    .container-detail .content .content-top .title .list {
       margin-top: 8px; }
-      .container-detail .content .title .list .item {
+      .container-detail .content .content-top .title .list .item {
         padding: 6px 0;
         margin: 4px; }
-        .container-detail .content .title .list .item span {
+        .container-detail .content .content-top .title .list .item span {
           font-weight: bold; }
-        .container-detail .content .title .list .item .item-infor:hover {
-          color: #00a9da; }
-    .container-detail .content .title .btn-group1 {
-      margin-top: 24px; }
-      .container-detail .content .title .btn-group1 button {
+        .container-detail .content .content-top .title .list .item .item-infor {
+          margin-left: 12px; }
+          .container-detail .content .content-top .title .list .item .item-infor:hover {
+            color: #00a9da; }
+    .container-detail .content .content-top .title .btn-group1 {
+      position: absolute;
+      bottom: 12px; }
+      .container-detail .content .content-top .title .btn-group1 button {
         margin-right: 12px; }
 
 .header-navbars {

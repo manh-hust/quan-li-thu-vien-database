@@ -115,8 +115,23 @@ class SearchController {
         const book = await Title.findByPk(bookID,{
             raw: true
         })
+        if(!book){
+            next();
+            return;
+        }
+        const author = await Author.findByPk(book.authorID,{
+            raw: true
+        })
+        const authorName = `${author.lastName} ${author.firstName}`
+        const type = await Type.findByPk(book.typeID,{
+            raw: true
+        })
         res.render('search/detailID',{
-            book
+            book: {
+                name: book.name,
+                author: authorName,
+                type: type.name
+            }
         })
     }
     
