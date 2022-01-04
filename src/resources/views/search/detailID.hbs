@@ -43,8 +43,12 @@
                             </li>
                         </ul>
                         <div class="btn-group1">
-                            <button class="btn btn-danger">Thêm vào danh sách yêu thích</button>
-                            <button class="btn btn-success">Mượn</button>
+                            {{#if book.btnFavorite}}
+                            <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.titleID}} ">Thêm vào danh sách yêu thích</button>
+                            {{else}}
+                            <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.titleID}}" disabled>Thêm vào danh sách yêu thích</button>
+                            {{/if}}
+                            <button id="btn-borrow"  class="btn btn-success">Mượn</button>
                         </div>
                     </div>
                 </div>
@@ -86,3 +90,18 @@
         </div>
     </div>
 </div>
+
+<form name="form-favorite" method="POST" ></form>
+
+<script>
+    const btnFavorite = $('#btn-favorite')
+    const formFavorite = document.forms['form-favorite']
+    
+    const titleID = btnFavorite.data('id')
+
+    btnFavorite.click(function() {
+        formFavorite.action = '/privacy/favorite/'+titleID
+        formFavorite.submit()
+    }) 
+
+</script>

@@ -1,3 +1,7 @@
+const User = require('../models/user')
+const Title = require('../models/title')
+const { Op } = require('sequelize');
+
 
 class PrivacyController{
     index(req, res, next){
@@ -31,8 +35,56 @@ class PrivacyController{
             dob: stringDate
         })
     }
-    favorite(req, res, next){
-        res.render('privacy/favorite')
+    async favorite(req, res, next){
+        const userID = res.locals.user.userID
+        const user = await User.findByPk(userID,{
+            raw: true
+        })
+        let list = user.favorite 
+        let data
+        if(list){
+            data = await Title.findAll({
+                where: {
+                    titleID: {
+                        [Op.in]: list
+                    }
+                },
+                raw: true
+            })
+        }
+        else{
+            data = []
+        }
+        res.render('privacy/favorite', {
+            data
+        })
+    }
+    async postFavorite(req, res, next){
+        const userID = res.locals.user.userID
+        const titleID = req.params.titleID
+        const user = await User.findByPk(userID, {
+            raw: true
+        })
+        let list = user.favorite
+        if(list == null) {
+            list = []
+        }
+        else{
+             const isInclude = list.includes(titleID)
+             if(isInclude){
+                 res.redirect('back')
+                 return
+             }
+        }
+        list.push(titleID)
+        await User.update({
+            favorite: list
+        }, {
+            where: {
+                userID: userID
+            }
+        })
+        res.redirect('back')
     }
 }
 module.exports = new PrivacyController();

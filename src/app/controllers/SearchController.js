@@ -130,6 +130,13 @@ class SearchController {
     }
     async detailID(req, res, next) {
         const bookID = req.params.detailID
+        const userID = res.locals.user.userID
+        const user = await Users.findByPk(userID)
+        const favorite = user.favorite
+        let btnFavorite = false
+        if(favorite == null || favorite.includes(bookID) == false){
+            btnFavorite = true
+        }
         const book = await Title.findByPk(bookID,{
             raw: true
         })
@@ -160,11 +167,13 @@ class SearchController {
         })
         res.render('search/detailID',{
             book: {
+                titleID: book.titleID,
                 name: book.name,
                 author: authorName,
                 type: type.name,
                 list,
-                news
+                news,
+                btnFavorite
             }
         })
     }

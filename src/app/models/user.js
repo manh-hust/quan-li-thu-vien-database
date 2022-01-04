@@ -42,6 +42,9 @@ const User = db.define('', {
         type: sequelize.STRING,
         field: 'role',
         defaultValue: 'user'
+    },
+    favorite: {
+        type: sequelize.ARRAY(sequelize.STRING),
     }
 },{
     timestamps: false,
