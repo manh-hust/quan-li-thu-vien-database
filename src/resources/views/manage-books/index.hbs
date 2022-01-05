@@ -1,0 +1,49 @@
+<div class="container container-manage-book">
+    <h1 class="pt-3 mb-3"> Quản lí sách</h1>
+    <div class="search-form">
+        <form method="POST" class="input-group mb-3">
+            <span class="input-group-text">Tên</span>
+            <input name="bookName" type="text" class="form-control" placeholder="Book name..." aria-label="Username">
+            <span class="input-group-text">Tác giả</span>
+            <input name="author" type="text" class="form-control" placeholder="Author..." aria-label="Server">
+            <select name="category" class="form-select" aria-label="Default select example">
+                <option selected value="">Thể loại</option>
+                <option value="EB">E-Book</option>
+                <option value="DC">Đại cương</option>
+                <option value="CN">Chuyên ngành</option>
+            </select>
+            <button class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th colspan="3">Tên</th>
+            <th colspan="3">Tác giả</th>
+            <th scope="col">Thể loại</th>
+            <th scope="col">Năm xuất bản</th>
+            <th scope="col">Số lượng ban đầu</th>
+            <th scope="col">Số lượng thực tế</th>
+            <th colspan="3">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each books}}
+            <tr>
+            <th ></th>
+            <td colspan="3">{{this.name}}</td>
+            <td colspan="3">{{this.last_name}} {{this.first_name}} </td>
+            <td>{{this.typename}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="3" class="btn-group">
+                <button class="btn btn-warning">Sửa</button>
+                <button class="btn btn-danger">Xóa</button>
+            </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

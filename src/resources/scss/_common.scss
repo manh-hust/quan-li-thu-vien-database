@@ -41,3 +41,19 @@ h1, h2, h3, h4, h5 {
     height: 100%;
     object-fit: contain;
 }
+// CARD
+.card-category{
+    height: 400px;
+    .card-img-category{
+        height: 50%;
+        object-fit: cover;
+    }
+    .card-title{
+        height: 40px;
+        overflow: hidden;
+    }
+    .card-text{
+        height: 68px;
+        overflow: hidden;
+    }
+}

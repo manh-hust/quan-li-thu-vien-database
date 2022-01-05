@@ -97,6 +97,7 @@ class SearchController {
         const data = await Type.findAll({
             raw: true
         })
+        let total = 0
         res.render('search/category',{
             title,
             data,

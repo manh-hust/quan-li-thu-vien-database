@@ -38,6 +38,18 @@ ul, li {
   height: 100%;
   object-fit: contain; }
 
+.card-category {
+  height: 400px; }
+  .card-category .card-img-category {
+    height: 50%;
+    object-fit: cover; }
+  .card-category .card-title {
+    height: 40px;
+    overflow: hidden; }
+  .card-category .card-text {
+    height: 68px;
+    overflow: hidden; }
+
 .site-footer {
   background-color: #26272b;
   padding: 45px 0 20px;
@@ -388,6 +400,10 @@ ul, li {
   color: #fff;
   background-color: #00a9da;
   padding: 6px; }
+
+.container-manage-book {
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.41);
+  padding: 0 12px 60px; }
 
 .header-navbars {
   display: flex;
