@@ -373,6 +373,8 @@ ul, li {
         display: flex;
         padding: 4px;
         border-bottom: 1px dotted #00a9da; }
+        .container-detail .new .new-body .list .item:last-child {
+          border: none; }
         .container-detail .new .new-body .list .item .item-name {
           margin-left: 4px; }
         .container-detail .new .new-body .list .item .view {

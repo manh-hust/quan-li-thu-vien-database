@@ -18,7 +18,11 @@
         {{#each data}}
         <div class="col-3">
             <div class="card" >
-                <img src="/img/biasach.jpg" class="card-img-top" alt="...">
+                {{#if this.url}}
+                <img src="{{this.url}}" class="card-img-top" alt="img">
+                {{else}}
+                <img src="/img/biasach.jpg" class="card-img-top" alt="img">
+                {{/if}}
                 <div class="card-body">
                     {{#if this.name}}
                     <h5 class="card-title">{{this.name}}</h5>

@@ -8,8 +8,6 @@ const Publisher = require('../models/publisher')
 const Title = require('../models/title')
 const Borrow = require('../models/borrow')
 
-
-
 const axios = require('axios');
 const Client = require('../../config/pg_db/client')
 
@@ -102,12 +100,23 @@ class HomeController {
             posts: posts
         })
     }
-    test(req, res, next){
-        Client.query('select * from teaching, subject where teaching.subject_id = subject.subject_id')
-        .then(user => {
-            res.send(user.rows)
-        })
-        .catch(next)
+    async test(req, res, next){
+        try {
+            const book = await Title.findAll({
+                include: [{
+                    model: Author
+                }],
+                raw: true
+            })
+            if(book){
+                res.send(book)
+            }
+            else{
+                res.send('Not found !')
+            }
+        } catch (error) {
+                res.send(error.message)            
+        }
     }
 }
 module.exports = new HomeController();

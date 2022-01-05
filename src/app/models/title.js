@@ -1,6 +1,6 @@
 const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
-const Author = require('./author')
+const Author = require('./author.js')
 
 const Title = db.define('', {
     titleID: {
@@ -29,10 +29,6 @@ const Title = db.define('', {
     authorID: {
         type: sequelize.STRING,
         field: 'author_id',
-        references: {
-            model: Author,
-            key: 'author_id'
-        }
     },
     publisherID: {
         type: sequelize.STRING,
@@ -59,7 +55,8 @@ const Title = db.define('', {
     freezeTableName: true,
     tableName: 'title'
 })
+
 Title.sync({ alter: true });
-  
+
 
 module.exports = Title

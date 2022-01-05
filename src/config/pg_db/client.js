@@ -1,7 +1,7 @@
 const { Client } = require('pg/lib')
 
 const client = new Client ({
-    database: 'edudb_v2',
+    database: 'library',
     user: 'postgres',
     password: '744074',
     host: 'localhost',

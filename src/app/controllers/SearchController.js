@@ -159,9 +159,6 @@ class SearchController {
             limit: 8
         })
         const news = await Title.findAll({
-            where: {
-                typeID: book.typeID
-            },
             raw: true,
             limit: 6
         })
@@ -173,7 +170,8 @@ class SearchController {
                 type: type.name,
                 list,
                 news,
-                btnFavorite
+                btnFavorite,
+                url: book.url
             }
         })
     }

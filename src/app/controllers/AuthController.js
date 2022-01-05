@@ -87,7 +87,7 @@ class AuthController {
         try {
             const {dob, MSSV, SĐT, address, password} = req.body
             const id = req.params.userID
-            const user = await User.findByPk(id)
+            const user = await Users.findByPk(id)
             user.set({
                 dob,
                 MSSV,

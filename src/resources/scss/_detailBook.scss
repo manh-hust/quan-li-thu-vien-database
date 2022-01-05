@@ -95,6 +95,9 @@
                     display: flex;
                     padding: 4px;
                     border-bottom: 1px dotted #00a9da;
+                    &:last-child{
+                        border: none;
+                    }
                     .item-name{
                         margin-left: 4px;
                     }

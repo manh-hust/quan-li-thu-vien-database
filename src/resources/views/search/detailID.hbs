@@ -3,7 +3,11 @@
         <div class="col-9 content">
             <div class="row content-top">
                 <div class="col-4 image">
+                    {{#if book.url}}
+                    <img src="{{book.url}}" alt="">
+                    {{else}}
                     <img src="https://www.dtv-ebook.com/images/files_2/2021/082021/bi-quyet-hoc-nhanh-nho-lau.jpg" alt="">
+                    {{/if}}
                 </div>
                 <div class="col-8 title">
                     <div class="title-body">
