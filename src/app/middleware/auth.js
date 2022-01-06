@@ -2,7 +2,10 @@ const Users = require('../models/user');
 
 module.exports.requireAuth = function(req, res, next){
     const userID = req.cookies.userID;
-    const path = req.path
+    let path
+    if(req._parsedOriginalUrl){
+        path = req._parsedOriginalUrl.path
+    }
     if(!userID){
         if(path == '/' || path == '/news' || path == '/tutorial'){
             next()

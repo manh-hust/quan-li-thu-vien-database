@@ -1,15 +1,26 @@
 const { Op } = require('sequelize');
 const Title = require('../models/title')
 const Author = require('../models/author')
-const Client = require('../../config/pg_db/client')
+const Client = require('../../config/pg_db/client');
+const Type = require('../models/type');
 
 class ManageBookController {
     // [GET] /manage
     async index(req, res, next) {
         try {
-            const books = await Client.query('select title.name as name, title.quantity, type.name as typename, author.first_name, author.last_name from title, author, type where title.author_id = author.author_id and title.type_id = type.type_id') 
+            const books = await Title.findAll({
+                include: [ 
+                    {
+                        model: Author,
+                    },
+                    {
+                        model: Type,
+                    }
+                ],
+                raw: true
+            })
             res.render('manage-books/index',{
-                books: books.rows
+                books
             })
         } catch (error) {
             res.send(error.message)            
@@ -23,7 +34,7 @@ class ManageBookController {
                 res.redirect('back')
                 return
             }
-            console.log(bookName, author, category)
+            // console.log(bookName, author, category)
             // and title.name ilike '%${bookName}%' and author.first_name ilike '%${author}%' 
             const books = await Client.query(`select title.name as name, title.quantity, type.name as typename, author.first_name, author.last_name from title, author, type where title.author_id = author.author_id and title.type_id = type.type_id and title.type_id = '${category}'`)
             res.render('manage-books/index',{

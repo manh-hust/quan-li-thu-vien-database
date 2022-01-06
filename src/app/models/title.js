@@ -2,7 +2,7 @@ const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
 const Author = require('./author.js')
 
-const Title = db.define('', {
+const Title = db.define('title', {
     titleID: {
         type: sequelize.STRING,
         allowNull: false,
@@ -57,6 +57,5 @@ const Title = db.define('', {
 })
 
 Title.sync({ alter: true });
-
 
 module.exports = Title

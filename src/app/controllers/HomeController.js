@@ -103,9 +103,7 @@ class HomeController {
     async test(req, res, next){
         try {
             const book = await Title.findAll({
-                include: [{
-                    model: Author
-                }],
+                include: [Author],
                 raw: true
             })
             if(book){
@@ -115,6 +113,7 @@ class HomeController {
                 res.send('Not found !')
             }
         } catch (error) {
+                console.log(error)
                 res.send(error.message)            
         }
     }

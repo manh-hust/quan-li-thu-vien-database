@@ -1,7 +1,8 @@
 const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
 const Title = require('./title')
-const Author = db.define('', {
+
+const Author = db.define('author', {
     authorID: {
         type: sequelize.STRING,
         allowNull: false,
@@ -25,7 +26,7 @@ const Author = db.define('', {
 })
 Author.sync({ alter: true });
 
-Author.hasOne(Title, {foreignKey: 'authorID'})
+Author.hasMany(Title, {foreignKey: 'authorID'})
 Title.belongsTo(Author, {foreignKey: 'authorID'})
 
 module.exports = Author
