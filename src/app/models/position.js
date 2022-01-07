@@ -1,7 +1,8 @@
 const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
+const Title = require('./title')
 
-const Position = db.define('', {
+const Position = db.define('position', {
     positionID: {
         type: sequelize.STRING,
         allowNull: false,
@@ -25,5 +26,7 @@ const Position = db.define('', {
 })
 Position.sync({ alter: true });
   
+Position.hasMany(Title, {foreignKey: 'positionID'})
+Title.belongsTo(Position, {foreignKey: 'positionID'})
 
 module.exports = Position

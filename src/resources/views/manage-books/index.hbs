@@ -1,18 +1,24 @@
 <div class="container container-manage-book">
     <h1 class="pt-3 mb-3"> Quản lí sách</h1>
+    <div class="mb-3">
+        <a href="#" class="btn btn-success">Thêm sách</a>
+        <a href="#" class="btn btn-warning">Thống kê</a>
+
+    </div>
     <div class="search-form">
         <form method="POST" class="input-group mb-3">
             <span class="input-group-text">Tên</span>
             <input value="{{bookName}}" name="bookName" type="text" class="form-control" placeholder="Book name..." aria-label="Username">
             <span class="input-group-text">Tác giả</span>
-            <input value="{{author}}"  name="author" type="text" class="form-control" placeholder="Author..." aria-label="Server">
-            <select value="CN" name="category" class="form-select" aria-label="Default select example">
+            <input value="{{authorName}}"  name="authorName" type="text" class="form-control" placeholder="Author..." aria-label="Server">
+            <select value="CN" name="typeID" class="form-select" aria-label="Default select example">
                 <option value="">Thể loại</option>
                 <option value="EB">E-Book</option>
                 <option value="DC">Đại cương</option>
                 <option value="CN">Chuyên ngành</option>
             </select>
-            <button class="btn btn-primary">Search</button>
+            <button class="btn btn-success">Search</button>
+            <a href="/manage-books" class="btn btn-primary">Reset</a>
         </form>
     </div>
     <table class="table table-striped">
@@ -39,7 +45,7 @@
             <td></td>
             <td></td>
             <td colspan="3" class="btn-group">
-                <button class="btn btn-warning">Sửa</button>
+                <a href="/manage-books/{{this.titleID}}" class="btn btn-warning">Sửa</a>
                 <button class="btn btn-danger">Xóa</button>
             </td>
             </tr>

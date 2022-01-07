@@ -1,7 +1,8 @@
 const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
+const Title = require('./title')
 
-const Language = db.define('', {
+const Language = db.define('language', {
     languageID: {
         type: sequelize.STRING,
         allowNull: false,
@@ -19,6 +20,8 @@ const Language = db.define('', {
     tableName: 'language'
 })
 Language.sync({ alter: true });
-  
+
+Language.hasMany(Title, {foreignKey: 'languageID'})
+Title.belongsTo(Language, {foreignKey: 'languageID'})
 
 module.exports = Language

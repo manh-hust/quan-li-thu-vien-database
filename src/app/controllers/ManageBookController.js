@@ -3,6 +3,9 @@ const Title = require('../models/title')
 const Author = require('../models/author')
 const Client = require('../../config/pg_db/client');
 const Type = require('../models/type');
+const Language = require('../models/language')
+const Position = require('../models/position')
+const Publisher = require('../models/publisher')
 
 class ManageBookController {
     // [GET] /manage
@@ -26,26 +29,84 @@ class ManageBookController {
             res.send(error.message)            
         }
     }
-    // POST /manage
+    // POST /manage-books
     async search(req, res, next){
         try {
-            const {bookName, author, category} = req.body
-            if(category == '' && bookName == '' && author == '' ){
+            const {bookName, authorName, typeID} = req.body
+            if(typeID == '' && bookName == '' && authorName == '' ){
                 res.redirect('back')
                 return
             }
-            // console.log(bookName, author, category)
-            // and title.name ilike '%${bookName}%' and author.first_name ilike '%${author}%' 
-            const books = await Client.query(`select title.name as name, title.quantity, type.name as typename, author.first_name, author.last_name from title, author, type where title.author_id = author.author_id and title.type_id = type.type_id and title.type_id = '${category}'`)
+            let books = await Title.findAll({
+                where: {
+                    name: {
+                        [Op.like]: bookName ? `%${bookName}%` : '%%'
+                    },
+                },
+                include: [ 
+                    {
+                        model: Author,
+                        where: {
+                            [Op.or]: [
+                                {
+                                    firstName:{
+                                        [Op.like]: authorName ? `%${authorName}%` : '%%'
+                                    }
+                                },
+                                {
+                                    lastName:{
+                                        [Op.like]: authorName ? `%${authorName}%` : '%%'
+                                    }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        model: Type,
+                        where: {
+                            typeID: {
+                                [Op.like]: typeID ? `%${typeID}%` : '%%' 
+                            }
+                        }
+                    }
+                ],
+                raw: true
+            })
             res.render('manage-books/index',{
-                books: books.rows,
+                books,
                 bookName,
-                author,
-                category
+                authorName,
+                typeID
             })
         } catch (error) {
             res.send(error.message)            
         }
+    }
+    // GET /manage-books/:bookID
+    async detail(req, res, next){
+        const titleID = req.params.bookID ? req.params.bookID : ''
+        if(!titleID){
+            res.redirect('back')
+            return;
+        }
+        const types = await Type.findAll({
+            raw: true
+        })
+        const book = await Title.findByPk(titleID,{
+            include: [
+                { model: Author, attributes: ['firstName', 'lastName']},
+                {model: Type, attributes: ['name']},
+                {model: Language, attributes: ['name']},
+                {model: Position, attributes: ['area', 'shelf']},
+                {model: Publisher, attributes: ['name', 'address']}
+            ],
+            raw: true
+        })
+        // res.send(book)
+        res.render('manage-books/detailBook',{
+            titleID,
+            types
+        })
     }
 }
 
