@@ -1,7 +1,7 @@
 <div class="container container-manage-book">
     <h1 class="pt-3 mb-3"> Quản lí sách</h1>
     <div class="mb-3">
-        <a href="#" class="btn btn-success">Thêm sách</a>
+        <a href="/manage-books/add" class="btn btn-success">Thêm sách</a>
         <a href="#" class="btn btn-warning">Thống kê</a>
 
     </div>
@@ -11,11 +11,11 @@
             <input value="{{bookName}}" name="bookName" type="text" class="form-control" placeholder="Book name..." aria-label="Username">
             <span class="input-group-text">Tác giả</span>
             <input value="{{authorName}}"  name="authorName" type="text" class="form-control" placeholder="Author..." aria-label="Server">
-            <select value="CN" name="typeID" class="form-select" aria-label="Default select example">
-                <option value="">Thể loại</option>
-                <option value="EB">E-Book</option>
-                <option value="DC">Đại cương</option>
-                <option value="CN">Chuyên ngành</option>
+            <select id="selectTypes" data-type="{{typeID}}"  name="typeID" class="form-select" aria-label="Default select example">
+                <option value="" >Thể loại</option>
+                {{#each types}}
+                <option value="{{this.typeID}}">{{this.name}}</option>
+                {{/each}}
             </select>
             <button class="btn btn-success">Search</button>
             <a href="/manage-books" class="btn btn-primary">Reset</a>
@@ -64,3 +64,17 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready( function () {
+        const selectType = $('#selectTypes')
+        const optionsType = $('#selectTypes option')
+        const typeID = selectType.data('type')
+
+        optionsType.each(function(i) {
+            if($(this).val() == typeID){
+                    $(this).prop('selected', true)
+            }
+        })
+    })
+</script>

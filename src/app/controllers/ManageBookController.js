@@ -5,7 +5,8 @@ const Client = require('../../config/pg_db/client');
 const Type = require('../models/type');
 const Language = require('../models/language')
 const Position = require('../models/position')
-const Publisher = require('../models/publisher')
+const Publisher = require('../models/publisher');
+const { trim } = require('jquery');
 
 class ManageBookController {
     // [GET] /manage
@@ -22,8 +23,12 @@ class ManageBookController {
                 ],
                 raw: true
             })
+            const types = await Type.findAll({
+                raw: true
+            })
             res.render('manage-books/index',{
-                books
+                books,
+                types
             })
         } catch (error) {
             res.send(error.message)            
@@ -33,6 +38,7 @@ class ManageBookController {
     async search(req, res, next){
         try {
             const {bookName, authorName, typeID} = req.body
+            // console.log(typeID)
             if(typeID == '' && bookName == '' && authorName == '' ){
                 res.redirect('back')
                 return
@@ -72,11 +78,15 @@ class ManageBookController {
                 ],
                 raw: true
             })
+            const types = await Type.findAll({
+                raw: true
+            })
             res.render('manage-books/index',{
                 books,
                 bookName,
                 authorName,
-                typeID
+                typeID,
+                types
             })
         } catch (error) {
             res.send(error.message)            
@@ -92,7 +102,10 @@ class ManageBookController {
         const types = await Type.findAll({
             raw: true
         })
-        const book = await Title.findByPk(titleID,{
+        const language = await Language.findAll({
+            raw: true
+        })
+        const books = await Title.findByPk(titleID,{
             include: [
                 { model: Author, attributes: ['firstName', 'lastName']},
                 {model: Type, attributes: ['name']},
@@ -102,10 +115,11 @@ class ManageBookController {
             ],
             raw: true
         })
-        // res.send(book)
+        // res.send(books)
         res.render('manage-books/detailBook',{
-            titleID,
-            types
+            books,
+            types,
+            language
         })
     }
 }

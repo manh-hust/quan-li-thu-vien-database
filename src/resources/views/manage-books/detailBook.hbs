@@ -3,18 +3,24 @@
     <h2>{{titleID}}</h2>
     <form action="" class="mt-5">
         <div class="row mt-3">
-            <h3 class="mb-3">Thông tin sách</h3>
+            <div>
+                <h3 class="">Thông tin sách</h3>
+                <div class="btn-group mt-3 col-2 mb-3">
+                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-success">Save</button>
+                </div>
+            </div>
             <div class="col-2">
                 <label class="form-label">Mã sách</label>
-                <input  class="form-control">
+                <input  class="form-control" value="{{books.titleID}}" >
             </div>
             <div class="col-6">
                 <label class="form-label">Tên sách</label>
-                <input  class="form-control" placeholder="Name...">
+                <input  class="form-control" placeholder="Name..." value="{{books.name}}">
             </div>
             <div class="col-4">
-               <label for="inputState" class="form-label">Thể loại</label>
-                <select id="inputState" class="form-select">
+               <label for="inputType" class="form-label">Thể loại</label>
+                <select id="inputType" class="form-select" data-type="{{books.typeID}}">
                     <option value="" >------</option>
                     {{#each types}}
                     <option value="{{this.typeID}}">{{this.name}}</option>
@@ -22,8 +28,8 @@
                 </select>
             </div>
             <div class="col-2 mt-2">
-                <label class="form-label">Số lượng hiện có</label>
-                <input  class="form-control" >
+                <label class="form-label">Số lượng ban đầu</label>
+                <input  class="form-control" value="{{books.quantity}}">
             </div>
             <div class="col-2 mt-2">
                 <label class="form-label">Số lượng hiện có</label>
@@ -37,38 +43,38 @@
                 <label >Comment</label>
                 <textarea class="form-control"  ></textarea>
             </div>
-        
-        
-       
-        <div class="btn-group mt-3 col-2 align-self-center">
-            <button class="btn btn-primary">Update</button>
-            <button class="btn btn-success">Save</button>
         </div>
-        </div>
+
         <div class="row mt-3">
-            <h3 class="mb-3">Tác giả</h3>
+            <div>
+                <h3 class="">Tác giả</h3>
+                <div class="btn-group mt-3 col-2 mb-3">
+                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-success">Save</button>
+                </div>
+            </div>
             <div class="col-2">
                 <label class="form-label">Mã tác giả</label>
-                <input  class="form-control">
+                <input  class="form-control" value="{{books.authorID}}">
             </div>
             <div class="col-3">
                 <label class="form-label">Tên</label>
-                <input  class="form-control" placeholder="Name...">
+                <input  class="form-control" value="{{books.[author.firstName]}}">
             </div>
             <div class="col-3">
                 <label class="form-label">Họ</label>
-                <input  class="form-control" placeholder="Name...">
+                <input  class="form-control" value="{{books.[author.lastName]}}">
             </div>
-        
-        
-       
-        <div class="btn-group mt-3 col align-self-center">
-            <button class="btn btn-primary">Update</button>
-            <button class="btn btn-success">Update</button>
         </div>
-        </div>
+
         <div class="row mt-3">
-            <h3 class="mb-3">Vị trí</h3>
+            <div>
+                <h3 class="">Vị trí</h3>
+                <div class="btn-group mt-3 col-2 mb-3">
+                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-success">Save</button>
+                </div>
+            </div>
             <div class="col-2">
                 <label class="form-label">Mã vị trí</label>
                 <input  class="form-control" >
@@ -83,16 +89,16 @@
                     <option value="" >Lầu 4</option>
                 </select>
             </div>
-        
-        
-       
-        <div class="btn-group mt-3 col align-self-center">
-            <button class="btn btn-primary">Update</button>
-            <button class="btn btn-success">Update</button>
         </div>
-        </div>
+
         <div class="row mt-3">
-            <h3 class="mb-3">Nhà xuất bản</h3>
+            <div>
+                <h3 class="">Nhà xuất bản</h3>
+                <div class="btn-group mt-3 col-2 mb-3">
+                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-success">Save</button>
+                </div>
+            </div>
             <div class="col-2">
                 <label class="form-label">Mã nhà xuất bản</label>
                 <input  class="form-control" >
@@ -105,37 +111,71 @@
                 <label class="form-label">Đia chỉ</label>
                 <input  class="form-control" >
             </div>
-        
-        
-       
-        <div class="btn-group mt-3 col align-self-center">
-            <button class="btn btn-primary">Update</button>
-            <button class="btn btn-success">Update</button>
         </div>
-        </div>
+
         <div class="row mt-3">
-            <h3 class="mb-3">Ngôn ngữ</h3>
+            <div>
+                <h3 class="">Ngôn ngữ</h3>
+                <div class="btn-group mt-3 col-2 mb-3">
+                    <button class="btn btn-primary">Update</button>
+                    <button class="btn btn-success">Save</button>
+                </div>
+            </div>
             <div class="col-2">
                 <label class="form-label">Mã ngôn ngữ</label>
-                <input  class="form-control">
+                <input  class="form-control input-languageID" value="{{books.languageID}}">
             </div>
             <div class="col-2">
-               <label for="inputState" class="form-label">Ngôn ngữ</label>
-                <select id="inputState" class="form-select">
+               <label for="inputLanguage" class="form-label">Ngôn ngữ</label>
+                <select id="inputLanguage" class="form-select">
                     <option value="" >------</option>
-                    <option value="" >Tiếng Việt</option>
-                    <option value="" >Tiếng Anh</option>
-                    <option value="" >Tiếng Nhật</option>
-                    <option value="" >Tiếng Trung</option>
+                    {{#each language}}
+                    <option value="{{this.languageID}}" >{{this.name}}</option>
+                    {{/each}}
                 </select>
             </div>
-        
-        
-       
-        <div class="btn-group mt-3 col align-self-center">
-            <button class="btn btn-primary">Update</button>
-            <button class="btn btn-success">Update</button>
-        </div>
         </div>
     </form>
 </div>
+
+{{!-- Active input, button --}}
+<script>
+    const inputs = $('input')
+    const selects = $('select')
+    const btns = $('.btn')
+    const textareas = $('textarea')
+    inputs.each(function(i) {
+        $(this).attr('disabled', true)
+    })
+    selects.each(function(i) {
+        $(this).attr('disabled', true)
+    })
+    {{!-- btns.each(function(i) {
+        $(this).attr('disabled', true)
+    }) --}}
+    textareas.each(function(i) {
+        $(this).attr('disabled', true)
+    })
+</script>
+
+{{!-- Value Select --}}
+<script>
+    const inputLanguageID = $('.input-languageID')
+    const optionsLanguage = $('#inputLanguage option')
+    const languageID = inputLanguageID.val()
+
+    const selectType = $('#inputType')
+    const typeID = selectType.data('type')
+    const optionsType = $('#inputType option')
+
+    optionsType.each(function(i){
+        if($(this).val().trim() == typeID){
+           $(this).prop('selected', true)
+        }
+    })
+    optionsLanguage.each(function(i){
+        if($(this).val().trim() == languageID){
+           $(this).prop('selected', true)
+        }
+    })
+</script>
