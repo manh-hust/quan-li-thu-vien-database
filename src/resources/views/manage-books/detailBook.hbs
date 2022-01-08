@@ -1,7 +1,7 @@
 <div class="container">
     <h1 id="title" class="mt-5" data-type="{{this.titleID}}">Thông tin chi tiết</h1>
     <h2></h2>
-    <form method="POST" action="/manage-books/{{this.titleID}}" class="mt-5" id="form">
+    <form   method="POST" action="/manage-books/{{this.titleID}}" class="mt-5" id="form">
         {{!-- Book --}}
         <div class="row mt-3">
             <div>
@@ -67,17 +67,21 @@
                     <a href="#" class="btn btn-primary">Thêm mới</a>
                 </div>
             </div>
+
             <div class="col-2">
                 <label class="form-label">Mã tác giả</label>
                 <input  name="authorID" class="form-control" value="{{books.authorID}}" disabled>
             </div>
             <div class="col-3">
                 <label class="form-label">Tên</label>
-                <input  class="form-control" value="{{books.[author.firstName]}}" disabled>
+                <input  class="form-control authorFN" value="{{books.[author.firstName]}}" disabled>
             </div>
             <div class="col-3">
                 <label class="form-label">Họ</label>
-                <input  class="form-control" value="{{books.[author.lastName]}}" disabled>
+                <input  class="form-control authorLN" value="{{books.[author.lastName]}}" disabled>
+            </div>
+            <div id="checkAuthor" class="alert alert-danger mt-3 col-6" role="alert">
+                Mã tác giả không chính xác! Vui lòng kiểm tra lại.
             </div>
         </div>
         {{!-- Puslisher --}}
@@ -94,16 +98,20 @@
             </div>
             <div class="col-3">
                 <label class="form-label">Tên nhà xuất bản</label>
-                <input  class="form-control" disabled value="{{books.[publisher.name]}}">
+                <input  class="form-control publisherName" disabled value="{{books.[publisher.name]}}">
             </div>
             <div class="col-5">
                 <label class="form-label">Đia chỉ</label>
-                <input  class="form-control" disabled value="{{books.[publisher.address]}}">
+                <input  class="form-control publisherAddress" disabled value="{{books.[publisher.address]}}">
+            </div>
+            <div id="checkPublisher" class="alert alert-danger mt-3 col-6" role="alert">
+                Mã nhà xuất bản không chính xác! Vui lòng kiểm tra lại.
             </div>
         </div>
+
         <div class="btn-group mt-3 col-auto mt-5">
             {{#if isAddPage}}
-            <button type="submit" class="btn btn-warning">Lưu lại</button>
+            <button id="btnSave" type="button" class="btn btn-warning">Lưu lại</button>
             {{else}}
             <a href="/manage-books/add" class="btn btn-success me-2">Thêm</a>
             <button type="button" class="btn btn-warning me-2">Lưu lại</button>
@@ -180,5 +188,95 @@
         if($(this).val().trim() == positionID){
            $(this).prop('selected', true)
         }
+    })
+</script>
+
+{{!-- Fetch data, check author, publisher input --}}
+<script>
+    async function fetchAuthor() {
+    const response = await fetch('http://localhost:3000/author');
+    const data = await response.json()
+        return data
+    }
+    async function fetchPublisher() {
+    const response = await fetch('http://localhost:3000/publisher');
+    const data = await response.json()
+        return data
+    }
+
+    const form = $('#form')
+    const btnSave = $('#btnSave')
+
+    const inputAuthor = $("input[name*= 'authorID']")
+    const alertCheckAuthor = $('#checkAuthor')
+    const authorLN = $('.authorLN')
+    const authorFN = $('.authorFN')
+    alertCheckAuthor.hide()
+    authorLN.attr('disabled', true)
+    authorFN.attr('disabled', true)
+
+    const inputPublisher = $("input[name*= 'publisherID']")
+    const alertCheckPublisher = $('#checkPublisher')
+    const pubName = $('.publisherName')
+    const pubAddress = $('.publisherAddress')
+    alertCheckPublisher.hide()
+    pubName.attr('disabled', true)
+    pubAddress.attr('disabled', true)
+
+
+    fetchAuthor()
+    .then(res => {
+        inputAuthor.focusout(function() {
+        const authorID = $(this).val()
+        let author
+        if(authorID == ''){
+            author = true
+        }
+        else{
+            author = res.data.find( item => {
+                return item.authorID.trim() == authorID.trim()
+            })
+        }
+        if(!author){
+            alertCheckAuthor.show(300)
+            btnSave.attr('disabled', true)
+        }
+        else{
+            alertCheckAuthor.hide()
+            btnSave.removeAttr('disabled', true)
+            authorFN.val(author.firstName)
+            authorLN.val(author.lastName)
+        }
+    })
+    })
+
+    fetchPublisher()
+    .then( res => {
+        inputPublisher.focusout( function() {
+        const publisherID = $(this).val()
+        let publisher
+        if(publisherID == ''){
+            publisher = true
+        }
+        else{
+            publisher = res.data.find( item => {
+                return item.publisherID.trim() == publisherID.trim()
+            })
+        }
+        if(!publisher){
+            alertCheckPublisher.show(300)
+            btnSave.attr('disabled', true)
+        }
+        else{
+            alertCheckPublisher.hide()
+            btnSave.removeAttr('disabled', true)
+            pubName.val(publisher.name)
+            pubAddress.val(publisher.address)
+        }
+    })
+    })
+
+    btnSave.on('click', function() {
+        form.submit()
     })
 </script>

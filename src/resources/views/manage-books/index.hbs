@@ -72,7 +72,7 @@
         const typeID = selectType.data('type')
 
         optionsType.each(function(i) {
-            if($(this).val() == typeID){
+            if($(this).val().trim() == typeID){
                     $(this).prop('selected', true)
             }
         })

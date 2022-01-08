@@ -100,14 +100,35 @@ class HomeController {
             posts: posts
         })
     }
-    async test(req, res, next){
+    async author(req, res, next){
         try {
-            const book = await Title.findAll({
-                include: [Author],
+            const author = await Author.findAll({
                 raw: true
             })
-            if(book){
-                res.send(book)
+            if(author){
+                res.send({
+                    message: "Success!",
+                    data: author
+                })
+            }
+            else{
+                res.send('Not found !')
+            }
+        } catch (error) {
+                console.log(error)
+                res.send(error.message)            
+        }
+    }
+    async publisher(req, res, next){
+        try {
+            const publisher = await Publisher.findAll({
+                raw: true
+            })
+            if(publisher){
+                res.send({
+                    message: "Success!",
+                    data: publisher
+                })
             }
             else{
                 res.send('Not found !')

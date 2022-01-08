@@ -41,7 +41,6 @@ class ManageBookController {
         try {
             let {bookName, authorName, typeID} = req.body
             typeID = typeID.trim()
-            console.log('-'+typeID+'-')
             if(typeID == '' && bookName == '' && authorName == '' ){
                 res.redirect('back')
                 return
@@ -84,9 +83,8 @@ class ManageBookController {
                 ],
                 raw: true
             })
-          
-            res.send(books)
-            return
+            // res.send(books)
+            // return
             const types = await Type.findAll({
                 raw: true
             })
@@ -145,6 +143,7 @@ class ManageBookController {
         try {
             const{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
             const  titleID = crypto.randomBytes(4).toString('hex');
+            // 
             if(authorID != ''){
                 const author = await Author.findByPk(authorID,{
                     raw: true
@@ -159,7 +158,10 @@ class ManageBookController {
                 name: name,
                 typeID: type.trim(),
                 languageID: language.trim(),
-                positionID: position.trim()
+                positionID: position.trim(),
+                quantity,
+                authorID: authorID.trim(),
+                publisherID: publisherID.trim()
             })
             res.redirect(`/manage-books/${titleID}`)
         } catch (error) {
