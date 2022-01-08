@@ -25,12 +25,12 @@
         <thead>
             <tr>
             <th scope="col">#</th>
-            <th colspan="3">Tên</th>
-            <th colspan="3">Tác giả</th>
-            <th scope="col">Thể loại</th>
-            <th scope="col">Năm xuất bản</th>
-            <th scope="col">Số lượng ban đầu</th>
-            <th scope="col">Số lượng thực tế</th>
+            <th colspan="2">Tên</th>
+            <th colspan="2">Tác giả</th>
+            <th colspan="1">Thể loại</th>
+            <th colspan="1">Năm xuất bản</th>
+            <th colspan="1">SL ban đầu</th>
+            <th colspan="1">SL thực tế</th>
             <th colspan="3">Action</th>
             </tr>
         </thead>
@@ -38,9 +38,9 @@
             {{#each books}}
             <tr>
             <th ></th>
-            <td colspan="3">{{this.name}}</td>
-            <td colspan="3">{{this.[author.lastName]}} {{this.[author.firstName]}}</td>
-            <td>{{this.[type.name]}}</td>
+            <td colspan="2">{{this.name}}</td>
+            <td colspan="2">{{this.[author.lastName]}} {{this.[author.firstName]}}</td>
+            <td colspan="1">{{this.[type.name]}}</td>
             <td></td>
             <td></td>
             <td></td>

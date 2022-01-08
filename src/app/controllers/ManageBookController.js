@@ -6,7 +6,9 @@ const Type = require('../models/type');
 const Language = require('../models/language')
 const Position = require('../models/position')
 const Publisher = require('../models/publisher');
-const { trim } = require('jquery');
+const crypto = require("crypto");
+const { raw } = require('body-parser');
+
 
 class ManageBookController {
     // [GET] /manage
@@ -37,8 +39,9 @@ class ManageBookController {
     // POST /manage-books
     async search(req, res, next){
         try {
-            const {bookName, authorName, typeID} = req.body
-            // console.log(typeID)
+            let {bookName, authorName, typeID} = req.body
+            typeID = typeID.trim()
+            console.log('-'+typeID+'-')
             if(typeID == '' && bookName == '' && authorName == '' ){
                 res.redirect('back')
                 return
@@ -47,6 +50,9 @@ class ManageBookController {
                 where: {
                     name: {
                         [Op.like]: bookName ? `%${bookName}%` : '%%'
+                    },
+                    typeID:  {
+                        [Op.like]: typeID ? `%${typeID}%` : '%%'
                     },
                 },
                 include: [ 
@@ -69,15 +75,18 @@ class ManageBookController {
                     },
                     {
                         model: Type,
-                        where: {
-                            typeID: {
-                                [Op.like]: typeID ? `%${typeID}%` : '%%' 
-                            }
-                        }
+                        // where: {
+                        //     typeID: {
+                        //         [Op.like]: typeID ? `%${typeID}%` : '%%' 
+                        //     }
+                        // }
                     }
                 ],
                 raw: true
             })
+          
+            res.send(books)
+            return
             const types = await Type.findAll({
                 raw: true
             })
@@ -95,6 +104,10 @@ class ManageBookController {
     // GET /manage-books/:bookID
     async detail(req, res, next){
         const titleID = req.params.bookID ? req.params.bookID : ''
+        let isAddPage = false
+        if(titleID == 'add'){
+            isAddPage = true
+        }
         if(!titleID){
             res.redirect('back')
             return;
@@ -103,6 +116,9 @@ class ManageBookController {
             raw: true
         })
         const language = await Language.findAll({
+            raw: true
+        })
+        const positions = await Position.findAll({
             raw: true
         })
         const books = await Title.findByPk(titleID,{
@@ -115,12 +131,40 @@ class ManageBookController {
             ],
             raw: true
         })
-        // res.send(books)
         res.render('manage-books/detailBook',{
             books,
             types,
-            language
+            language,
+            positions,
+            titleID,
+            isAddPage
         })
+    }
+    // POST /manage-books/create
+    async create(req, res, next){
+        try {
+            const{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
+            const  titleID = crypto.randomBytes(4).toString('hex');
+            if(authorID != ''){
+                const author = await Author.findByPk(authorID,{
+                    raw: true
+                })
+                if(author == null){
+                    res.redirect('back')
+                    return
+                }
+            }
+            const newTitle = await Title.create({
+                titleID,
+                name: name,
+                typeID: type.trim(),
+                languageID: language.trim(),
+                positionID: position.trim()
+            })
+            res.redirect(`/manage-books/${titleID}`)
+        } catch (error) {
+            res.send(error.message)            
+        }
     }
 }
 
