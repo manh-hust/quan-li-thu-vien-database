@@ -8,6 +8,7 @@ const Position = require('../models/position')
 const Publisher = require('../models/publisher');
 const crypto = require("crypto");
 const { raw } = require('body-parser');
+const { redirect } = require('express/lib/response');
 
 
 class ManageBookController {
@@ -168,6 +169,85 @@ class ManageBookController {
             res.send(error.message)            
         }
     }
+
+    // GET /manage-books/author
+    async author(req, res, next) {
+        try {
+            const authorLast = await Author.findAll({
+                raw: true,
+                limit: 1,
+                order: [
+                    ['authorID','DESC'] 
+                ]
+            })
+            const authorIDLast = authorLast[0].authorID
+            const number = Number(authorIDLast.slice(2))
+            const newID = 'AU'+(pad(number+1,6))
+            res.render('manage-books/detailAuthor',{
+                author: null,
+                newID
+            })
+        } catch (error) {
+            res.send(error.message)            
+        }
+    }
+    // GET /manage-books/author/:authorID
+    async authorID(req, res, next) {
+        const authorID = req.params.authorID
+        if(!authorID){
+            redirect('back')
+            return
+        }
+        const author = await Author.findByPk(authorID,{
+            raw: true
+        })
+        res.render('manage-books/detailAuthor',{
+            author: author
+        })
+    }
+    // GET /manage-books/publisher
+    async publisher(req, res, next) {
+        try {
+            const publisherLast = await Publisher.findAll({
+                raw: true,
+                limit: 1,
+                order: [
+                    ['publisherID','DESC'] 
+                ]
+            })
+            const publisherIDLast = publisherLast[0].publisherID
+            const number = Number(publisherIDLast.slice(2))
+            const newID = 'PU'+(pad(number+1,6))
+            res.render('manage-books/detailPublisher',{
+                publisher: null,
+                newID
+            })
+        } catch (error) {
+            res.send(error.message)
+        }
+
+    }
+    // GET /manage-books/publisher/:publisherID
+    async publisherID(req, res, next) {
+        const publisherID = req.params.publisherID
+        if(!publisherID){
+            redirect('back')
+            return
+        }
+        const publisher = await Publisher.findByPk(publisherID,{
+            raw: true
+        })
+        res.render('manage-books/detailPublisher',{
+            publisher
+        })
+
+    }
 }
+
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
 
 module.exports = new ManageBookController();

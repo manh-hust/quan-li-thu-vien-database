@@ -1,0 +1,18 @@
+<div class="container">
+    <h1 class="mt-3">Chi tiết tác giả</h1>
+    <form action="" class="mt-3">
+        <div class="mb-3">
+            <label for="authouInput" class="form-label">Mã tác giả</label>
+            <input name="authorID" class="form-control" id="authouInput" placeholder="Gợi ý: {{newID}}" value="{{author.authorID}}">
+        </div>
+        <div class="mb-3">
+            <label for="authorFN" class="form-label">Tên</label>
+            <input name="firstName" class="form-control" id="authorFN" placeholder="VD: Văn A" value="{{author.firstName}}">
+        </div>
+        <div class="mb-3">
+            <label for="authorLN" class="form-label">Họ</label>
+            <input name="lastName" class="form-control" id="authorLN" placeholder="VD: Nguyễn" value="{{author.lastName}}">
+        </div>
+        <button class="btn btn-primary">Lưu lại</button>
+    </form>
+</div>
