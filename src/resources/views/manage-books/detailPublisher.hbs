@@ -1,5 +1,9 @@
 <div class="container">
-    <h1 class="mt-3">Chi tiết nhà xuất bản</h1>
+    {{#if new}}
+    <h1 class="mt-3 title-author">Thêm nhà xuất bản</h1>
+    {{else}}
+    <h1 class="mt-3 title-author">Chi tiết nhà xuất bản</h1>
+    {{/if}}
     <form action="" class="mt-3">
         <div class="mb-3">
             <label for="publisherInput" class="form-label">Mã nhà xuất bản</label>

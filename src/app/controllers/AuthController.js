@@ -82,7 +82,7 @@ class AuthController {
             }
         })
     }
-    // [POST] /auth/update
+    // [PUT] /auth/update
      async update(req, res, next) {
         try {
             const {dob, MSSV, SĐT, address, password} = req.body

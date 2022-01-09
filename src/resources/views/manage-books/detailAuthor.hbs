@@ -1,18 +1,124 @@
 <div class="container">
-    <h1 class="mt-3">Chi tiết tác giả</h1>
-    <form action="" class="mt-3">
+    {{#if new}}
+    <h1 class="mt-3 title-author">Thêm tác giả</h1>
+    {{else}}
+    <h1 class="mt-3 title-author">Chi tiết tác giả</h1>
+    {{/if}}
+    <form method="POST" class="mt-3" id="formAuthor">
         <div class="mb-3">
             <label for="authouInput" class="form-label">Mã tác giả</label>
-            <input name="authorID" class="form-control" id="authouInput" placeholder="Gợi ý: {{newID}}" value="{{author.authorID}}">
+            <input name="authorID" class="form-control" id="authouInput" placeholder="Gợi ý: {{newID}}" value="{{author.authorID}}" required disabled>
+            <div class="alert alert-danger mt-3 alertAuthorID" role="alert">
+                Mã tác giả đã tồn tại !
+            </div>
         </div>
         <div class="mb-3">
             <label for="authorFN" class="form-label">Tên</label>
-            <input name="firstName" class="form-control" id="authorFN" placeholder="VD: Văn A" value="{{author.firstName}}">
+            <input name="firstName" class="form-control" id="authorFN" placeholder="VD: Văn A" value="{{author.firstName}}" required disabled>
         </div>
         <div class="mb-3">
             <label for="authorLN" class="form-label">Họ</label>
-            <input name="lastName" class="form-control" id="authorLN" placeholder="VD: Nguyễn" value="{{author.lastName}}">
+            <input name="lastName" class="form-control" id="authorLN" placeholder="VD: Nguyễn" value="{{author.lastName}}" disabled>
         </div>
-        <button class="btn btn-primary">Lưu lại</button>
+        {{#if new}}
+        <button class="btn btn-success btnSaveAuthor">Lưu lại</button>
+        {{else}}
+        <button type="button" class="btn btn-success btnSaveAuthor btnSubmitAuthor">Lưu lại</button>
+        <button type="button" class="btn btn-primary btnEditAuthor">Chỉnh sửa</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa</button>
+        {{/if}}
     </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+                <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Các tác cuốn sách liên quan sẽ bị xóa theo. Bạn chắc chắn muốn xóa tác giả ? 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary btn-Modal">Xác nhận</button>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+{{!-- Form DELETE --}}
+<form method="POST" action="/manage-books/author-delete/{{author.authorID}}" id="form-delete-author"></form>
+
+<script>
+    const inputs = $('#formAuthor input')
+    const title = $('.title-author')
+    const news = title.text() == 'Thêm tác giả'
+    const form = $('#formAuthor')
+    const alertID = $('.alertAuthorID')
+    const inputID = $("input[name*='authorID']")
+
+    const btnSave = $('.btnSaveAuthor')
+    const btnEdit = $('.btnEditAuthor')
+    const btnSubmit = $('.btnSubmitAuthor')
+
+    alertID.hide()
+    btnSubmit.attr('disabled', true)
+
+    if(news){
+        inputs.each(function(i){
+            $(this).removeAttr('disabled', true)
+        })
+    }
+    {{!-- Click btnEdit --}}
+    btnEdit.on('click', function(){
+        btnSubmit.removeAttr('disabled', true)
+        inputs.each(function(i){
+            if(i!=0)
+            $(this).removeAttr('disabled', true)
+        })
+    })
+     
+    {{!-- Submit Form Edit --}}
+    btnSubmit.on('click', function() {
+        const id = inputID.val()
+        form.attr('action', `/manage-books/author/${id}`)
+        form.submit()
+    })
+
+    {{!-- Check authorID --}}
+    fetch('http://localhost:3000/author')
+    .then(res => {
+        return res.json()
+    })
+    .then(res => {
+        const data = res.data
+        inputID.focusout(function(){
+            const id = $(this).val()
+            const author = data.find(item => {
+                return item.authorID.trim() == id.trim()
+            })
+            if(author){
+                alertID.show(200)
+                btnSave.attr('disabled', true)
+            }
+            else{
+                alertID.hide(200)
+                btnSave.removeAttr('disabled', true)
+            }
+        })
+    })
+
+</script>
+
+{{!-- Handle- Delete-Form --}}
+<script>
+    const btnModal = $('.btn-Modal')
+    const formDelete = $('#form-delete-author')
+    console.log(btnModal, formDelete)
+    btnModal.on('click', function(){
+        formDelete.submit()
+    })
+</script>

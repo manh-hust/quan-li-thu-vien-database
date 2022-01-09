@@ -7,8 +7,6 @@ const Language = require('../models/language')
 const Position = require('../models/position')
 const Publisher = require('../models/publisher');
 const crypto = require("crypto");
-const { raw } = require('body-parser');
-const { redirect } = require('express/lib/response');
 
 
 class ManageBookController {
@@ -176,6 +174,7 @@ class ManageBookController {
             const authorLast = await Author.findAll({
                 raw: true,
                 limit: 1,
+                offset: 0,
                 order: [
                     ['authorID','DESC'] 
                 ]
@@ -185,26 +184,82 @@ class ManageBookController {
             const newID = 'AU'+(pad(number+1,6))
             res.render('manage-books/detailAuthor',{
                 author: null,
-                newID
+                newID,
+                new: true
             })
         } catch (error) {
             res.send(error.message)            
+        }
+    }
+    // POST /manage-books/author
+    async createAuthor(req, res, next){
+        try {
+            const {authorID, firstName, lastName} = req.body
+            const checkAuthor = Author.findByPk(authorID,{
+                raw: true
+            })
+            const newAuthor = await Author.create({
+                authorID,
+                firstName,
+                lastName
+            })
+            res.redirect(`/manage-books/author/${authorID}`)
+        } catch (error) {
+            res.send(error.message)
         }
     }
     // GET /manage-books/author/:authorID
     async authorID(req, res, next) {
         const authorID = req.params.authorID
         if(!authorID){
-            redirect('back')
+            res.redirect('/manage-books/author')
             return
         }
         const author = await Author.findByPk(authorID,{
             raw: true
         })
-        res.render('manage-books/detailAuthor',{
-            author: author
-        })
+        if (author) {
+            res.render('manage-books/detailAuthor',{
+                author: author,
+                new: false
+            })
+        }
+        else{
+            res.redirect('/manage-books/author') 
+        }
     }
+    // PUT /manage-books/author/:authorID
+    async editAuthor(req, res, next){
+        try {
+            const authorID = req.params.authorID
+            const {lastName, firstName} = req.body
+            const author = await Author.findByPk(authorID)
+            author.set({
+                firstName: firstName,
+                lastName: lastName
+            })
+            await author.save()
+            res.redirect('back')
+            // res.send(req.body)
+        } catch (error) {
+            res.send(error.message)
+        }
+    }
+    // DELETE /manage-books/author-delete/:authorID
+    async deleteAuthor(req, res, next) {
+        try {
+            const id = req.params.authorID
+            const author = await Author.destroy({
+                where: {
+                    authorID: id
+                }
+            })
+            res.redirect('/manage-books')
+        } catch (error) {
+            res.send(error.message)
+        }
+    }
+
     // GET /manage-books/publisher
     async publisher(req, res, next) {
         try {
@@ -220,11 +275,15 @@ class ManageBookController {
             const newID = 'PU'+(pad(number+1,6))
             res.render('manage-books/detailPublisher',{
                 publisher: null,
-                newID
+                newID,
+                new: true
             })
         } catch (error) {
             res.send(error.message)
         }
+
+    }
+    async createPublisher(req, res, next) {
 
     }
     // GET /manage-books/publisher/:publisherID
