@@ -2,8 +2,9 @@
     <h1 class="pt-3 mb-3"> Quản lí sách</h1>
     <div class="mb-3">
         <a href="/manage-books/add" class="btn btn-success">Thêm sách</a>
-        <a href="#" class="btn btn-warning">Thống kê</a>
-
+        <a href="/manage-books/author" class="btn btn-success">Thêm tác giả</a>
+        <a href="/manage-books/publisher" class="btn btn-success">Thêm nhà xuất bản</a>
+        <a href="#" class="btn btn-warning ms-2">Thống kê</a>
     </div>
     <div class="search-form">
         <form method="POST" class="input-group mb-3">
@@ -38,8 +39,8 @@
             {{#each books}}
             <tr>
             <th ></th>
-            <td colspan="2">{{this.name}}</td>
-            <td colspan="2">{{this.[author.lastName]}} {{this.[author.firstName]}}</td>
+            <td colspan="2"><a href="/manage-books/{{this.titleID}}">{{this.name}}</a></td>
+            <td colspan="2"><a href="/manage-books/author/{{this.authorID}}">{{this.[author.lastName]}} {{this.[author.firstName]}}</a></td>
             <td colspan="1">{{this.[type.name]}}</td>
             <td></td>
             <td></td>

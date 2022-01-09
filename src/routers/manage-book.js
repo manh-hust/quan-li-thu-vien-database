@@ -9,11 +9,14 @@ router.get('/author',  manageBookController.author);
 router.post('/author',  manageBookController.createAuthor);
 
 router.get('/publisher/:publisherID',  manageBookController.publisherID);
+router.post('/publisher/:publisherID',  manageBookController.editPublisher);
+router.post('/publisher-delete/:publisherID',  manageBookController.deletePublisher);
 router.get('/publisher',  manageBookController.publisher);
-router.post('/author',  manageBookController.createPublisher);
+router.post('/publisher',  manageBookController.createPublisher);
 
 router.get('/:bookID',  manageBookController.detail);
-router.post('/:bookID', manageBookController.create);
+router.post('/edit/:bookID', manageBookController.editBook);
+router.post('/create', manageBookController.create);
 router.post('/', manageBookController.search);
 router.get('/',  manageBookController.index);
 

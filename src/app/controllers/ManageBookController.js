@@ -140,7 +140,7 @@ class ManageBookController {
     // POST /manage-books/create
     async create(req, res, next){
         try {
-            const{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
+            let{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
             const  titleID = crypto.randomBytes(4).toString('hex');
             // 
             if(authorID != ''){
@@ -154,18 +154,43 @@ class ManageBookController {
             }
             const newTitle = await Title.create({
                 titleID,
-                name: name,
+                name: name ,
                 typeID: type.trim(),
-                languageID: language.trim(),
-                positionID: position.trim(),
+                languageID: language ? language.trim() : null,
+                positionID: position ? position.trim() : null,
                 quantity,
-                authorID: authorID.trim(),
-                publisherID: publisherID.trim()
+                authorID: authorID ? authorID.trim() : null,
+                publisherID: publisherID ? publisherID.trim() : null
             })
             res.redirect(`/manage-books/${titleID}`)
         } catch (error) {
             res.send(error.message)            
         }
+    }
+    // POST /manage-books/edit/:bookID
+    async editBook(req, res, next) {
+        try {
+            const{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
+            const bookID = req.params.bookID
+            
+            const book = await Title.findByPk(bookID)
+           
+            book.set({
+                name: name,
+                typeID: type ? type : null,
+                languageID: language ? language : null,
+                positionID: position ? position : null,
+                quantity: quantity ? Number(quantity) : null,
+                summary: summary ? summary : null,
+                authorID: authorID ? authorID : null,
+                publisherID: publisherID ? publisherID : null
+            })
+            await book.save()
+            res.send(req.body)    
+        } catch (error) {
+            res.send(error.message)
+        }
+        res.send(req.body)
     }
 
     // GET /manage-books/author
@@ -283,8 +308,38 @@ class ManageBookController {
         }
 
     }
+    // POST /manage-books/publisher
     async createPublisher(req, res, next) {
-
+        try {
+            const {publisherID, name, address} = req.body
+            const checkPub = Publisher.findByPk(publisherID,{
+                raw: true
+            })
+            const newPub = await Publisher.create({
+                publisherID,
+                name,
+                address
+            })
+            res.redirect(`/manage-books/publisher/${publisherID}`)
+        } catch (error) {
+            res.send(error.message)
+        }
+    }
+    // PUT /manage-books/publisher/:publisherID
+    async editPublisher(req, res, next) {
+        try {
+            const publisherID = req.params.publisherID
+            const {name, address} = req.body
+            const publisher = await Publisher.findByPk(publisherID)
+            publisher.set({
+                name: name,
+                address: address
+            })
+            await publisher.save()
+            res.redirect('back')
+        } catch (error) {
+            res.send(error.message)
+        }
     }
     // GET /manage-books/publisher/:publisherID
     async publisherID(req, res, next) {
@@ -301,6 +356,21 @@ class ManageBookController {
         })
 
     }
+    // DELETE /manage-books/publisher-delete/:publisherID
+    async deletePublisher(req, res, next) {
+        try {
+            const id = req.params.publisherID
+            const publisher = await Publisher.destroy({
+                where: {
+                    publisherID: id
+                }
+            })
+            res.redirect('/manage-books')
+        } catch (error) {
+            res.send(error.message)
+        }
+    }
+
 }
 
 function pad(n, width, z) {
