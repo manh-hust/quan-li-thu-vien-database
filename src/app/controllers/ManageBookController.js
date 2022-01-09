@@ -7,6 +7,7 @@ const Language = require('../models/language')
 const Position = require('../models/position')
 const Publisher = require('../models/publisher');
 const crypto = require("crypto");
+const { redirect } = require('express/lib/response');
 
 
 class ManageBookController {
@@ -82,8 +83,6 @@ class ManageBookController {
                 ],
                 raw: true
             })
-            // res.send(books)
-            // return
             const types = await Type.findAll({
                 raw: true
             })
@@ -152,13 +151,15 @@ class ManageBookController {
                     return
                 }
             }
+            // res.send(req.body)
+            // return
             const newTitle = await Title.create({
                 titleID,
                 name: name ,
-                typeID: type.trim(),
+                typeID: type ? type.trim() : null,
                 languageID: language ? language.trim() : null,
                 positionID: position ? position.trim() : null,
-                quantity,
+                quantity: quantity ? quantity : null,
                 authorID: authorID ? authorID.trim() : null,
                 publisherID: publisherID ? publisherID.trim() : null
             })
@@ -167,31 +168,45 @@ class ManageBookController {
             res.send(error.message)            
         }
     }
-    // POST /manage-books/edit/:bookID
+    // PUT /manage-books/edit/:bookID
     async editBook(req, res, next) {
         try {
             const{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
             const bookID = req.params.bookID
-            
             const book = await Title.findByPk(bookID)
-           
+            // res.send(book)
+            // return
             book.set({
                 name: name,
-                typeID: type ? type : null,
-                languageID: language ? language : null,
-                positionID: position ? position : null,
+                typeID: type ? type.trim() : null,
+                languageID: language ? language.trim() : null,
+                positionID: position ? position.trim() : null,
                 quantity: quantity ? Number(quantity) : null,
                 summary: summary ? summary : null,
-                authorID: authorID ? authorID : null,
-                publisherID: publisherID ? publisherID : null
+                authorID: authorID ? authorID.trim() : null,
+                publisherID: publisherID ? publisherID.trim() : null
             })
             await book.save()
-            res.send(req.body)    
+            res.redirect('back')  
         } catch (error) {
             res.send(error.message)
         }
-        res.send(req.body)
     }
+    // DELETE /manage-books/delete/:bookID
+    async deleteBook(req, res, next){
+        const bookID = req.params.bookID
+        if(!bookID){
+            res.redirect('back')
+            return
+        }
+        const book = await Title.destroy({
+            where: {
+                titleID: bookID
+            }
+        })
+        res.redirect('/manage-books')
+    }
+
 
     // GET /manage-books/author
     async author(req, res, next) {
@@ -284,6 +299,8 @@ class ManageBookController {
             res.send(error.message)
         }
     }
+
+
 
     // GET /manage-books/publisher
     async publisher(req, res, next) {
