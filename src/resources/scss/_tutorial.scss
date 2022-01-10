@@ -38,6 +38,7 @@
                     p{
                         padding: 12px;
                     }
+
                 }
                 .news-list{
                     margin: 12px;
@@ -53,6 +54,13 @@
                         font-size: 0.9rem;
                         font-weight: bold;
                         margin: 0 12px;
+                    }
+                    .container-img{
+                        width: 100px;
+                        img{
+                            width: 100%;
+                            object-fit: cover;
+                        }
                     }
                 }
             }

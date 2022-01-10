@@ -1,9 +1,11 @@
 const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
+const Title = require('./title')
 
-const Book = db.define('', {
+const Book = db.define('book', {
     bookID: {
-        type: sequelize.STRING,
+        type: sequelize.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
         field: 'book_id'
@@ -23,6 +25,8 @@ const Book = db.define('', {
     tableName: 'book'
 })
 Book.sync({ alter: true });
-  
+
+Book.belongsTo(Title, {foreignKey: 'titleID'})
+Title.hasMany(Book, {foreignKey: 'titleID'})
 
 module.exports = Book

@@ -42,9 +42,9 @@
             <td colspan="2"><a href="/manage-books/{{this.titleID}}">{{this.name}}</a></td>
             <td colspan="2"><a href="/manage-books/author/{{this.authorID}}">{{this.[author.lastName]}} {{this.[author.firstName]}}</a></td>
             <td colspan="1">{{this.[type.name]}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{this.publishDate}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.quantityFt}}</td>
             <td colspan="3" class="btn-group">
                 <a href="/manage-books/{{this.titleID}}" class="btn btn-warning">Chi tiết</a>
             </td>

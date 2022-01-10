@@ -1,5 +1,8 @@
 const User = require('../models/user')
 const Title = require('../models/title')
+const Type = require('../models/type')
+const Author = require('../models/author')
+
 const { Op } = require('sequelize');
 
 
@@ -49,7 +52,8 @@ class PrivacyController{
                         [Op.in]: list
                     }
                 },
-                raw: true
+                raw: true,
+                include: [Type, Author]
             })
         }
         else{
@@ -85,6 +89,25 @@ class PrivacyController{
             }
         })
         res.redirect('back')
+    }
+    async deleteFavorite(req, res, next) {
+        try {
+            const idBook = req.params.titleID
+            const idUser = res.locals.user.userID
+            const user = await User.findByPk(idUser)
+            const list = user.favorite
+            list.splice(list.indexOf(idBook),1)
+            await User.update({
+                favorite: list
+            },{
+                where: {
+                    userID: idUser
+                }
+            })
+            res.redirect('back')
+        } catch (error) {
+            res.send(error.message)
+        }
     }
 }
 module.exports = new PrivacyController();

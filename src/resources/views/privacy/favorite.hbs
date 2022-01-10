@@ -7,15 +7,17 @@
         <th scope="col">Tên sách</th>
         <th scope="col">Thể loại</th>
         <th scope="col">Tác giả</th>
+        <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         {{#each data}}
         <tr>
             <th scope="row"></th>
-            <td>{{this.name}}</td>
-            <td>{{this.typeID}}</td>
-            <td>{{this.authoID}}</td>
+            <td><a href="/search/detail/{{this.titleID}}">{{this.name}}</a></td>
+            <td>{{this.[type.name]}}</td>
+            <td>{{this.[author.lastName]}} {{this.[author.firstName]}}</td>
+            <td><button class="btn btn-danger btn-delete-favorite" data-id="{{this.titleID}}">Xóa</button></td>
         </tr>
         {{else}}
         <tr>
@@ -28,3 +30,18 @@
     </tbody>
     </table>
 </div>
+
+ {{!-- Form delete --}}
+ <form method="POST" action="" id="form-delete"></form>
+<script>
+    const btnDel = $('.btn-delete-favorite')
+    const form =  $('#form-delete')
+    const id = btnDel.data('id')
+    console.log(id)
+
+    btnDel.on('click', function() {
+        form.attr('action', `/privacy/favorite-delete/${id}`)
+        form.submit()
+    })
+
+</script>

@@ -101,7 +101,7 @@
             const publisher = data.find(item => {
                 return item.publisherID.trim() == id.trim()
             })
-            if(publisher){
+            if(publisher || id.length > 8){
                 alertID.show(200)
                 btnSave.attr('disabled', true)
             }

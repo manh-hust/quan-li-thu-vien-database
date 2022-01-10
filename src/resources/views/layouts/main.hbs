@@ -26,7 +26,7 @@
         </div>
         <footer>
             {{> footer}}
-            <a id="button-to-top"></a>
+            <a href="#" id="button-to-top"></a>
         </footer>
     </div>
     <script src="/bootstrap/js/bootstrap.bundle.js"></script>
@@ -39,10 +39,10 @@
                 btn.removeClass('show');
             }
         });
-        btn.on('click', function (e) {
+        {{!-- btn.on('click', function (e) {
             e.preventDefault();
             $('html, body').animate({ scrollTop: 0 }, '300');
-        });
+        }); --}}
     </script>
 </body>
 

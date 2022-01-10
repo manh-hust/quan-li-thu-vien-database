@@ -2,8 +2,7 @@
   <div class="home-content tutorial-content">
       <div class="home-news tutorial-left">
         <h4>TIN TỨC</h4>
-        <ul class="list">
-            
+        <ul class="list">    
         </ul>
       </div>
       <div class="home-activity tutorial-right">
@@ -13,8 +12,13 @@
             <ul>
                 {{#each posts}}
                 <li class="news-list">
-                    <img src={{this.thumbnailUrl}} alt="image">
+                  <div class="container-img">
+                    <img src='{{this.url}}' alt="image">
+                  </div>
+                  <div class="container-content">
                     <a href="">{{this.title}}</a>
+                    <p>{{this.content}}</p>
+                  </div>
                 </li>
                 {{/each}}
             </ul>

@@ -314,6 +314,11 @@ ul, li {
       font-size: 0.9rem;
       font-weight: bold;
       margin: 0 12px; }
+    .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list .container-img {
+      width: 100px; }
+      .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list .container-img img {
+        width: 100%;
+        object-fit: cover; }
 
 .container-detail {
   margin-top: 36px;

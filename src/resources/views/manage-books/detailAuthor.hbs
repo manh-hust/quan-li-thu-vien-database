@@ -100,7 +100,7 @@
             const author = data.find(item => {
                 return item.authorID.trim() == id.trim()
             })
-            if(author){
+            if(author || id.length > 8){
                 alertID.show(200)
                 btnSave.attr('disabled', true)
             }

@@ -72,7 +72,6 @@
     const alertPassSuc = $('.alert-pass-success')
 
     const form = document.querySelector('.form-control-1')
-    console.log(form)
     const lengthInputs = inputs.length
     const inputPass1 = inputs[lengthInputs - 1]
     const inputPass2 = document.querySelector('.forgot-password')
@@ -94,19 +93,21 @@
     }
     inputPass2.oninput =  function() {
         if(inputPass1.value != inputPass2.value){
-            console.log(inputPass1.value, inputPass2.value)
             alertPassFail.show(500)
             alertPassSuc.hide()
+            btnSubmit.setAttribute('disabled', true)
         }
         else if(inputPass1.value == inputPass2.value){
             alertPassSuc.show(500)
             alertPassFail.hide()
+            btnSubmit.removeAttribute('disabled', true)
             btnSubmit.onclick = () => {
-                console.log(123)
                 form.submit()
             }
         }
     }
-
+    btnSubmit.onclick = () => {
+        form.submit()
+    }
 
 </script>

@@ -59,6 +59,9 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="/privacy">Thông tin cá nhân</a></li>
             <li><hr class="dropdown-divider"></li>
+            {{#if this.admin}}
+            <li><a class="dropdown-item" href="/news-create">Tạo thông báo</a></li>
+            {{else}}
             <li>
               <a class="dropdown-item position-relative" href="#">
                 Thông báo
@@ -67,6 +70,7 @@
                 </span>
               </a>
             </li>
+            {{/if}}
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Sách đang mượn</a></li>
             <li><hr class="dropdown-divider"></li>

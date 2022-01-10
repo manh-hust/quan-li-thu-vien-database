@@ -18,8 +18,12 @@ const Title = db.define('title', {
         type: sequelize.INTEGER,
         field: 'quantity'
     },
+    quantityFt: {
+        type: sequelize.INTEGER,
+        field: 'quantity_fact'
+    },
     publishDate: {
-        type: sequelize.DATE,
+        type: sequelize.STRING,
         field: 'publish_date'
     },
     summary: {
