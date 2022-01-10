@@ -3,6 +3,9 @@ const Type = require('../models/type')
 const Title = require('../models/title')
 const { Op } = require('sequelize');
 const Author = require('../models/author')
+const Language = require('../models/language')
+const Position = require('../models/position')
+const Publisher = require('../models/publisher')
 
 class SearchController {
 
@@ -139,19 +142,16 @@ class SearchController {
             btnFavorite = true
         }
         const book = await Title.findByPk(bookID,{
-            raw: true
+            raw: true,
+            include: [Author, Publisher, Position, Language, Type]
         })
         if(!book){
             next();
             return;
         }
-        const author = await Author.findByPk(book.authorID,{
-            raw: true
-        })
-        const authorName = `${author.lastName} ${author.firstName}`
-        const type = await Type.findByPk(book.typeID,{
-            raw: true
-        })
+        
+        // res.send(book)
+        // return
         const list = await Title.findAll({
             where: {
                 typeID: book.typeID
@@ -165,10 +165,7 @@ class SearchController {
         })
         res.render('search/detailID',{
             book: {
-                titleID: book.titleID,
-                name: book.name,
-                author: authorName,
-                type: type.name,
+                title: book,
                 list,
                 news,
                 btnFavorite,

@@ -52,15 +52,28 @@ class HomeController {
         res.render('home/tutorial');
     }
     async news(req, res, next) {
-        const posts = await News.findAll({
-            order: [
-                ['createdAt', 'DESC']
-            ],
-            raw: true
-        })
-        res.render('home/news', {
-            posts: posts
-        })
+        try {
+            const posts = await News.findAll({
+                order: [
+                    ['createdAt', 'DESC']
+                ],
+                raw: true
+            })
+            const newPosts = posts.map( item => {
+                return {
+                    newID: item.newID,
+                    title: item.title,
+                    content: item.content,
+                    url: item.url,
+                    date: `${item.createdAt.getDate()}/${item.createdAt.getMonth()+1}/${item.createdAt.getFullYear()}`
+                }
+            })
+            res.render('home/news', {
+                posts: newPosts
+            })
+        } catch (error) {
+            res.send(error.message)
+        }
     }
     async author(req, res, next){
         try {

@@ -3,8 +3,8 @@
         <div class="col-9 content">
             <div class="row content-top">
                 <div class="col-4 image">
-                    {{#if book.url}}
-                    <img src="{{book.url}}" alt="">
+                    {{#if book.title.url}}
+                    <img src="{{book.title.url}}" alt="">
                     {{else}}
                     <img src="https://www.dtv-ebook.com/images/files_2/2021/082021/bi-quyet-hoc-nhanh-nho-lau.jpg" alt="">
                     {{/if}}
@@ -12,16 +12,16 @@
                 <div class="col-8 title">
                     <div class="title-body">
                         <h4 class="name text-center">
-                        {{book.name}}
+                        {{book.title.name}}
                         </h4>
                         <ul class="list">
                             <li class="item">
                                 <span>Tác giả: </span>
-                                <a href="#" class="item-infor">{{book.author}}</a>
+                                <a href="#" class="item-infor">{{book.title.[author.lastName]}} {{book.title.[author.firstName]}} </a>
                             </li>
                             <li class="item">
                                 <span>Thể loại: </span>
-                                <a href="#" class="item-infor">{{book.type}}</a>
+                                <a href="#" class="item-infor">{{book.title.[type.name]}}</a>
                             </li>
                             <li class="item">
                                 <span>Lượt mượn: </span>
@@ -29,21 +29,21 @@
                             </li>
                             <li class="item">
                                 <span>Số lượng: </span>
-                                <a href="#" class="item-infor">1202</a>
+                                <a href="#" class="item-infor">{{book.title.quantity}}</a>
                             </li>
                             <li class="item">
                                 <span>Vị trí: </span>
-                                <a href="#" class="item-infor">Lầu 1</a>
+                                <a href="#" class="item-infor">{{book.title.[position.area]}}-{{book.title.[position.shelf]}}</a>
                             </li>
                             <li class="item">
                                 <span>Nhà xuất bản: </span>
                                 <a href="#" class="item-infor">
-                                    Đại học Bách Khoa Hà Nội
+                                    {{book.title.[publisher.name]}}
                                 </a>
                             </li>
                             <li class="item">
                                 <span>Ngôn ngữ: </span>
-                                <a href="#" class="item-infor">Tiếng Việt</a>
+                                <a href="#" class="item-infor">{{book.title.[language.name]}}</a>
                             </li>
                         </ul>
                         <div class="btn-group1">
@@ -82,10 +82,14 @@
                 <ul class="list">
                     {{#each book.news}}
                     <li class="item">
+                        {{#if this.url}}
+                        <img src="{{this.url}}" alt="" class="item-img">
+                        {{else}}
                         <img src="https://www.dtv-ebook.com/cache/images/1255/78x126/images/truyen-online/ebook-David-Copefield-full-prc-pdf-epub.jpg" alt="" class="item-img">
+                        {{/if}}
                         <a href="/search/detail/{{this.titleID}}" class="item-name">{{this.name}}</a>
                         <h5 class="view">
-                            120 lượt
+                            {{this.quantity}} lượt
                         </h5>
                     </li>
                     {{/each}}

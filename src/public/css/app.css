@@ -44,7 +44,7 @@ ul, li {
     height: 50%;
     object-fit: cover; }
   .card-category .card-title {
-    height: 40px;
+    height: 48px;
     overflow: hidden; }
   .card-category .card-text {
     height: 68px;
@@ -306,7 +306,10 @@ ul, li {
     border-bottom: 1px dotted #198754;
     padding-bottom: 12px;
     display: flex;
-    align-self: start; }
+    align-self: start;
+    height: 130px;
+    position: relative;
+    overflow: hidden; }
     .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list:last-child {
       border: none; }
     .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list a {
@@ -314,11 +317,18 @@ ul, li {
       font-size: 0.9rem;
       font-weight: bold;
       margin: 0 12px; }
+    .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list p {
+      padding: 6px 12px; }
     .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list .container-img {
       width: 100px; }
       .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list .container-img img {
         width: 100%;
         object-fit: cover; }
+    .tutorial-container .tutorial-content .tutorial-right .list-tutorial .news-list .container-content .date-news {
+      padding: 0;
+      position: absolute;
+      bottom: 0;
+      right: 0; }
 
 .container-detail {
   margin-top: 36px;
@@ -399,6 +409,8 @@ ul, li {
           bottom: 8px;
           right: 8px;
           font-size: 1rem; }
+        .container-detail .new .new-body .list .item .item-img {
+          width: 72px; }
 
 .theloai {
   font-size: 1.2rem;

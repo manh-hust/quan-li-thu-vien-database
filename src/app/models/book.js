@@ -4,8 +4,8 @@ const Title = require('./title')
 
 const Book = db.define('book', {
     bookID: {
-        type: sequelize.INTEGER,
-        autoIncrement: true,
+        type: sequelize.STRING,
+        // autoIncrement: true,
         allowNull: false,
         primaryKey: true,
         field: 'book_id'

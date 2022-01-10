@@ -46,6 +46,9 @@
                     padding-bottom: 12px;
                     display: flex;
                     align-self: start;
+                    height: 130px;
+                    position: relative;
+                    overflow: hidden;
                     &:last-child{
                         border: none;
                     }
@@ -55,11 +58,23 @@
                         font-weight: bold;
                         margin: 0 12px;
                     }
+                    p{
+                        padding: 6px 12px;
+                    }
                     .container-img{
                         width: 100px;
                         img{
                             width: 100%;
                             object-fit: cover;
+                        }
+                    }
+                    .container-content{
+                        
+                        .date-news{
+                            padding: 0;
+                            position: absolute;
+                            bottom: 0;
+                            right: 0;
                         }
                     }
                 }
