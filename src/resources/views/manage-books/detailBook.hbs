@@ -44,7 +44,7 @@
             </div>
             <div class="col-2 mt-2">
                 <label class="form-label">Số lượng ban đầu</label>
-                <input name="quantity"  class="form-control activeInput" value="{{books.quantity}}"disabled>
+                <input name="quantity"  class="form-control activeInput" value="{{books.quantity}}"disabled required>
             </div>
             <div class="col-2 mt-2">
                 <label class="form-label">Số lượng hiện có</label>
@@ -64,24 +64,21 @@
             <div class="d-flex align-items-center">
                 <h3 class="me-3">Tác giả</h3>
                 <div class="btn-group mt-3 col-1 mb-3 me-3">
-                    <a href="/manage-books/author" class="btn btn-success">Thêm mới</a>
-                </div>
-                <div class="btn-group mt-3 col-1 mb-3">
-                    <a href="/manage-books/author/{{books.authorID}}" class="btn btn-primary">Chỉnh sửa</a>
+                    <button type="button" class="btn btn-success">Thêm mới</button>
                 </div>
             </div>
 
             <div class="col-2">
                 <label class="form-label">Mã tác giả</label>
-                <input  name="authorID" class="form-control activeInput" value="{{books.authorID}}" disabled>
+                <input  name="authorID" class="form-control activeInput" value="{{books.authorID}}" disabled required>
             </div>
             <div class="col-3">
                 <label class="form-label">Tên</label>
-                <input  class="form-control authorFN" value="{{books.[author.firstName]}}" disabled>
+                <input name="authorFN" class="form-control authorFN" value="{{books.[author.firstName]}}" disabled>
             </div>
             <div class="col-3">
                 <label class="form-label">Họ</label>
-                <input  class="form-control authorLN" value="{{books.[author.lastName]}}" disabled>
+                <input  name="authorLN" class="form-control authorLN" value="{{books.[author.lastName]}}" disabled>
             </div>
             <div id="checkAuthor" class="alert alert-danger mt-3 col-6" role="alert">
                 Mã tác giả không chính xác! Vui lòng kiểm tra lại.
@@ -94,21 +91,18 @@
                 <div class="btn-group mt-3 col-1 mb-3 me-3">
                     <a href="/manage-books/publisher" class="btn btn-success">Thêm mới</a>
                 </div>
-                <div class="btn-group mt-3 col-1 mb-3 ">
-                    <a href="/manage-books/publisher/{{books.publisherID}}" class="btn btn-primary">Chỉnh sửa</a>
-                </div>
             </div>
             <div class="col-2">
                 <label class="form-label">Mã nhà xuất bản</label>
-                <input name="publisherID" class="form-control activeInput" disabled value="{{books.publisherID}}">
+                <input name="publisherID" class="form-control activeInput" disabled value="{{books.publisherID}}" required>
             </div>
             <div class="col-3">
                 <label class="form-label">Tên nhà xuất bản</label>
-                <input  class="form-control publisherName" disabled value="{{books.[publisher.name]}}">
+                <input name="pubName" class="form-control publisherName" disabled value="{{books.[publisher.name]}}">
             </div>
             <div class="col-5">
                 <label class="form-label">Đia chỉ</label>
-                <input  class="form-control publisherAddress" disabled value="{{books.[publisher.address]}}">
+                <input name="pubAddress"  class="form-control publisherAddress" disabled value="{{books.[publisher.address]}}">
             </div>
             <div id="checkPublisher" class="alert alert-danger mt-3 col-6" role="alert">
                 Mã nhà xuất bản không chính xác! Vui lòng kiểm tra lại.
@@ -171,21 +165,6 @@
     })
     }
     
-    {{!-- inputs.each(function(i) {
-        $(this).attr('disabled', true)
-    }) --}}
-    {{!-- selects.each(function(i) {
-        $(this).attr('disabled', true)
-    }) --}}
-    {{!-- btns.each(function(i) {
-        $(this).attr('disabled', true)
-    }) --}}
-    {{!-- inputs.each(function(i) {
-        $(this).attr('disabled', true)
-    }) --}}
-    {{!-- selects.each(function(i) {
-        $(this).attr('disabled', true)
-    }) --}}
 </script>
 
 {{!-- Value Select --}}

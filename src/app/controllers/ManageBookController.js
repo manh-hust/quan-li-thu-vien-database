@@ -139,31 +139,8 @@ class ManageBookController {
     // POST /manage-books/create
     async create(req, res, next){
         try {
-            let{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
-            const  titleID = crypto.randomBytes(4).toString('hex');
-            // 
-            if(authorID != ''){
-                const author = await Author.findByPk(authorID,{
-                    raw: true
-                })
-                if(author == null){
-                    res.redirect('back')
-                    return
-                }
-            }
-            // res.send(req.body)
-            // return
-            const newTitle = await Title.create({
-                titleID,
-                name: name ,
-                typeID: type ? type.trim() : null,
-                languageID: language ? language.trim() : null,
-                positionID: position ? position.trim() : null,
-                quantity: quantity ? quantity : null,
-                authorID: authorID ? authorID.trim() : null,
-                publisherID: publisherID ? publisherID.trim() : null
-            })
-            res.redirect(`/manage-books/${titleID}`)
+            let{name, type, language, position, quantity, summary, authorID, publisherID,} = req.body
+            res.send(req.body)
         } catch (error) {
             res.send(error.message)            
         }
