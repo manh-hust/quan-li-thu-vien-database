@@ -20,7 +20,7 @@ const Title = db.define('title', {
     },
     quantityFt: {
         type: sequelize.INTEGER,
-        field: 'quantity_fact'
+        field: 'quan_in_lib'
     },
     publishDate: {
         type: sequelize.STRING,
@@ -60,6 +60,6 @@ const Title = db.define('title', {
     tableName: 'title'
 })
 
-Title.sync({ alter: true });
+// Title.sync({ alter: true });
 
 module.exports = Title

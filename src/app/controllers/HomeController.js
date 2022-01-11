@@ -114,11 +114,8 @@ class HomeController {
         }
     }
     async test(req, res, next){
-        const book = await Book.findAll({
-            include: [Title],
-            raw: true
-        })
-        res.send(book)
+        const book = await Client.query('select * from title_infos')
+        res.send(book.rows)
     }
 }
 module.exports = new HomeController();

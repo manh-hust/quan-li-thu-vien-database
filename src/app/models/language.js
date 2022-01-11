@@ -19,7 +19,7 @@ const Language = db.define('language', {
     freezeTableName: true,
     tableName: 'language'
 })
-Language.sync({ alter: true });
+// Language.sync({ alter: true });
 
 Language.hasMany(Title, {foreignKey: 'languageID'})
 Title.belongsTo(Language, {foreignKey: 'languageID'})

@@ -23,7 +23,8 @@ const Publisher = db.define('publisher', {
     freezeTableName: true,
     tableName: 'publisher'
 })
-Publisher.sync({ alter: true });
+// Publisher.sync({ alter: true });
+
 Publisher.hasMany(Title, {foreignKey: 'publisherID'})
 Title.belongsTo(Publisher, {foreignKey: 'publisherID'})  
 

@@ -24,7 +24,7 @@ const Position = db.define('position', {
     freezeTableName: true,
     tableName: 'position'
 })
-Position.sync({ alter: true });
+// Position.sync({ alter: true });
   
 Position.hasMany(Title, {foreignKey: 'positionID'})
 Title.belongsTo(Position, {foreignKey: 'positionID'})

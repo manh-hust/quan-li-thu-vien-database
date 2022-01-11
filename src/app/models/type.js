@@ -18,7 +18,7 @@ const Type = db.define('type', {
     freezeTableName: true,
     tableName: 'type'
 })
-Type.sync({ alter: true });
+// Type.sync({ alter: true });
  
 Type.hasMany(Title, {foreignKey: 'typeID'})
 Title.belongsTo(Type, {foreignKey: 'typeID'})

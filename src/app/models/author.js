@@ -24,7 +24,8 @@ const Author = db.define('author', {
     freezeTableName: true,
     tableName: 'author'
 })
-Author.sync({ alter: true });
+
+// Author.sync({ alter: true });
 
 Author.hasMany(Title, {foreignKey: 'authorID'})
 Title.belongsTo(Author, {foreignKey: 'authorID'})
