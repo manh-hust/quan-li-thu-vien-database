@@ -7,7 +7,6 @@ const Language = require('../models/language')
 const Position = require('../models/position')
 const Publisher = require('../models/publisher');
 const crypto = require("crypto");
-const { redirect } = require('express/lib/response');
 
 
 class ManageBookController {
@@ -28,9 +27,11 @@ class ManageBookController {
             const types = await Type.findAll({
                 raw: true
             })
+            const publisher = await Publisher.findAll({raw: true})
             res.render('manage-books/index',{
                 books,
-                types
+                types,
+                publisher
             })
         } catch (error) {
             res.send(error.message)            
@@ -139,8 +140,17 @@ class ManageBookController {
     // POST /manage-books/create
     async create(req, res, next){
         try {
-            let{name, type, language, position, quantity, summary, authorID, publisherID,} = req.body
-            res.send(req.body)
+            let{name, type, language, position, quantity, pubDate, quanInLi, summary, url, authorID, authorFN, authorLN, publisherID, pubName, pubAddress} = req.body
+            const query = `insert into title_infos
+            values(null, '${name}', ${quantity}, '${pubDate}', '${summary}', ${quanInLi}, '${url}', 
+            ${authorID ? `'${authorID}'` : null}, ${authorFN ? `'${authorFN}'` : null}, ${authorLN ? `'${authorLN}'` : null}, 
+            ${publisherID ? `'${publisherID}'` : null}, ${pubName ? `'${pubName}'` : null}, ${pubAddress ? `'${pubAddress}'` : null}, 
+            '${language}', null, 
+            '${position}', null, null, 
+            '${type}', null)
+            `
+            const title = await Client.query(query)
+            res.redirect(`/manage-books`)
         } catch (error) {
             res.send(error.message)            
         }
@@ -148,23 +158,13 @@ class ManageBookController {
     // PUT /manage-books/edit/:bookID
     async editBook(req, res, next) {
         try {
-            const{name, type, language, position, quantity, summary, authorID, publisherID} = req.body
+            const{name, type, language, position, quantity, url, summary, authorID, publisherID} = req.body
             const bookID = req.params.bookID
-            const book = await Title.findByPk(bookID)
-            // res.send(book)
-            // return
-            book.set({
-                name: name,
-                typeID: type ? type.trim() : null,
-                languageID: language ? language.trim() : null,
-                positionID: position ? position.trim() : null,
-                quantity: quantity ? Number(quantity) : null,
-                summary: summary ? summary : null,
-                authorID: authorID ? authorID.trim() : null,
-                publisherID: publisherID ? publisherID.trim() : null
-            })
-            await book.save()
-            res.redirect('back')  
+            const query = `update title_infos set
+            
+            `
+            res.send(req.body)
+            // res.redirect('back')  
         } catch (error) {
             res.send(error.message)
         }

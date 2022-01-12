@@ -1,7 +1,7 @@
 const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
 
-const User = db.define('', {
+const User = db.define('users', {
     userID: {
         type: sequelize.STRING,
         allowNull: false,
@@ -51,8 +51,7 @@ const User = db.define('', {
     freezeTableName: true,
     tableName: 'users'
 })
-  User.sync({ alter: true });
-  
+User.sync({ alter: true });
 
 module.exports = User
 

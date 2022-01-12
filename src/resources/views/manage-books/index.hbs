@@ -18,6 +18,12 @@
                 <option value="{{this.typeID}}">{{this.name}}</option>
                 {{/each}}
             </select>
+            <select id="selectPub" data-type="{{typePub}}"  name="pubID" class="form-select" aria-label="Default select example">
+                <option value="" >Nhà xuất bản</option>
+                {{#each publisher}}
+                <option value="{{this.publisherID}}">{{this.name}}</option>
+                {{/each}}
+            </select>
             <button class="btn btn-success">Search</button>
             <a href="/manage-books" class="btn btn-primary">Reset</a>
         </form>
