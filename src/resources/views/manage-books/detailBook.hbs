@@ -52,11 +52,11 @@
             </div>
             <div class="col-2 mt-2">
                 <label class=" mb-2">Năm phát hành</label>
-                <input name="pubDate" class="form-control activeInput" disabled ></input>
+                <input name="pubDate" class="form-control activeInput" disabled value="{{books.publishDate}}"></input>
             </div>
             <div class="col-8 mt-2">
                 <label >Link Image</label>
-                <input name="url" class="form-control activeInput" disabled placeholder="httt://"></input>
+                <input name="url" class="form-control activeInput" disabled placeholder="httt://" value="{{books.url}}"></input>
             </div>
             <div class="col-8 mt-2">
                 <label >Comment</label>
@@ -122,7 +122,7 @@
             <button id="btnSave" class="btn btn-warning ">Lưu lại</button>
             {{else}}
             <a href="/manage-books/add" class="btn btn-success me-2">Thêm</a>
-            <button type="button" class="btn btn-warning me-2 btnSubmitBook">Lưu lại</button>
+            <button class="btn btn-warning me-2 btnSubmitBook">Lưu lại</button>
             <button type="button" class="btn btn-primary me-2 btnEditBook">Chỉnh sửa</button>
             <button type="button" class="btn btn-danger me-2 btnDeleteBook" data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa</button>
             {{/if}}
@@ -293,7 +293,7 @@
 
 </script>
 
-{{!-- Delete-Book --}}
+{{!-- Delete-Book, Editbook --}}
 <script>
     const btnEdit = $('.btnEditBook')
     const btnSubmitBook = $('.btnSubmitBook')
@@ -307,10 +307,10 @@
     btnEdit.on('click', function() {
         inputsActive.removeAttr('disabled', true)
     })
-    btnSubmitBook.on('click', function() {
+    {{!-- btnSubmitBook.on('click', function() {
         formEditBook.attr('action', `/manage-books/edit/${bookID}`)
         form.submit()
-    })
+    }) --}}
 
     deleteBtn.on('click', function() {
         formDeleteBook.attr('action', `/manage-books/delete/${bookID}`)
@@ -318,7 +318,7 @@
     })
 </script>
 
-{{!-- New author --}}
+{{!--Create New author, pub --}}
 <script>
     const btnAddAuthor = $('.btn-add-author')
     const inpuAuID = $('input[name*="authorID"]')

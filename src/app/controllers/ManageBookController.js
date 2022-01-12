@@ -10,28 +10,19 @@ const crypto = require("crypto");
 
 
 class ManageBookController {
+    
     // [GET] /manage
     async index(req, res, next) {
         try {
-            const books = await Title.findAll({
-                include: [ 
-                    {
-                        model: Author,
-                    },
-                    {
-                        model: Type,
-                    }
-                ],
-                raw: true
-            })
+            const books = await Client.query('select * from title_infos')
             const types = await Type.findAll({
                 raw: true
             })
-            const publisher = await Publisher.findAll({raw: true})
+            const publishers = await Publisher.findAll({raw: true})
             res.render('manage-books/index',{
-                books,
+                books: books.rows,
                 types,
-                publisher
+                publishers
             })
         } catch (error) {
             res.send(error.message)            
@@ -40,9 +31,8 @@ class ManageBookController {
     // POST /manage-books
     async search(req, res, next){
         try {
-            let {bookName, authorName, typeID} = req.body
-            typeID = typeID.trim()
-            if(typeID == '' && bookName == '' && authorName == '' ){
+            let {bookName, authorName, typeID, pubID} = req.body
+            if(typeID == '' && bookName == '' && authorName == '' && pubID == '' ){
                 res.redirect('back')
                 return
             }
@@ -87,12 +77,16 @@ class ManageBookController {
             const types = await Type.findAll({
                 raw: true
             })
+            const publishers = await Publisher.findAll({
+                raw: true
+            })
             res.render('manage-books/index',{
                 books,
                 bookName,
                 authorName,
                 typeID,
-                types
+                types,
+                publishers
             })
         } catch (error) {
             res.send(error.message)            
@@ -137,7 +131,7 @@ class ManageBookController {
             isAddPage
         })
     }
-    // POST /manage-books/create
+    // POST /manage-books/
     async create(req, res, next){
         try {
             let{name, type, language, position, quantity, pubDate, quanInLi, summary, url, authorID, authorFN, authorLN, publisherID, pubName, pubAddress} = req.body
@@ -155,16 +149,22 @@ class ManageBookController {
             res.send(error.message)            
         }
     }
-    // PUT /manage-books/edit/:bookID
+    // PUT /manage-books/:bookID
     async editBook(req, res, next) {
         try {
-            const{name, type, language, position, quantity, url, summary, authorID, publisherID} = req.body
+            const{name, type, language, position, quantity, pubDate, quanInLi, url, summary, authorID, publisherID} = req.body
             const bookID = req.params.bookID
             const query = `update title_infos set
-            
+            title_name = '${name}', quantity = '${quantity}',quan_in_lib = '${quanInLi}',
+            publish_date = '${pubDate}', summary = '${summary}', url = '${url}',
+            author_id = '${authorID}', publisher_id = '${publisherID}',
+            type_id = '${type}', position_id = '${position}', language_id = '${language}'
+            where title_id = '${bookID}'
             `
-            res.send(req.body)
-            // res.redirect('back')  
+            // res.send(req.body)
+            // return
+            const book = await Client.query(query)
+            res.redirect('back')  
         } catch (error) {
             res.send(error.message)
         }
