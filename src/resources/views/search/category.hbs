@@ -1,7 +1,16 @@
 <div class="btn-group mt-4 btn-group-category" role="group" aria-label="Basic outlined example">
-  <a href="/search/category" type="button" class="btn btn-category btn-outline-primary">E-Book</a>
-  <a href="/search/daicuong" type="button" class="btn btn-category btn-outline-primary">Đại cương</a>
-  <a href="/search/chuyennganh" type="button" class="btn btn-category btn-outline-primary">Chuyên ngành</a>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Thể loại
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {{#each types}}
+            <li><a class="dropdown-item" href="/search/category/{{this.name}}">{{this.name}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+  <a href="/search/author" type="button" class="btn btn-category btn-outline-primary">E-Book</a>
+
   <a href="/search/author" type="button" class="btn btn-category btn-outline-primary">Tác giả</a>
   <a href="/search/year" type="button" class="btn btn-category btn-outline-primary">Năm xuất bản</a>
 </div>
@@ -42,7 +51,7 @@
     </div>
 </div>
 
-<script>
+{{!-- <script>
     const btns = document.querySelectorAll('.btn-category')
     const title = document.querySelector('.category-title').innerText
     for(let i = 0 ; i < btns.length; i++) {
@@ -50,4 +59,4 @@
             btns[i].classList.add('active')
         }
     }
-</script>
+</script> --}}

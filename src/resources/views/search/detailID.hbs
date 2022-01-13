@@ -48,9 +48,9 @@
                         </ul>
                         <div class="btn-group1">
                             {{#if book.btnFavorite}}
-                            <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.titleID}} ">Thêm vào danh sách yêu thích</button>
+                            <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.title.titleID}} ">Thêm vào danh sách yêu thích</button>
                             {{else}}
-                            <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.titleID}}" disabled>Thêm vào danh sách yêu thích</button>
+                            <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.title.titleID}}" disabled>Thêm vào danh sách yêu thích</button>
                             {{/if}}
                             <button id="btn-borrow"  class="btn btn-success">Mượn</button>
                         </div>
@@ -107,6 +107,7 @@
     
     const titleID = btnFavorite.data('id')
 
+        console.log(titleID)
     btnFavorite.click(function() {
         formFavorite.action = '/privacy/favorite/'+titleID
         formFavorite.submit()

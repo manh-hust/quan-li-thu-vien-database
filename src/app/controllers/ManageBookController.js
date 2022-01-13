@@ -165,10 +165,6 @@ class ManageBookController {
             res.send(error.message)
         }
     }
-
-
-
-
     // GET /manage-books/author
     async author(req, res, next) {
         try {
@@ -260,9 +256,6 @@ class ManageBookController {
             res.send(error.message)
         }
     }
-
-
-
     // GET /manage-books/publisher
     async publisher(req, res, next) {
         try {
