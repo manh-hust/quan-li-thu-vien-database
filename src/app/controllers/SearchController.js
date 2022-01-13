@@ -9,28 +9,41 @@ const Publisher = require('../models/publisher')
 
 class SearchController {
 
+    // GET /search/category/:typeID
     async category(req, res, next) {
         try {
+            const id = req.params.typeID
             const types = await Type.findAll({
-                raw: true
+                raw: true,
             })
+            const type = await Type.findByPk(id)
             const total = await Type.count({
                 distinct: true
             })
+            const books = await Title.findAll({
+                where: {
+                    typeID: id
+                },
+                raw: true
+            })
             res.render('search/category', {
                 types,
-                title: 'Thể loại',
-                total,
-                data: types
+                title: type.name,
+                total: books.length,
+                data: books
             })
         } catch (error) {
             res.send(error.message)
         }
     }
+    // GET /search/author
     async author(req, res, next) {
         const title = 'Tác giả'
         const data = await Author.findAll({
             raw: true
+        })
+        const types = await Type.findAll({
+            raw: true,
         })
         const total = await Author.count({
             distinct: true
@@ -38,15 +51,17 @@ class SearchController {
         res.render('search/category',{
             data: data,
             title,
-            total
+            total,
+            types
         });
     }
+    // GET /search/author/:authorID
     async detailAuthor(req, res, next) {
         const authorID = req.params.authorID
         const author = await Author.findByPk(authorID,{
             raw: true
         })
-        const name = `${author.lastName} ${author.firstName}`
+        const name = `${author.lastName ? author.lastName : ''} ${author.firstName}`
         const data = await Title.findAll({
             where: {
                 authorID: authorID
@@ -66,18 +81,24 @@ class SearchController {
             total
         })
     }
+    // GET /search/year
     async year(req, res, next) {
         const title = 'Năm xuất bản'
         const data = await Type.findAll({
             raw: true
         })
+        const types = await Type.findAll({
+            raw: true,
+        })
         let total = 0
         res.render('search/category',{
             title,
             data,
-            total
+            total,
+            types
         });
     }
+    // GET /search/:titleID
     async detailID(req, res, next) {
         const bookID = req.params.detailID
         const userID = res.locals.user.userID

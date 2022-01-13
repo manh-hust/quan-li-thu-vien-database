@@ -5,12 +5,12 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {{#each types}}
-            <li><a class="dropdown-item" href="/search/category/{{this.name}}">{{this.name}}</a></li>
+            <li><a class="dropdown-item" href="/search/category/{{this.typeID}}">{{this.name}}</a></li>
             {{/each}}
         </ul>
     </div>
-  <a href="/search/author" type="button" class="btn btn-category btn-outline-primary">E-Book</a>
-
+  <a href="/search/category/00000004" type="button" class="btn btn-category btn-outline-primary">Sách nên đọc</a>
+  <a href="/search/author" type="button" class="btn btn-category btn-outline-primary">Xem nhiều nhất</a>
   <a href="/search/author" type="button" class="btn btn-category btn-outline-primary">Tác giả</a>
   <a href="/search/year" type="button" class="btn btn-category btn-outline-primary">Năm xuất bản</a>
 </div>

@@ -5,11 +5,13 @@ const manageBookRouter = require('./manage-book')
 const privacyRouter = require('./privacy')
 const searchRouter = require('./search')
 const usersRouter = require('./users')
+const borrowRouter = require('./borrow')
 const authMiddleware = require('../app/middleware/auth');
 
 function route(app) {
     app.use('/auth', authRouter)
     app.use('/news-create', authMiddleware.requireAuth, newsRouter)
+    app.use('/borrow', authMiddleware.requireAuth, borrowRouter)
     app.use('/search', authMiddleware.requireAuth, searchRouter)
     app.use('/manage-books', authMiddleware.requireAuth, manageBookRouter)
     app.use('/users', authMiddleware.requireAuth, usersRouter)

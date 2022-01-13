@@ -29,7 +29,7 @@
                             </li>
                             <li class="item">
                                 <span>Số lượng: </span>
-                                <a href="#" class="item-infor">{{book.title.quantity}}</a>
+                                <a href="#" class="item-infor">{{book.title.quantityFt}}</a>
                             </li>
                             <li class="item">
                                 <span>Vị trí: </span>
@@ -52,7 +52,7 @@
                             {{else}}
                             <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.title.titleID}}" disabled>Thêm vào danh sách yêu thích</button>
                             {{/if}}
-                            <button id="btn-borrow"  class="btn btn-success">Mượn</button>
+                            <a href="/borrow/{{book.title.titleID}}" id="btn-borrow"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Mượn</a>
                         </div>
                     </div>
                 </div>
@@ -60,13 +60,20 @@
             <div class="row content-image">
                 <img src="https://www.dtv-ebook.com/images/banner/azbooks.jpg" alt="image">
             </div>
+            {{!-- Cung the loai --}}
             <h2 class="theloai">Cùng thể loại</h2>
             <div class="content-slider row">
                     {{#each book.list}}
                     <div class="col-3 card-item">
+                        {{#if this.url}}
+                        <div class="card-image">
+                            <img src="{{this.url}}"  alt="image"/>
+                        </div>
+                        {{else}}
                         <div class="card-image">
                             <img src="https://www.dtv-ebook.com/cache/images/10121/185x217//images/files_2/2019/cam-nang-tu-duy-hoc-tap-va-nghien-cuu-richard-paul-&-linda-elder.jpg"  alt="..."/>
                         </div>
+                        {{/if}}
                         <div class="card-body">
                             <a href="/search/detail/{{this.titleID}}" class="card-title">{{this.name}}</a>
                         </div>
@@ -74,6 +81,7 @@
                     {{/each}}
             </div>
         </div>
+        {{!-- Xem nhieu nhat --}}
         <div class="col-3 new">
             <div class="new-body">
                 <div class="new-title theloai">
@@ -98,7 +106,34 @@
         </div>
     </div>
 </div>
-
+   <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận thông tin mượn sách</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2">Tên sách: <b>{{book.title.name}}</b></div>
+                <div class="mb-2">Số lượng: <b>1 </b> quyển</div>
+                <div class="mb-2">Ngày mượn: </div>
+                <div class="mb-2">Thời hạn: <b>3 tháng</b> kể từ ngày mượn</div>
+                <div class="mb-2">Hạn trả dự kiến: </div>
+                <div class="mb-2">Người mượn: <b>{{this.user.lastName}} {{this.user.firstName}}</b></div>
+                <div class="mb-2">Số điện thoại: <b>{{this.user.SĐT}}</b></div>
+                <div class="mb-2">--------</div>
+                <div class="mb-2"><b>Lưu ý: </b></div>
+                <div>1: Yêu cầu của bạn cần được chấp thuận bởi thủ thư, hãy chờ thông báo và làm theo hướng dẫn</div>
+                <div>2: Bảo quản sách và trả đúng thời hạn quy định, Vui lòng xem lại quy định <a href="/tutorial#regulation" class="text-primary">tại đây</a></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+            </div>
+        </div>
+    </div>
 <form name="form-favorite" method="POST" ></form>
 
 <script>

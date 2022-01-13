@@ -3,7 +3,7 @@ const router = express.Router();
 
 const searchController = require('../app/controllers/SearchController');
 
-router.get('/category', searchController.category);
+router.get('/category/:typeID', searchController.category);
 router.get('/author', searchController.author);
 router.get('/year', searchController.year);
 router.get('/:authorID', searchController.detailAuthor);

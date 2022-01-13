@@ -5,6 +5,7 @@ const authMiddleware = require('../app/middleware/auth');
 
 router.get('/test', homeController.test)
 router.get('/author', homeController.author)
+router.get('/type', homeController.type)
 router.get('/publisher', homeController.publisher)
 router.get('/tutorial', homeController.tutorial)
 router.get('/news', homeController.news)

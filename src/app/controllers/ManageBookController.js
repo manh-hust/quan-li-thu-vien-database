@@ -95,6 +95,8 @@ class ManageBookController {
             ],
             raw: true
         })
+        // res.send(books)
+        // return;
         res.render('manage-books/detailBook',{
             books,
             types,
@@ -165,6 +167,8 @@ class ManageBookController {
             res.send(error.message)
         }
     }
+
+
     // GET /manage-books/author
     async author(req, res, next) {
         try {

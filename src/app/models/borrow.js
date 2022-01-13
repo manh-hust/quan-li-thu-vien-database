@@ -28,8 +28,9 @@ const Borrow = db.define('', {
         field: 'return_date'
     },
     note: {
-        type: sequelize.STRING,
-        field: 'note'
+        type: sequelize.STRING(1),
+        field: 'note',
+        defaultValue: 'W'
     },
 },{
     timestamps: false,
@@ -37,6 +38,6 @@ const Borrow = db.define('', {
     tableName: 'borrow'
 })
 Borrow.sync({ alter: true });
-  
+
 
 module.exports = Borrow
