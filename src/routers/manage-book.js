@@ -15,9 +15,9 @@ router.get('/publisher',  manageBookController.publisher);
 router.post('/publisher',  manageBookController.createPublisher);
 
 router.get('/:bookID',  manageBookController.detail);
-router.post('/:bookID', manageBookController.editBook);
-router.post('/delete/:bookID', manageBookController.deleteBook);
 router.post('/add', manageBookController.create);
+router.post('/delete/:bookID', manageBookController.deleteBook);
+router.post('/:bookID', manageBookController.editBook);
 router.post('/', manageBookController.search);
 router.get('/',  manageBookController.index);
 

@@ -160,17 +160,24 @@
     const textareas = $('textarea')
     const title = $('#title')
     const type = title.data('type')
+    
+    const form1 = $('#form')
 
     if(type=='add'){
-    selects.each(function(i) {
-        $(this).removeAttr('disabled', true)
-    })
-    inputs.each(function(i) {
-        $(this).removeAttr('disabled', true)
-    })
-    textareas.each(function(i) {
-        $(this).removeAttr('disabled', true)
-    })
+
+        form1.attr('action', '/manage-books/add')
+        selects.each(function(i) {
+            $(this).removeAttr('disabled', true)
+        })
+        inputs.each(function(i) {
+            $(this).removeAttr('disabled', true)
+        })
+        textareas.each(function(i) {
+            $(this).removeAttr('disabled', true)
+        })
+    }
+    else{
+        {{!-- form1.attr('action', '/manage-books/add') --}}
     }
     
 </script>
@@ -226,9 +233,11 @@
     const alertCheckAuthor = $('#checkAuthor')
     const authorLN = $('.authorLN')
     const authorFN = $('.authorFN')
+
     alertCheckAuthor.hide()
     authorLN.attr('disabled', true)
     authorFN.attr('disabled', true)
+
 
     const inputPublisher = $("input[name*= 'publisherID']")
     const alertCheckPublisher = $('#checkPublisher')
@@ -307,11 +316,6 @@
     btnEdit.on('click', function() {
         inputsActive.removeAttr('disabled', true)
     })
-    {{!-- btnSubmitBook.on('click', function() {
-        formEditBook.attr('action', `/manage-books/edit/${bookID}`)
-        form.submit()
-    }) --}}
-
     deleteBtn.on('click', function() {
         formDeleteBook.attr('action', `/manage-books/delete/${bookID}`)
         formDeleteBook.submit()
@@ -334,7 +338,6 @@
 
     const alertCheckAuthor1 = $('#checkAuthor')
     const alertCheckPublisher1 = $('#checkPublisher')
-
 
 
     btnAddAuthor.on('click', function(){

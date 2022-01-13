@@ -7,10 +7,11 @@ const Language = require('../models/language')
 const Position = require('../models/position')
 const Publisher = require('../models/publisher');
 const crypto = require("crypto");
+const { query } = require('express');
 
 
 class ManageBookController {
-    
+
     // [GET] /manage
     async index(req, res, next) {
         try {
@@ -36,44 +37,15 @@ class ManageBookController {
                 res.redirect('back')
                 return
             }
-            let books = await Title.findAll({
-                where: {
-                    name: {
-                        [Op.like]: bookName ? `%${bookName}%` : '%%'
-                    },
-                    typeID:  {
-                        [Op.like]: typeID ? `%${typeID}%` : '%%'
-                    },
-                },
-                include: [ 
-                    {
-                        model: Author,
-                        where: {
-                            [Op.or]: [
-                                {
-                                    firstName:{
-                                        [Op.like]: authorName ? `%${authorName}%` : '%%'
-                                    }
-                                },
-                                {
-                                    lastName:{
-                                        [Op.like]: authorName ? `%${authorName}%` : '%%'
-                                    }
-                                },
-                            ]
-                        }
-                    },
-                    {
-                        model: Type,
-                        // where: {
-                        //     typeID: {
-                        //         [Op.like]: typeID ? `%${typeID}%` : '%%' 
-                        //     }
-                        // }
-                    }
-                ],
-                raw: true
-            })
+            const query = `select * from title_infos
+            where title_name ilike ${bookName ? `'%${bookName}%'` : `'%%'`}
+            and type_id ilike ${typeID ? `'%${typeID}%'` : `'%%'` }
+            and author_first_name ilike ${authorName ? `'%${authorName}%'` : `'%%'` }
+            and publisher_id ilike ${pubID ? `'%${pubID}%'` : `'%%'` }
+            `
+            let books = await Client.query(query)
+            // res.send(books.rows)
+            // return
             const types = await Type.findAll({
                 raw: true
             })
@@ -81,11 +53,12 @@ class ManageBookController {
                 raw: true
             })
             res.render('manage-books/index',{
-                books,
+                books: books.rows,
                 bookName,
                 authorName,
                 typeID,
                 types,
+                pubID,
                 publishers
             })
         } catch (error) {
@@ -131,10 +104,12 @@ class ManageBookController {
             isAddPage
         })
     }
-    // POST /manage-books/
+    // POST /manage-books/add
     async create(req, res, next){
         try {
             let{name, type, language, position, quantity, pubDate, quanInLi, summary, url, authorID, authorFN, authorLN, publisherID, pubName, pubAddress} = req.body
+            // res.send(req.body)
+            // return
             const query = `insert into title_infos
             values(null, '${name}', ${quantity}, '${pubDate}', '${summary}', ${quanInLi}, '${url}', 
             ${authorID ? `'${authorID}'` : null}, ${authorFN ? `'${authorFN}'` : null}, ${authorLN ? `'${authorLN}'` : null}, 
@@ -146,12 +121,13 @@ class ManageBookController {
             const title = await Client.query(query)
             res.redirect(`/manage-books`)
         } catch (error) {
-            res.send(error.message)            
+            res.send(error)            
         }
     }
     // PUT /manage-books/:bookID
     async editBook(req, res, next) {
         try {
+            console.log('123123')
             const{name, type, language, position, quantity, pubDate, quanInLi, url, summary, authorID, publisherID} = req.body
             const bookID = req.params.bookID
             const query = `update title_infos set
@@ -171,18 +147,26 @@ class ManageBookController {
     }
     // DELETE /manage-books/delete/:bookID
     async deleteBook(req, res, next){
-        const bookID = req.params.bookID
-        if(!bookID){
-            res.redirect('back')
-            return
-        }
-        const book = await Title.destroy({
-            where: {
-                titleID: bookID
+        try {
+            const bookID = req.params.bookID
+            if(!bookID){
+                res.redirect('back')
+                return
             }
-        })
-        res.redirect('/manage-books')
+            // console.log(bookID)
+            // return
+            const book = await Title.destroy({
+                where: {
+                    titleID: bookID
+                }
+            })
+            res.redirect('/manage-books')
+        } catch (error) {
+            res.send(error.message)
+        }
     }
+
+
 
 
     // GET /manage-books/author

@@ -18,7 +18,7 @@
                 <option value="{{this.typeID}}">{{this.name}}</option>
                 {{/each}}
             </select>
-            <select id="selectPub" data-type="{{typePub}}"  name="pubID" class="form-select" aria-label="Default select example">
+            <select id="selectPub" data-type="{{pubID}}"  name="pubID" class="form-select" aria-label="Default select example">
                 <option value="" >Nhà xuất bản</option>
                 {{#each publishers}}
                 <option value="{{this.publisherID}}">{{this.name}}</option>
@@ -79,8 +79,17 @@
         const optionsType = $('#selectTypes option')
         const typeID = selectType.data('type')
 
+        const selectPub = $('#selectPub')
+        const optionsPub = $('#selectPub option')
+        const pubID = selectPub.data('type')
+
         optionsType.each(function(i) {
             if($(this).val().trim() == typeID){
+                    $(this).prop('selected', true)
+            }
+        })
+        optionsPub.each(function(i) {
+            if($(this).val().trim() == pubID){
                     $(this).prop('selected', true)
             }
         })
