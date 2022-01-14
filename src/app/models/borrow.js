@@ -21,7 +21,8 @@ const Borrow = db.define('', {
     },
     dueDate: {
         type: sequelize.STRING,
-        field: 'due_date'
+        field: 'due_date',
+        defaultValue: '3 tháng'
     },
     returnDate: {
         type: sequelize.DATE,
