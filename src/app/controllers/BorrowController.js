@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 class BorrowController {
     // [GET] /borrow/:titleID
     index(req, res, next) {
-        res.render('borrow/index')
+        res.send(req.body)
     }
 }
 

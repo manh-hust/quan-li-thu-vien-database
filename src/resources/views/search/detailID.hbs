@@ -109,29 +109,35 @@
    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Xác nhận thông tin mượn sách</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-2">Tên sách: <b>{{book.title.name}}</b></div>
-                <div class="mb-2">Số lượng: <b>1 </b> quyển</div>
-                <div class="mb-2">Ngày mượn: </div>
-                <div class="mb-2">Thời hạn: <b>3 tháng</b> kể từ ngày mượn</div>
-                <div class="mb-2">Hạn trả dự kiến: </div>
-                <div class="mb-2">Người mượn: <b>{{this.user.lastName}} {{this.user.firstName}}</b></div>
-                <div class="mb-2">Số điện thoại: <b>{{this.user.SĐT}}</b></div>
-                <div class="mb-2">--------</div>
-                <div class="mb-2"><b>Lưu ý: </b></div>
-                <div>1: Yêu cầu của bạn cần được chấp thuận bởi thủ thư, hãy chờ thông báo và làm theo hướng dẫn</div>
-                <div>2: Bảo quản sách và trả đúng thời hạn quy định, Vui lòng xem lại quy định <a href="/tutorial#regulation" class="text-primary">tại đây</a></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary">Xác nhận</button>
-            </div>
-            </div>
+            <form method="POST" action="/borrow/{{book.title.titleID}}" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận thông tin mượn sách</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">Tên sách: 
+                        <input type="text" name="name" id="" value="{{book.title.name}}" class="input-modal-borrow" >
+                    </div>
+                    <div class="mb-2">Số lượng: <b>1 </b> quyển</div>
+                    <div class="mb-2">Ngày mượn: 
+                        <input type="text" name="date" id="" value="{{book.date}}" class="input-modal-borrow" >
+                    </div>
+                    <div class="mb-2">Thời hạn: <b>3 tháng</b> kể từ ngày mượn</div>
+                    <div class="mb-2">Hạn trả dự kiến: 
+                        <input type="text" name="returnDate" id="" value="{{book.returnDate}}" class="input-modal-borrow" >
+                    </div>
+                    <div class="mb-2">Người mượn: <b>{{this.user.lastName}} {{this.user.firstName}}</b></div>
+                    <div class="mb-2">Số điện thoại: <b>{{this.user.SĐT}}</b></div>
+                    <div class="mb-2">--------</div>
+                    <div class="mb-2"><b>Lưu ý: </b></div>
+                    <div>1: Yêu cầu của bạn cần được chấp thuận bởi thủ thư, hãy chờ thông báo và làm theo hướng dẫn</div>
+                    <div>2: Bảo quản sách và trả đúng thời hạn quy định, Vui lòng xem lại quy định <a href="/tutorial#regulation" class="text-primary">tại đây</a></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button class="btn btn-primary">Xác nhận</button>
+                </div>
+            </form>
         </div>
     </div>
 <form name="form-favorite" method="POST" ></form>

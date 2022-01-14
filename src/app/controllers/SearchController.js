@@ -98,9 +98,10 @@ class SearchController {
             types
         });
     }
-    // GET /search/:titleID
+    // GET /search/detail/:titleID
     async detailID(req, res, next) {
-        const bookID = req.params.detailID
+        try {
+            const bookID = req.params.detailID
         const userID = res.locals.user.userID
         const user = await Users.findByPk(userID)
         const favorite = user.favorite
@@ -116,9 +117,6 @@ class SearchController {
             next();
             return;
         }
-        
-        // res.send(book)
-        // return
         const list = await Title.findAll({
             where: {
                 typeID: book.typeID
@@ -130,15 +128,27 @@ class SearchController {
             raw: true,
             limit: 6
         })
+        let date = new Date()
+        let returnDate = new Date()
+        returnDate.setMonth(date.getMonth() + 3)
+        
+        date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        returnDate = `${returnDate.getFullYear()}-${returnDate.getMonth() + 1}-${returnDate.getDate()}`
         res.render('search/detailID',{
             book: {
                 title: book,
                 list,
                 news,
                 btnFavorite,
-                url: book.url
+                url: book.url,
+                date,
+                returnDate
             }
         })
+        } catch (error) {
+            res.send(error.message)
+        }
+        
     }
 }
 
