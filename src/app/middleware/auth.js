@@ -25,13 +25,20 @@ module.exports.requireAuth = function(req, res, next){
         const authorize = user.dataValues.authorize
         if(authorize == 'admin'){
             res.locals.admin = true
+            res.locals.thuthu = false
+            res.locals.userSV = false
         }
         else if (authorize == 'user'){
-            res.locals.user = true
+            res.locals.admin = false
+            res.locals.thuthu = false
+            res.locals.userSV = true
         }
         else if (authorize == 'thuthu'){
+            res.locals.admin = false
             res.locals.thuthu = true
+            res.locals.userSV = false
         }
+        res.locals.logined = true
         res.locals.user = user.dataValues
         next()
     })

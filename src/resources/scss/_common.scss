@@ -33,6 +33,11 @@ h1, h2, h3, h4, h5 {
     text-align: center;
     font-size: 18px;
     background: #fff;
+    .swipe-slide-link{
+        display: block;
+        position: relative;
+        color: #ee850d;
+    }
 }
 
 .swiper-slide img {

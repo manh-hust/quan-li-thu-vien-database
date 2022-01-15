@@ -31,6 +31,10 @@ ul, li {
   text-align: center;
   font-size: 18px;
   background: #fff; }
+  .swiper-slide .swipe-slide-link {
+    display: block;
+    position: relative;
+    color: #ee850d; }
 
 .swiper-slide img {
   display: block;
@@ -267,14 +271,14 @@ ul, li {
           margin-bottom: 56px; }
           .home-container .home-content .home-activity .list .item .mySwiper img {
             height: 200px; }
-        .home-container .home-content .home-activity .list .item a {
+        .home-container .home-content .home-activity .list .item .xem-them {
           position: absolute;
           right: 0;
           bottom: 0;
           z-index: 10;
           padding: 0 12px 6px;
           color: blue; }
-          .home-container .home-content .home-activity .list .item a:hover {
+          .home-container .home-content .home-activity .list .item .xem-them:hover {
             text-decoration: underline blue; }
 
 .tutorial-container {

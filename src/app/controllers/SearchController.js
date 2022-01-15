@@ -57,29 +57,59 @@ class SearchController {
     }
     // GET /search/author/:authorID
     async detailAuthor(req, res, next) {
-        const authorID = req.params.authorID
-        const author = await Author.findByPk(authorID,{
-            raw: true
-        })
-        const name = `${author.lastName ? author.lastName : ''} ${author.firstName}`
-        const data = await Title.findAll({
-            where: {
-                authorID: authorID
-            },
-            raw: true
-        })
-        const total = await Title.count({
-            where: {
-                authorID: authorID
-            },
-            raw: true,
-            distinct: true
-        })
-        res.render('search/detailAuthor',{
-            name,
-            data,
-            total
-        })
+        try {
+            const authorID = req.params.authorID
+            const author = await Author.findByPk(authorID,{
+                raw: true
+            })
+            const name = `${author ? author.lastName : ''} ${author ? author.firstName : ''}`
+            const data = await Title.findAll({
+                where: {
+                    authorID: authorID
+                },
+                raw: true
+            })
+            const total = await Title.count({
+                where: {
+                    authorID: authorID
+                },
+                raw: true,
+                distinct: true
+            })
+            res.render('search/detailAuthor',{
+                name,
+                data,
+                total
+            })
+        } catch (error) {
+            res.send(error.message)
+        }
+    }
+    async mostBorrow(req, res, nex){
+        try {
+            const mostBorrow = await Title.findAll({
+                raw: true,
+                limit: 20,
+                offset: 0,
+                order: [
+                    ['quantityFt', 'DESC']
+                ]
+            })
+            // res.send(mostBorrow)
+            // return
+            const types = await Type.findAll({
+                raw: true,
+            })
+            res.render('search/category',{
+                data: mostBorrow,
+                title: 'Mượn nhiều nhất',
+                total: 20,
+                types 
+            })
+        } catch (error) {
+            console.log(error)
+            res.send(error.message)
+        }
     }
     // GET /search/year
     async year(req, res, next) {

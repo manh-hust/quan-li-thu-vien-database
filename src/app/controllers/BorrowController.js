@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const Borrow = require("../models/borrow");
 
 class BorrowController {
-    // [GET] /borrow/:titleID
+    // [POST] /borrow/:titleID
     async borrow(req, res, next) {
         try {
             const titleID = req.params.titleID
@@ -33,6 +33,7 @@ class BorrowController {
             res.send(error.message)
         }
     }
+    // [GET] /borrow
     async showALl(req, res, next) {
         try {
             const userID = res.locals.user.userID
@@ -62,6 +63,7 @@ class BorrowController {
             res.send(error.message)
         }
     }
+    // [GET] /borrow/:state
     async showState(req, res, next) {
         const state = req.params.state
         const userID = res.locals.user.userID
@@ -90,9 +92,28 @@ class BorrowController {
         })
 
     }
+    async manage(req, res, next) {
+        try {
+            const waitingRedcord = await Borrow.findAll({
+                where: {
+                    note: 'W'
+                },
+                raw: true
+            })
+            // res.send(waitingRedcord)
+            // return
+            res.render('borrow/manage',{
+                data: waitingRedcord
+            })
+        } catch (error) {
+            res.send(error.message)
+        }
+    }
 }
 
 module.exports = new BorrowController();
+
+
 
 function convertDate(date) {
     return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`

@@ -12,42 +12,54 @@ const News = require('../models/news')
 const Client = require('../../config/pg_db/client')
 
 class HomeController {
-    index(req, res, next) {
-        const userID = req.cookies.userID;
-        Users.findByPk(userID)
-        .then( user => {
+     async index(req, res, next) {
+         try {
+            const userID = req.cookies.userID;
+            const user = await Users.findByPk(userID)
             if(user){
-                res.locals.user = user.dataValues
+                 res.locals.user = user.dataValues
             }
-        res.render('home/home',{
-            data: [
-            {
-                link:'https://thuvienhanoi.org.vn/Upload/2021/10/21/z2865510158945_56054ec033dcddf6d586ab059d3509e6_2021Oct21_044632498.jpg',
-                text: 'Thư mục sách mới tháng 11'
-            },
-            {
-                link:'https://thuvienhanoi.org.vn/Upload/2021/10/21/z2865510158945_56054ec033dcddf6d586ab059d3509e6_2021Oct21_044632498.jpg',
-                text: 'Thư mục sách mới tháng 11'
-            },
-            {
-                link:'https://thuvienhanoi.org.vn/Upload/2021/10/21/z2865510158945_56054ec033dcddf6d586ab059d3509e6_2021Oct21_044632498.jpg',
-                text: 'Thư mục sách mới tháng 11'
-            },
-            {
-                link:'https://thuvienhanoi.org.vn/Upload/2021/10/21/z2865510158945_56054ec033dcddf6d586ab059d3509e6_2021Oct21_044632498.jpg',
-                text: 'Thư mục sách mới tháng 11'
-            },
-            {
-                link:'https://thuvienhanoi.org.vn/Upload/2021/10/21/z2865510158945_56054ec033dcddf6d586ab059d3509e6_2021Oct21_044632498.jpg',
-                text: 'Thư mục sách mới tháng 11'
-            },
-            {
-                link:'https://thuvienhanoi.org.vn/Upload/2021/10/21/z2865510158945_56054ec033dcddf6d586ab059d3509e6_2021Oct21_044632498.jpg',
-                text: 'Thư mục sách mới tháng 11'
-            }
-        ]
-        })
-    })}
+            const  newListBook = await Title.findAll({
+                 raw: true,
+                 order: [
+                    ['titleID', 'DESC']
+                ],
+                limit: 6,
+                offset: 0
+            })
+            const mostBorrow = await Title.findAll({
+                raw: true,
+                limit: 6,
+                offset: 0,
+                order: [
+                    ['quantityFt', 'DESC']
+                ]
+            })
+            const queryAuthor = `select a.*, count(a.author_id) from author as a, title as t
+            where a.author_id = t.author_id
+            group by (a.author_id)
+            order by count(a.author_id) DESC
+            limit 6
+            `
+            const bestAuthor = await Client.query(queryAuthor)
+            const bestBook = await Title.findAll({
+                raw: true,
+                where: {
+                    typeID : '00000004'
+                },
+                limit: 6,
+                offset: 0
+            })
+             res.render('home/home',{
+                 newListBook,
+                 mostBorrow,
+                 author: bestAuthor.rows,
+                 bestBook
+             }) 
+         } catch (error) {
+             res.send(error.message)
+         }
+    }
     tutorial(req, res, next) {
         res.render('home/tutorial');
     }

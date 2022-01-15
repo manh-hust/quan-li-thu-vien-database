@@ -12,43 +12,51 @@
         <li class="nav-item">
           <a class="nav-link" href="/news">Tin tức</a>
         </li>
-        <li class="nav-item dropdown">
-          <a href="/tutorial" class="nav-link ">
-            Hướng dẫn
-          </a>
-        </li>
-      {{#if this.user}}
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" 
-          type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
-          aria-expanded="false">
-            Tra cứu
-          </a>
-           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/search/category/00000001">Thể loại</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/search/category/00000004">Sách nên đọc</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/search/author">Nhiều lượt mượn nhất</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/search/author">Tác giả</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/search/year">Năm xuất bản</a></li>
-          </ul>
-        </li>
+      {{#if logined}}
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" 
+            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
+            aria-expanded="false">
+              Tra cứu
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="/search/category/00000001">Thể loại</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/search/category/00000004">Sách nên đọc</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/search/mostBorrow">Nhiều lượt mượn nhất</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/search/author">Tác giả</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/search/year">Năm xuất bản</a></li>
+            </ul>
+          </li>
+        {{#if this.userSV}}
+          <li class="nav-item dropdown">
+            <a href="/tutorial" class="nav-link ">
+              Hướng dẫn
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/borrow">Mượn sách</a>
+          </li>
+        {{/if}}
         {{#if this.thuthu}}
         <li class="nav-item">
           <a class="nav-link" href="/manage-books">Quản lí sách</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/borrow/borrow-manage">Quản lí mượn trả sách</a>
+        </li>
         {{/if}}
+
         {{#if this.admin}}
         <li class="nav-item">
           <a class="nav-link" href="/users">Quản lí người dùng</a>
         </li>
         {{/if}}
-        <li class="nav-item">
-          <a class="nav-link" href="/borrow">Mượn sách</a>
-        </li>
+
+        
         <li class="nav-item dropdown nav-item__icon">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{this.user.firstName}}
@@ -77,7 +85,13 @@
             <li><a class="dropdown-item" href="/auth/logout">Log Out/Log In</a></li>
           </ul>
         </li> 
+      
       {{else}}
+        <li class="nav-item dropdown">
+          <a href="/tutorial" class="nav-link ">
+            Hướng dẫn
+          </a>
+        </li>
         <li class="nav-item dropdown nav-item__icon">
           <a class="nav-link" href="/auth/login" >
             Login

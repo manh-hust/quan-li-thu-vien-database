@@ -49,71 +49,74 @@
             <span class="item-title">Thư mục sách mới</span>
             <div class="swiper mySwiper">
               <div class="swiper-wrapper">
-                {{#each data}}
+                {{#each newListBook}}
                 <div class="swiper-slide">
-                  <img src={{this.link}} alt="">
-                  <span>{{this.text}}</span>
+                  <img src={{this.url}} alt="">
+                  <a class="swipe-slide-link" href="/search/detail/{{this.titleID}}">{{this.name}}</a>
                 </div>
                 {{/each}}
               </div>
             </div>
-            <a href="#">Xem thêm</a>
+            <a href="#" class="xem-them">Xem thêm</a>
           </li>
           <li class="item">
             <span class="item-title">Mượn nhiều</span>
             <div class="swiper mySwiper">
               <div class="swiper-wrapper">
-                {{#each data}}
+                {{#each mostBorrow}}
                 <div class="swiper-slide">
-                  <img src={{this.link}} alt="">
-                  <span>{{this.text}}</span>
+                  <img src={{this.url}} alt="">
+                  <a class="swipe-slide-link" href="/search/detail/{{this.titleID}}"> 
+                       {{this.name}} 
+                  </a>
                 </div>
                 {{/each}}
               </div>
             </div>
-            <a href="/search/chuyennganh">Xem thêm</a>
+            <a href="/search/mostBorrow" class="xem-them">Xem thêm</a>
           </li>
           <li class="item">
-            <span class="item-title">Sách đại cương</span>
+            <span class="item-title">Sách hay</span>
             <div class="swiper mySwiper">
               <div class="swiper-wrapper">
-                {{#each data}}
+                {{#each bestBook}}
                 <div class="swiper-slide">
-                  <img src={{this.link}} alt="">
-                  <span>{{this.text}}</span>
+                  <img src={{this.url}} alt="">
+                  <a class="swipe-slide-link" href="/search/detail/{{this.titleID}}">{{this.name}}</a>
                 </div>
                 {{/each}}
               </div>
             </div>
-            <a href="/search/daicuong">Xem thêm</a>
+            <a href="/search/category/00000004" class="xem-them">Xem thêm</a>
           </li>
           <li class="item">
             <span class="item-title">Tác giả nổi bật</span>
             <div class="swiper mySwiper">
               <div class="swiper-wrapper">
-                {{#each data}}
+                {{#each author}}
                 <div class="swiper-slide">
-                  <img src={{this.link}} alt="">
-                  <span>{{this.text}}</span>
+                  <img src="https://salt.tikicdn.com/cache/200x200/ts/product/db/71/6e/aafe6691ddc6d3372522525e9eef1403.jpg.webp" alt="">
+                  <a class="swipe-slide-link" href="search/{{this.author_id}}" >{{this.last_name}} {{this.first_name}}</a>
                 </div>
                 {{/each}}
               </div>
             </div>
-            <a href="/search/author">Xem thêm</a>
+            <a href="/search/author" class="xem-them">Xem thêm</a>
           </li>
         </ul>
       </div>
   </div>
 </div>
+
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
       var swiper = new Swiper(".mySwiper", {
         slidesPerView: 4,
         spaceBetween: 30,
         speed: 600,
-        loop: true,
+        {{!-- loop: true,
         autoplay: {
           delay: 3000
-        }
+        } --}}
       });
     </script>
