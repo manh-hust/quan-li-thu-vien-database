@@ -51,7 +51,7 @@ const User = db.define('users', {
     freezeTableName: true,
     tableName: 'users'
 })
-User.sync({ alter: true });
+// User.sync({ alter: true });
 
 module.exports = User
 

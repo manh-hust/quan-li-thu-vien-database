@@ -1,7 +1,7 @@
 const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
 
-const Borrow = db.define('', {
+const Borrow = db.define('borrow', {
     bookID: {
         type: sequelize.STRING,
         allowNull: false,
@@ -38,7 +38,7 @@ const Borrow = db.define('', {
     freezeTableName: true,
     tableName: 'borrow'
 })
-Borrow.sync({ alter: true });
+// Borrow.sync({ alter: true });
 
 
 module.exports = Borrow

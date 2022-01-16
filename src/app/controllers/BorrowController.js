@@ -1,6 +1,7 @@
 const Client = require('../../config/pg_db/client');
 const { Op } = require('sequelize');
 const Borrow = require("../models/borrow");
+const Title = require("../models/title");
 
 class BorrowController {
     // [POST] /borrow/:titleID
@@ -94,17 +95,61 @@ class BorrowController {
     }
     async manage(req, res, next) {
         try {
-            const waitingRedcord = await Borrow.findAll({
-                where: {
-                    note: 'W'
-                },
-                raw: true
+            const state = req.params.state
+            const query = `
+            select * from borrow_infos
+            where note like ${state ? `'${state}'` : '%%'}
+            order by borrow_date 
+            `
+            const waitingRedcord = await Client.query(query)
+            const data = waitingRedcord.rows.map( item => {
+                return {
+                    user_id: item.user_id,
+                    user_name: item.user_name,
+                    title_id: item.titleID,
+                    title_name: item.title_name,
+                    book_id: item.book_id,
+                    borrow_date: convertDate(item.borrow_date),
+                    return_date: convertDate(item.return_date),
+                    quan_in_lib: item.quan_in_lib
+                }
             })
-            // res.send(waitingRedcord)
-            // return
+
             res.render('borrow/manage',{
-                data: waitingRedcord
+                data: data,
             })
+        } catch (error) {
+            res.send(error.message)
+        }
+    }
+    async confirm(req, res, next) {
+        try {
+            const id = req.params.id
+            const userID = id.slice(0, 8)
+            const titleID = id.slice(9, 17)
+            const editRecord = await Borrow.update({
+                note: 'B'
+            }, {
+                where: {
+                    [Op.and]: [{
+                        bookID: titleID
+                    }, {
+                        userID: userID
+                    }]
+                }
+            })
+            const quantity = await Title.findByPk(titleID,{
+                raw: true,
+                attributes: ['quantityFt']
+            })
+            const newQuantity = await Title.update({
+                quantityFt: quantity.quantityFt - 1
+            }, {
+                where: {
+                    titleID: titleID
+                }
+            })
+            res.redirect('back')
         } catch (error) {
             res.send(error.message)
         }
