@@ -19,8 +19,10 @@
 ## TUẦN III:
 - Hoàn thiện chức năng tìm kiếm sách
 - Cài đặt database thật
- - Hoàn thiện chức năng thêm sách, thêm tác giả, nhà xuất bản
+- Hoàn thiện chức năng thêm sách, thêm tác giả, nhà xuất bản
  # TUẦN IV:
  - Chức năng mượn sách cho người dùng
  - Chức năng xác thực mượn sách của thủ thư
- 
+ # TUẦN V:
+ - Hoàn thiện chức năng mượn trả và xác thực của thủ thư
+ - Làm báo báo, slide
