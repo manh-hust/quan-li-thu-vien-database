@@ -1,6 +1,7 @@
 const Client = require('../../config/pg_db/client');
 const { Op } = require('sequelize');
 const Borrow = require("../models/borrow");
+const Book = require("../models/book");
 const Title = require("../models/title");
 
 class BorrowController {
@@ -8,22 +9,34 @@ class BorrowController {
     async borrow(req, res, next) {
         try {
             const titleID = req.params.titleID
-            const {date, returnDate} = req. body
+            const {date, returnDate} = req.body
             const userID = res.locals.user.userID
             const checkRecord = await Borrow.findAll({
                 where: {
                     [Op.and]: [
                         {bookID: titleID},
-                        {userID: userID}
+                        {userID: userID},
+                        {note: 'W'}
                     ]
                 },
                 raw: true
             })
             if(checkRecord.length > 0){
-                res.redirect('back')
+                res.send('<h1 style="text-align: center;">Bạn đang mượn cuốn này nên không thể mượn tiếp! Vui lòng quay lại.</h1>')
                 return
             }
+            const maxRecord = await Borrow.findAll({
+                raw: true,
+                limit: 1,
+                order: [
+                    ['borrowID', 'DESC']
+                ],
+                attributes: ['borrowID']
+            })
+            const maxID = Number(maxRecord[0].borrowID)
+            console.log(maxID)
             const newRecord = await Borrow.create({
+                borrowID: pad(maxID+1, 8),
                 bookID: titleID,
                 userID: userID,
                 borrowDate: date,
@@ -96,6 +109,7 @@ class BorrowController {
     async manage(req, res, next) {
         try {
             const state = req.params.state
+        
             const query = `
             select * from borrow_infos
             where note like ${state ? `'${state}'` : '%%'}
@@ -114,9 +128,9 @@ class BorrowController {
                     quan_in_lib: item.quan_in_lib
                 }
             })
-
             res.render('borrow/manage',{
                 data: data,
+                state
             })
         } catch (error) {
             res.send(error.message)
@@ -138,6 +152,14 @@ class BorrowController {
                     }]
                 }
             })
+            const books = Book.findAll({
+                where: {
+                    titleID: titleID
+                },
+                raw: true
+            })
+            res.send(books)
+            return
             const quantity = await Title.findByPk(titleID,{
                 raw: true,
                 attributes: ['quantityFt']
@@ -171,3 +193,8 @@ function short(state) {
     else if(state = 'R')
         return 'Đã trả'
 }
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }

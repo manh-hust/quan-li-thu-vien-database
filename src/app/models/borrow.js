@@ -2,16 +2,20 @@ const sequelize = require('sequelize')
 const db = require('../../config/pg_db/index.js')
 
 const Borrow = db.define('borrow', {
-    bookID: {
+    borrowID: {
         type: sequelize.STRING,
         allowNull: false,
         primaryKey: true,
+        field: 'borrow_id'
+    },
+    bookID: {
+        type: sequelize.STRING,
+        allowNull: false,
         field: 'book_id'
     },
     userID: {
         type: sequelize.STRING,
         allowNull: false,
-        primaryKey: true,
         field: 'user_id'
     },
     borrowDate: {

@@ -35,11 +35,12 @@ class HomeController {
                     ['quantityFt', 'DESC']
                 ]
             })
-            const queryAuthor = `select a.*, count(a.author_id) from author as a, title as t
-            where a.author_id = t.author_id
-            group by (a.author_id)
-            order by count(a.author_id) DESC
-            limit 6
+            const queryAuthor = `select * from author where author_id in( 
+                select author_id
+                 from title t 
+                 group by(author_id)
+                 order by(count(title_id)) desc
+                 limit 6);
             `
             const bestAuthor = await Client.query(queryAuthor)
             const bestBook = await Title.findAll({

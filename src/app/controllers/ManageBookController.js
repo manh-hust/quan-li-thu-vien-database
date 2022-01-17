@@ -11,11 +11,12 @@ const { query } = require('express');
 
 
 class ManageBookController {
-
     // [GET] /manage
     async index(req, res, next) {
         try {
-            const books = await Client.query('select * from title_infos')
+            const books = await Client.query('select * from title_infos order by title_id')
+            // res.send(books.rows)
+            // return
             const types = await Type.findAll({
                 raw: true
             })
@@ -352,6 +353,6 @@ function pad(n, width, z) {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-  }
+}
 
 module.exports = new ManageBookController();

@@ -29,7 +29,7 @@
                             </li>
                             <li class="item">
                                 <span>Số lượng: </span>
-                                <a href="#" class="item-infor">{{book.title.quantityFt}}</a>
+                                <a id="quantity-detail-book" href="#" class="item-infor">{{book.title.quantityFt}}</a>
                             </li>
                             <li class="item">
                                 <span>Vị trí: </span>
@@ -52,7 +52,7 @@
                             {{else}}
                             <button id="btn-favorite"  class="btn btn-danger" data-id="{{book.title.titleID}}" disabled>Thêm vào danh sách yêu thích</button>
                             {{/if}}
-                            <a href="/borrow/{{book.title.titleID}}" id="btn-borrow"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Mượn</a>
+                            <button id="btn-borrow"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Mượn</button>
                         </div>
                     </div>
                 </div>
@@ -106,6 +106,7 @@
         </div>
     </div>
 </div>
+
    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -133,6 +134,7 @@
                     <div>1: Yêu cầu của bạn cần được chấp thuận bởi thủ thư, hãy chờ thông báo và làm theo hướng dẫn</div>
                     <div>2: Bảo quản sách và trả đúng thời hạn quy định, Vui lòng xem lại quy định <a href="/tutorial#regulation" class="text-primary">tại đây</a></div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                     <button class="btn btn-primary">Xác nhận</button>
@@ -148,7 +150,13 @@
     
     const titleID = btnFavorite.data('id')
 
-        console.log(titleID)
+    const btnBorrow = $('#btn-borrow')
+    const quantity = $('#quantity-detail-book')
+    const quan = Number(quantity.text())
+    if(quan < 1){
+        btnBorrow.attr('disabled', true)
+    }
+
     btnFavorite.click(function() {
         formFavorite.action = '/privacy/favorite/'+titleID
         formFavorite.submit()
