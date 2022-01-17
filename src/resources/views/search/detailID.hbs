@@ -117,18 +117,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-2">Tên sách: 
-                        <input type="text"  value="{{book.title.name}}" class="input-modal-borrow" >
+                        <input value="{{book.title.name}}" class="input-modal-borrow" >
+                    </div>
+                    <div class="mb-2">Mã quyển: 
+                        <input name="bookID" value="{{bookID}}" class="input-modal-borrow" >
                     </div>
                     <div class="mb-2">Số lượng: <b>1 </b> quyển</div>
                     <div class="mb-2">Ngày mượn: 
-                        <input type="text" name="date" id="" value="{{book.date}}" class="input-modal-borrow" >
+                        <input  name="date" id="" value="{{book.date}}" class="input-modal-borrow" >
                     </div>
                     <div class="mb-2">Thời hạn: <b>3 tháng</b> kể từ ngày mượn</div>
                     <div class="mb-2">Hạn trả dự kiến: 
-                        <input type="text" name="returnDate" id="" value="{{book.returnDate}}" class="input-modal-borrow" >
+                        <input  name="returnDate" id="" value="{{book.returnDate}}" class="input-modal-borrow" >
                     </div>
                     <div class="mb-2">Người mượn: <b>{{this.user.lastName}} {{this.user.firstName}}</b></div>
-                    <div class="mb-2">Số điện thoại: <b>{{this.user.SĐT}}</b></div>
+                    <div class="mb-2 ">Số điện thoại: <b>{{this.user.SĐT}} </b></div>
                     <div class="mb-2">--------</div>
                     <div class="mb-2"><b>Lưu ý: </b></div>
                     <div>1: Yêu cầu của bạn cần được chấp thuận bởi thủ thư, hãy chờ thông báo và làm theo hướng dẫn</div>

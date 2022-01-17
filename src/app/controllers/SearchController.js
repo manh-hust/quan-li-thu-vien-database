@@ -6,6 +6,8 @@ const Author = require('../models/author')
 const Language = require('../models/language')
 const Position = require('../models/position')
 const Publisher = require('../models/publisher')
+const Client = require('../../config/pg_db/client');
+
 
 class SearchController {
 
@@ -131,15 +133,15 @@ class SearchController {
     // GET /search/detail/:titleID
     async detailID(req, res, next) {
         try {
-            const bookID = req.params.detailID
+            const titleID = req.params.detailID
         const userID = res.locals.user.userID
         const user = await Users.findByPk(userID)
         const favorite = user.favorite
         let btnFavorite = false
-        if(favorite == null || favorite.includes(bookID) == false){
+        if(favorite == null || favorite.includes(titleID) == false){
             btnFavorite = true
         }
-        const book = await Title.findByPk(bookID,{
+        const book = await Title.findByPk(titleID,{
             raw: true,
             include: [Author, Publisher, Position, Language, Type]
         })
@@ -158,6 +160,15 @@ class SearchController {
             raw: true,
             limit: 6
         })
+
+        const query = `select book_id from book 
+            where title_id = '${titleID}'
+            and book_id not in 
+                (select book_id from borrow_infos where title_id = '${titleID}')
+            limit 1`
+        const bookBorrow = await Client.query(query)
+        const bookID = bookBorrow.rows[0].book_id
+
         let date = new Date()
         let returnDate = new Date()
         returnDate.setMonth(date.getMonth() + 3)
@@ -173,7 +184,8 @@ class SearchController {
                 url: book.url,
                 date,
                 returnDate
-            }
+            },
+            bookID: bookID
         })
         } catch (error) {
             res.send(error.message)

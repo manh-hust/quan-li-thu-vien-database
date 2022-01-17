@@ -9,22 +9,20 @@ class BorrowController {
     async borrow(req, res, next) {
         try {
             const titleID = req.params.titleID
-            const {date, returnDate} = req.body
+            const {date, returnDate, bookID} = req.body
             const userID = res.locals.user.userID
-            const checkRecord = await Borrow.findAll({
-                where: {
-                    [Op.and]: [
-                        {bookID: titleID},
-                        {userID: userID},
-                        {note: 'W'}
-                    ]
-                },
-                raw: true
-            })
-            if(checkRecord.length > 0){
+
+            const checkRecord = await Client.query(`select * from borrow_infos 
+            where user_id = '${userID}'
+            and title_id = '${titleID}'
+            and note = 'W'
+            `)
+         
+            if(checkRecord.rows.length > 0){
                 res.send('<h1 style="text-align: center;">Bạn đang mượn cuốn này nên không thể mượn tiếp! Vui lòng quay lại.</h1>')
                 return
             }
+
             const maxRecord = await Borrow.findAll({
                 raw: true,
                 limit: 1,
@@ -33,11 +31,17 @@ class BorrowController {
                 ],
                 attributes: ['borrowID']
             })
-            const maxID = Number(maxRecord[0].borrowID)
-            console.log(maxID)
+            let maxID 
+            if(maxRecord.length < 1){
+                maxID = 0
+            }
+            else{
+                maxID = Number(maxRecord[0].borrowID)
+            }
+            
             const newRecord = await Borrow.create({
                 borrowID: pad(maxID+1, 8),
-                bookID: titleID,
+                bookID: bookID,
                 userID: userID,
                 borrowDate: date,
                 returnDate: returnDate,
@@ -51,10 +55,9 @@ class BorrowController {
     async showALl(req, res, next) {
         try {
             const userID = res.locals.user.userID
-            const query = `select name, borrow_date, return_date, note from borrow, title 
-            where borrow.book_id = title.title_id
-            and borrow.user_id = '${userID}'
-            order by borrow.borrow_date DESC
+            const query = `select * from borrow_infos
+            where user_id = '${userID}'
+            order by borrow_date DESC
             `
             const dateNow = new Date()
             const data = await Client.query(query)
@@ -62,7 +65,7 @@ class BorrowController {
                 const second = (item.return_date - dateNow)
                 const day = Math.floor(second / 3600 / 24 / 1000)
                 return{
-                    name: item.name,
+                    name: item.title_name,
                     date: convertDate(item.borrow_date),
                     returnDate: convertDate(item.return_date),
                     note: short(item.note),
@@ -81,11 +84,11 @@ class BorrowController {
     async showState(req, res, next) {
         const state = req.params.state
         const userID = res.locals.user.userID
-        const query = `select name, borrow_date, return_date, note from borrow, title 
-        where borrow.book_id = title.title_id
-        and borrow.user_id = '${userID}'
-        and borrow.note = '${state}'
-        order by borrow.borrow_date DESC
+
+        const query = `select * from borrow_infos
+        where user_id = '${userID}'
+        and note = '${state}'
+        order by borrow_date DESC
         `
         const dateNow = new Date()
         const data = await Client.query(query)
@@ -93,7 +96,7 @@ class BorrowController {
             const second = (item.return_date - dateNow)
             const day = Math.floor(second / 3600 / 24 / 1000)
             return{
-                name: item.name,
+                name: item.title_name,
                 date: convertDate(item.borrow_date),
                 returnDate: convertDate(item.return_date),
                 note: short(item.note),
@@ -123,6 +126,7 @@ class BorrowController {
                     title_id: item.titleID,
                     title_name: item.title_name,
                     book_id: item.book_id,
+                    title_id: item.title_id,
                     borrow_date: convertDate(item.borrow_date),
                     return_date: convertDate(item.return_date),
                     quan_in_lib: item.quan_in_lib
@@ -140,30 +144,32 @@ class BorrowController {
         try {
             const id = req.params.id
             const userID = id.slice(0, 8)
-            const titleID = id.slice(9, 17)
-            const editRecord = await Borrow.update({
-                note: 'B'
-            }, {
-                where: {
-                    [Op.and]: [{
-                        bookID: titleID
-                    }, {
-                        userID: userID
-                    }]
-                }
-            })
-            const books = Book.findAll({
-                where: {
-                    titleID: titleID
-                },
-                raw: true
-            })
-            res.send(books)
-            return
+            const  = id.slice(9, 17)
+            // const editRecord = await Borrow.update({
+            //     note: 'B'
+            // }, {
+            //     where: {
+            //         [Op.and]: [{
+            //             bookID: titleID
+            //         }, {
+            //             userID: userID
+            //         }]
+            //     }
+            // })
+            // const books = Book.findAll({
+            //     where: {
+            //         titleID: titleID
+            //     },
+            //     raw: true
+            // })
+            
             const quantity = await Title.findByPk(titleID,{
                 raw: true,
                 attributes: ['quantityFt']
             })
+            console.log(quantity, titleID, userID)
+            res.send(quantity)
+            return
             const newQuantity = await Title.update({
                 quantityFt: quantity.quantityFt - 1
             }, {
