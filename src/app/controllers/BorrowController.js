@@ -1,5 +1,5 @@
 const Client = require('../../config/pg_db/client');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const Borrow = require("../models/borrow");
 const Book = require("../models/book");
 const Title = require("../models/title");
@@ -109,6 +109,7 @@ class BorrowController {
         })
 
     }
+    // [GET] /borrow/manage-borrow/:state
     async manage(req, res, next) {
         try {
             const state = req.params.state
@@ -126,6 +127,7 @@ class BorrowController {
                     title_id: item.titleID,
                     title_name: item.title_name,
                     book_id: item.book_id,
+                    borrow_id: item.borrow_id,
                     title_id: item.title_id,
                     borrow_date: convertDate(item.borrow_date),
                     return_date: convertDate(item.return_date),
@@ -140,38 +142,32 @@ class BorrowController {
             res.send(error.message)
         }
     }
+    // [POST] /borrow/manage-borrow/:state/:borrowID
     async confirm(req, res, next) {
         try {
-            const id = req.params.id
-            const userID = id.slice(0, 8)
-            const  = id.slice(9, 17)
-            // const editRecord = await Borrow.update({
-            //     note: 'B'
-            // }, {
-            //     where: {
-            //         [Op.and]: [{
-            //             bookID: titleID
-            //         }, {
-            //             userID: userID
-            //         }]
-            //     }
-            // })
-            // const books = Book.findAll({
-            //     where: {
-            //         titleID: titleID
-            //     },
-            //     raw: true
-            // })
-            
-            const quantity = await Title.findByPk(titleID,{
-                raw: true,
-                attributes: ['quantityFt']
+            const borrowID = req.params.id
+            const state = req.params.state
+            if(state == 'B') {
+                res.send('<h1> Da xac nhan</h1>')
+                return
+            }
+            const editRecord = await Borrow.update({
+                note: 'B'
+            }, {
+                where: {
+                   borrowID: borrowID
+                }
             })
-            console.log(quantity, titleID, userID)
-            res.send(quantity)
-            return
+            const book = await Client.query(
+            `select quan_in_lib, title_id from borrow_infos
+            where borrow_id = '${borrowID}'
+            limit 1;
+            `)
+            const quantity = book.rows[0].quan_in_lib
+            const titleID = book.rows[0].title_id
+           
             const newQuantity = await Title.update({
-                quantityFt: quantity.quantityFt - 1
+                quantityFt: quantity - 1
             }, {
                 where: {
                     titleID: titleID

@@ -134,5 +134,9 @@ class HomeController {
         const book = await Client.query('select * from type')
         res.send(book.rows)
     }
+    async title(req, res, next){
+        const book = await Client.query('select * from title')
+        res.send(book.rows)
+    }
 }
 module.exports = new HomeController();
