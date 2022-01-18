@@ -20,20 +20,22 @@
         <tbody>
             {{#each data}}
             <tr>
-            <th scope="row">1</th>
-            <td>{{this.name}}</td>
-            <td>{{this.date}}</td>
-            <td>{{this.returnDate}}</td>
-            <td>{{this.day}} ngày</td>
-            <td>{{this.note}}</td>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.date}}</td>
+                <td>{{this.returnDate}}</td>
+                <td>{{this.day}} ngày</td>
+                <td>{{this.note}}</td>
             </tr>
             {{else}}
-            <th scope="row"></th>
-            <td>Không có dữ liệu !</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <tr>
+                <th scope="row"></th>
+                <td>Không có dữ liệu !</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
             {{/each}}
         </tbody>
     </table>

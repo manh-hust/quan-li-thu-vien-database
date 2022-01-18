@@ -15,24 +15,32 @@
             <th scope="col">Ngày mượn</th>
             <th scope="col">Hạn trả dự kiến</th>
             <th scope="col">Số lượng còn lại</th>
-            <th scope="col">Xác nhận</th>
+            <th scope="col">Số ngày còn</th>
+            <th scope="col">Số số ngày trễ</th>
+            <th colspan="4">Xác nhận</th>
             </tr>
         </thead>
         <tbody>
             {{#each data}}
             <tr>
-            <th scope="row">1</th>
-            <td>{{this.user_name}}</td>
-            <td>{{this.title_name}}</td>
-            <td>{{this.borrow_date}}</td>
-            <td>{{this.return_date}}</td>
-            <td>{{this.quan_in_lib}} </td>
-            <td><button class="btn btn-success btn-confirm-borrow" data-borrowID="{{this.borrow_id}}"> Chấp nhận</button></td>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.user_name}}</td>
+                <td>{{this.title_name}}</td>
+                <td>{{this.borrow_date}}</td>
+                <td>{{this.return_date}}</td>
+                <td>{{this.quan_in_lib}} </td>
+                <td>{{this.remaining_days}}</td>
+                <td>{{this.days_late}}</td>
+                <td><button class="btn btn-success btn-confirm-borrow " data-borrowID="{{this.borrow_id}}"> Chấp nhận</button></td>
+                <td><button class="btn btn-warning btn-remind-borrow" data-borrowID="{{this.borrow_id}}"> Nhắc nhở</button></td>
+                <td><button class="btn btn-danger btn-warning-borrow" data-borrowID="{{this.borrow_id}}"> Cảnh báo</button></td>
             </tr>
             {{else}}
             <tr>
             <th scope="row"></th>
             <td> Không có dữ liệu !</td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -54,7 +62,7 @@
     btnConfirm.each(function(i) {
         const borrowID = $(this).data('borrowid')
         $(this).on('click', function(){
-                form.attr('action', `/borrow/borrow-manage/B/${borrowID}`)
+                form.attr('action', `/borrow/borrow-manage/${state}/${borrowID}`)
                 form.submit()
         })
     })
@@ -65,7 +73,24 @@
     const containerMB = $('.container-manage-borrow') 
     const state = containerMB.data('state')
 
+    const  btnsConfirm  = $('.btn-confirm-borrow')
+    const  btnsRemind  = $('.btn-remind-borrow')
+    const  btnsWarning  = $('.btn-warning-borrow')
+    btnsConfirm.hide()
+    btnsRemind.hide()
+    btnsWarning.hide()
+    if(state == 'B'){
+        btnsRemind.show()
+    }
+    else if(state == 'W'){
+        btnsConfirm.show()
+    }
+    else if(state == 'O'){
+        btnsWarning.show()
+    }
+
     const btnGroupControl = $('.container-manage-borrow .btn-group a')
+
 
     btnGroupControl.each(function(i) {
         if($(this).data('state') == state){
@@ -74,5 +99,4 @@
         }
     })
     
-    console.log(btnGroupControl)
 </script>

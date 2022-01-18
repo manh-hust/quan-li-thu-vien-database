@@ -45,7 +45,7 @@
         <tbody>
             {{#each books}}
             <tr>
-            <th ></th>
+            <th >{{sum @index 1}}</th>
             <td colspan="2"><a href="/manage-books/{{this.title_id}}">{{this.title_name}}</a></td>
             <td colspan="2"><a href="/manage-books/author/{{this.author_id}}">{{this.author_last_name}} {{this.author_first_name}}</a></td>
             <td colspan="1">{{this.type_name}}</td>

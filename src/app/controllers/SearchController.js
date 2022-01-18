@@ -158,7 +158,10 @@ class SearchController {
         })
         const news = await Title.findAll({
             raw: true,
-            limit: 6
+            limit: 6,
+            order: [
+                ['quantity', 'DESC']
+            ]
         })
 
         const query = `select book_id from book 

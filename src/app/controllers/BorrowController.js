@@ -1,5 +1,5 @@
 const Client = require('../../config/pg_db/client');
-const { Op, where } = require('sequelize');
+const { Op } = require('sequelize');
 const Borrow = require("../models/borrow");
 const Book = require("../models/book");
 const Title = require("../models/title");
@@ -113,7 +113,7 @@ class BorrowController {
     async manage(req, res, next) {
         try {
             const state = req.params.state
-        
+            const dateNow = new Date()
             const query = `
             select * from borrow_infos
             where note like ${state ? `'${state}'` : '%%'}
@@ -121,6 +121,7 @@ class BorrowController {
             `
             const waitingRedcord = await Client.query(query)
             const data = waitingRedcord.rows.map( item => {
+                const days = (item.return_date - dateNow)/24/3600/1000
                 return {
                     user_id: item.user_id,
                     user_name: item.user_name,
@@ -131,6 +132,8 @@ class BorrowController {
                     title_id: item.title_id,
                     borrow_date: convertDate(item.borrow_date),
                     return_date: convertDate(item.return_date),
+                    remaining_days: Math.floor(days),
+                    days_late: days >= 0 ? 0 : -Math.floor(days) ,
                     quan_in_lib: item.quan_in_lib
                 }
             })
