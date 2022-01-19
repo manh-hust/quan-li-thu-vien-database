@@ -54,9 +54,11 @@ class BorrowController {
     // [GET] /borrow
     async showALl(req, res, next) {
         try {
+            const q = req.query.q
             const userID = res.locals.user.userID
             const query = `select * from borrow_infos
             where user_id = '${userID}'
+            and title_name ilike ${ q != false ? `'%${q}%'`: `'%%'`}
             order by borrow_date DESC
             `
             const dateNow = new Date()
@@ -74,7 +76,8 @@ class BorrowController {
             })
             res.render('borrow/index',{
                 data: borrow,
-                state: 'all'
+                state: 'all',
+                visibleDate: false
             })
         } catch (error) {
             res.send(error.message)
@@ -84,10 +87,11 @@ class BorrowController {
     async showState(req, res, next) {
         const state = req.params.state
         const userID = res.locals.user.userID
-
+        const q = req.query.q
         const query = `select * from borrow_infos
         where user_id = '${userID}'
         and note = '${state}'
+        and title_name ilike ${ q ? `'%${q}%'`: `'%%'`}
         order by borrow_date DESC
         `
         const dateNow = new Date()
@@ -105,18 +109,21 @@ class BorrowController {
         })
         res.render('borrow/index',{
             data: borrow,
-            state
+            state,
+            visibleDate: state == 'B' 
         })
 
     }
     // [GET] /borrow/manage-borrow/:state
     async manage(req, res, next) {
         try {
+            const q = req.query.q
             const state = req.params.state
             const dateNow = new Date()
             const query = `
             select * from borrow_infos
             where note like ${state ? `'${state}'` : '%%'}
+            and title_name ilike ${ q ? `'%${q}%'`: `'%%'`}
             order by borrow_date 
             `
             const waitingRedcord = await Client.query(query)

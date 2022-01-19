@@ -13,8 +13,10 @@
             <th scope="col">Tên</th>
             <th scope="col">Ngày mượn</th>
             <th scope="col">Ngày trả</th>
+            {{#if visibleDate}}
             <th scope="col">Còn lại</th>
-            <th scope="col">Trạng thái</th>
+            {{/if}}
+            <th scope="col" colspan="2">Trạng thái</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +26,9 @@
                 <td>{{this.name}}</td>
                 <td>{{this.date}}</td>
                 <td>{{this.returnDate}}</td>
+                {{#if visibleDate}}
                 <td>{{this.day}} ngày</td>
+                {{/if}}
                 <td>{{this.note}}</td>
             </tr>
             {{else}}
