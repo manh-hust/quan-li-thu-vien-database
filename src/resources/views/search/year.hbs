@@ -1,0 +1,84 @@
+<div class="container mt-3 container-year">
+    <div class="part-year mt-3">
+        <h3 class="mb-3">
+            Trước năm 2000
+            <a href="/search/year/part1">Xem tất cả</a>
+        </h3>
+        <div class="slider">
+             <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                {{#each part1}}
+                <div class="swiper-slide">
+                  <img src="{{this.url}}" alt="img">
+                  <a class="swipe-slide-link" href="/search/detail/{{this.titleID}}" >{{this.name}}</a>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="part-year">
+        <h3 class="mt-3 mb-3">Từ năm 2000 đến năm 2009
+        <a href="/search/year/part2">Xem tất cả</a>
+    </h3>
+        <div class="slider">
+             <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+               {{#each part2}}
+                <div class="swiper-slide">
+                  <img src="{{this.url}}" alt="img">
+                  <a class="swipe-slide-link" href="/search/detail/{{this.titleID}}" >{{this.name}}</a>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="part-year">
+        <h3 class="mt-3 mb-3">Từ năm 2010 đến năm 2019 
+        <a href="/search/year/part3">Xem tất cả</a>
+    </h3>
+        <div class="slider">
+             <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                {{#each part3}}
+                <div class="swiper-slide">
+                  <img src="{{this.url}}" alt="img">
+                  <a class="swipe-slide-link" href="/search/detail/{{this.titleID}}" >{{this.name}}</a>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+        </div>
+    </div>
+     <div class="part-year">
+        <h3 class="mt-3 mb-3">Từ năm 2020 đến nay 
+        <a href="/search/year/part4">Xem tất cả</a>
+    </h3>
+        <div class="slider">
+             <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                {{#each part4}}
+                <div class="swiper-slide">
+                  <img src="{{this.url}}" alt="img">
+                  <a class="swipe-slide-link" href="/search/detail/{{this.titleID}}" >{{this.name}}</a>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 5.5,
+        spaceBetween: 30,
+        speed: 600,
+        loop: true,
+        autoplay: {
+            delay: 5000
+        }
+        });
+</script>

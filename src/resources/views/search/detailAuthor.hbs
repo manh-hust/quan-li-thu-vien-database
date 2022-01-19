@@ -13,7 +13,11 @@
                 {{/if}}
                 <div class="card-body">
                     <h5 class="card-title">{{this.name}}</h5>
+                    {{#if this.summary}}
+                    <p class="card-text" style="height: 50px; overflow: hidden">{{this.summary}}</p>
+                    {{else}}
                     <p class="card-text" style="height: 50px; overflow: hidden">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    {{/if}}
                     <a href='/search/detail/{{this.titleID}}' class="btn btn-primary">Xem thông tin</a>
                 </div>
             </div>

@@ -115,20 +115,100 @@ class SearchController {
     }
     // GET /search/year
     async year(req, res, next) {
-        const title = 'Năm xuất bản'
-        const data = await Type.findAll({
-            raw: true
-        })
-        const types = await Type.findAll({
+        const part1 = await Title.findAll({
             raw: true,
+            where: {
+                publishDate: {
+                    [Op.lt] : '2000'
+                }
+            },
+            limit: 8
         })
-        let total = 0
-        res.render('search/category',{
-            title,
+        const part2 = await Title.findAll({
+            raw: true,
+            where: {
+                publishDate: {
+                    [Op.between] : ['2000', '2009']
+                }
+            },
+            limit: 8
+        })
+        const part3 = await Title.findAll({
+            raw: true,
+            where: {
+                publishDate: {
+                    [Op.between] : ['2010', '2019']
+                }
+            },
+            limit: 8
+        })
+        const part4 = await Title.findAll({
+            raw: true,
+            where: {
+                publishDate: {
+                    [Op.gt] : '2019'
+                }
+            },
+            limit: 8
+        })
+        res.render('search/year',{
+            part1,
+            part2,
+            part3,
+            part4
+        });
+    // GET /search/year
+    }
+    // GET /search/year/:slug
+    async detailYear(req, res, next){
+        const slug = req.params.slug
+        let about = {
+            above: '0',
+            under: '',
+            name: ''
+        }
+        switch(slug){
+            case 'part1' :
+                about.above =  '1999'
+                about.name = 'Trước năm 2000'
+                break
+            case 'part2' :
+                about.above =  '2009'
+                about.under = '2000'
+                about.name = 'Từ năm 2000 đến năm 2009'
+                break
+            case 'part3' :
+                about.above =  '2019'
+                about.under = '2010'
+                about.name = 'Từ năm 2010 đến năm 2019'
+                break;
+            case 'part4' :
+                about.under =  '2020'
+                about.above = '2029'
+                about.name = 'Từ năm 2020 đến nay'
+                break;
+        }
+        const data = await Title.findAll({
+            raw: true,
+            where: {
+                publishDate: {
+                    [Op.between] : [about.under, about.above]
+                }
+            }
+        })
+        const total = await Title.count({
+            raw: true,
+            where: {
+                publishDate: {
+                    [Op.between] : [about.under, about.above]
+                }
+            }
+        })
+        res.render('search/detailAuthor',{
             data,
             total,
-            types
-        });
+            name: about.name
+        })
     }
     // GET /search/detail/:titleID
     async detailID(req, res, next) {
@@ -154,6 +234,7 @@ class SearchController {
                 typeID: book.typeID
             },
             raw: true,
+            limit: 8,
             limit: 8
         })
         const news = await Title.findAll({

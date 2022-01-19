@@ -639,3 +639,21 @@ ul, li {
   z-index: 1000001;
   cursor: pointer;
   opacity: 0; }
+
+.container-year h3 {
+  padding: 6px;
+  color: #fff;
+  width: 40%;
+  background-color: #198754;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between; }
+  .container-year h3 a {
+    font-size: 1rem;
+    color: #fff; }
+    .container-year h3 a:hover {
+      text-decoration: underline;
+      color: #0a346d; }
+
+.container-year .part-year {
+  border-left: 5px solid #198754; }

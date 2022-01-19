@@ -96,7 +96,7 @@
                 {{#each author}}
                 <div class="swiper-slide">
                   <img src="https://salt.tikicdn.com/cache/200x200/ts/product/db/71/6e/aafe6691ddc6d3372522525e9eef1403.jpg.webp" alt="">
-                  <a class="swipe-slide-link" href="search/{{this.author_id}}" >{{this.last_name}} {{this.first_name}}</a>
+                  <a class="swipe-slide-link" href="search/author/{{this.author_id}}" >{{this.last_name}} {{this.first_name}}</a>
                 </div>
                 {{/each}}
               </div>
@@ -114,9 +114,9 @@
         slidesPerView: 4,
         spaceBetween: 30,
         speed: 600,
-        {{!-- loop: true,
+        loop: true,
         autoplay: {
           delay: 3000
-        } --}}
+        }
       });
     </script>
