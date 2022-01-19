@@ -11,12 +11,12 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">Tên người dùng</th>
-            <th scope="col">Sách muốn mượn</th>
+            <th scope="col">Sách mượn</th>
             <th scope="col">Ngày mượn</th>
             <th scope="col">Hạn trả dự kiến</th>
-            <th scope="col">Số lượng còn lại</th>
-            <th scope="col">Số ngày còn</th>
-            <th scope="col">Số số ngày trễ</th>
+            <th scope="col" class="confirm-borrow " data-borrowID="{{this.borrow_id}}">Số lượng còn lại</th>
+            <th scope="col" class="return-borrow " data-borrowID="{{this.borrow_id}}">Số ngày còn</th>
+            <th scope="col" class="warning-borrow " data-borrowID="{{this.borrow_id}}">Số số ngày trễ</th>
             <th colspan="4">Xác nhận</th>
             </tr>
         </thead>
@@ -28,12 +28,12 @@
                 <td>{{this.title_name}}</td>
                 <td>{{this.borrow_date}}</td>
                 <td>{{this.return_date}}</td>
-                <td>{{this.quan_in_lib}} </td>
-                <td>{{this.remaining_days}}</td>
-                <td>{{this.days_late}}</td>
-                <td><button class="btn btn-success btn-confirm-borrow " data-borrowID="{{this.borrow_id}}"> Chấp nhận</button></td>
-                <td><button class="btn btn-warning btn-remind-borrow" data-borrowID="{{this.borrow_id}}"> Nhắc nhở</button></td>
-                <td><button class="btn btn-danger btn-warning-borrow" data-borrowID="{{this.borrow_id}}"> Cảnh báo</button></td>
+                <td class="confirm-borrow " data-borrowID="{{this.borrow_id}}">{{this.quan_in_lib}} </td>
+                <td class="return-borrow " data-borrowID="{{this.borrow_id}}">{{this.remaining_days}}</td>
+                <td class="warning-borrow " data-borrowID="{{this.borrow_id}}">{{this.days_late}}</td>
+                <td><button class="btn btn-success confirm-borrow btn-confirm-borrow " data-borrowID="{{this.borrow_id}}"> Chấp nhận</button></td>
+                <td><button class="btn btn-warning return-borrow btn-return-borrow" data-borrowID="{{this.borrow_id}}"> Đã trả</button></td>
+                <td><button class="btn btn-danger warning-borrow btn-warning-borrow" data-borrowID="{{this.borrow_id}}"> Cảnh báo</button></td>
             </tr>
             {{else}}
             <tr>
@@ -53,19 +53,28 @@
 </div>
 
 <form method="POST"  id="form-confirm-borrow"></form>
-{{!-- Submit confirm require --}}
+{{!-- Submit confirm require, remaind --}}
 <script>
     const form = $('#form-confirm-borrow')
     const btnConfirm = $('.btn-confirm-borrow')
-
+    const btnReturn = $('.btn-return-borrow')
 
     btnConfirm.each(function(i) {
         const borrowID = $(this).data('borrowid')
         $(this).on('click', function(){
-                form.attr('action', `/borrow/borrow-manage/${state}/${borrowID}`)
+                form.attr('action', `/borrow/borrow-manage/W/${borrowID}`)
                 form.submit()
         })
     })
+
+    btnReturn.each(function(i) {
+        const borrowID = $(this).data('borrowid')
+        $(this).on('click', function(){
+                form.attr('action', `/borrow/borrow-manage/R/${borrowID}`)
+                form.submit()
+        })
+    })
+
 </script>
 
 
@@ -73,14 +82,14 @@
     const containerMB = $('.container-manage-borrow') 
     const state = containerMB.data('state')
 
-    const  btnsConfirm  = $('.btn-confirm-borrow')
-    const  btnsRemind  = $('.btn-remind-borrow')
-    const  btnsWarning  = $('.btn-warning-borrow')
+    const  btnsConfirm  = $('.confirm-borrow')
+    const  btnsReturn  = $('.return-borrow')
+    const  btnsWarning  = $('.warning-borrow')
     btnsConfirm.hide()
-    btnsRemind.hide()
+    btnsReturn.hide()
     btnsWarning.hide()
     if(state == 'B'){
-        btnsRemind.show()
+        btnsReturn.show()
     }
     else if(state == 'W'){
         btnsConfirm.show()

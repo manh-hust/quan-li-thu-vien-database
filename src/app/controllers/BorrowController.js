@@ -145,15 +145,10 @@ class BorrowController {
             res.send(error.message)
         }
     }
-    // [POST] /borrow/manage-borrow/:state/:borrowID
+    // [POST] /borrow/manage-borrow/W/:borrowID
     async confirm(req, res, next) {
         try {
             const borrowID = req.params.id
-            const state = req.params.state
-            if(state == 'B') {
-                res.send('<h1> Da xac nhan</h1>')
-                return
-            }
             const editRecord = await Borrow.update({
                 note: 'B'
             }, {
@@ -179,6 +174,37 @@ class BorrowController {
             res.redirect('back')
         } catch (error) {
             res.send(error.message)
+        }
+    }
+    // [POST] /borrow/manage-borrow/R/:borrowID
+    async return(req, res, next) {
+        try {
+            const borrowID = req.params.id
+            const editRecord = await Borrow.update({
+                note: 'R'
+            }, {
+                where: {
+                   borrowID: borrowID
+                }
+            })
+            const book = await Client.query(
+                `select quan_in_lib, title_id from borrow_infos
+                where borrow_id = '${borrowID}'
+                limit 1;
+                `)
+                const quantity = book.rows[0].quan_in_lib
+                const titleID = book.rows[0].title_id
+               
+                const newQuantity = await Title.update({
+                    quantityFt: quantity + 1
+                }, {
+                    where: {
+                        titleID: titleID
+                    }
+                })
+            res.redirect('back')
+        } catch (error) {
+            res.send(`<h1>${error.message}</h1>`)
         }
     }
 }

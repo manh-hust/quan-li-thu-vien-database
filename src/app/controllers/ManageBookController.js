@@ -183,7 +183,7 @@ class ManageBookController {
             })
             const authorIDLast = authorLast[0].authorID
             const number = Number(authorIDLast.slice(2))
-            const newID = 'AU'+(pad(number+1,6))
+            const newID = (pad(number+1,8))
             res.render('manage-books/detailAuthor',{
                 author: null,
                 newID,
@@ -261,6 +261,8 @@ class ManageBookController {
             res.send(error.message)
         }
     }
+
+    
     // GET /manage-books/publisher
     async publisher(req, res, next) {
         try {
@@ -273,7 +275,7 @@ class ManageBookController {
             })
             const publisherIDLast = publisherLast[0].publisherID
             const number = Number(publisherIDLast.slice(2))
-            const newID = 'PU'+(pad(number+1,6))
+            const newID = (pad(number+1,8))
             res.render('manage-books/detailPublisher',{
                 publisher: null,
                 newID,
