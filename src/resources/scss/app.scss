@@ -97,14 +97,16 @@
 }
 
 // Button Group Category
-.btn-group-category{
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 75%;
-    .btn{
-        min-width: 160px;
+.header-category{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .btn-group-category{
+        .btn{
+            min-width: 160px;
+        }
     }
+
 }
 
 #button-to-top {

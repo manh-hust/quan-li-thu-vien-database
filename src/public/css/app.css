@@ -43,9 +43,9 @@ ul, li {
   object-fit: contain; }
 
 .card-category {
-  height: 400px; }
+  height: 480px; }
   .card-category .card-img-category {
-    height: 50%;
+    height: 56%;
     object-fit: cover; }
   .card-category .card-title {
     height: 48px;
@@ -612,12 +612,11 @@ ul, li {
     display: flex;
     justify-content: space-between; }
 
-.btn-group-category {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 75%; }
-  .btn-group-category .btn {
+.header-category {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .header-category .btn-group-category .btn {
     min-width: 160px; }
 
 #button-to-top {

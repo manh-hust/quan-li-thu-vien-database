@@ -32,7 +32,9 @@ class SearchController {
                 types,
                 title: type.name,
                 total: books.length,
-                data: books
+                data: books,
+                good: id == '00000004',
+                category1: id != '00000004'
             })
         } catch (error) {
             res.send(error.message)
@@ -54,7 +56,8 @@ class SearchController {
             data: data,
             title,
             total,
-            types
+            types,
+            author: true
         });
     }
     // GET /search/author/:authorID
@@ -106,7 +109,8 @@ class SearchController {
                 data: mostBorrow,
                 title: 'Mượn nhiều nhất',
                 total: 20,
-                types 
+                types,
+                mostBorrow: true
             })
         } catch (error) {
             console.log(error)
