@@ -14,6 +14,7 @@ router.post('/publisher-delete/:publisherID',  manageBookController.deletePublis
 router.get('/publisher',  manageBookController.publisher);
 router.post('/publisher',  manageBookController.createPublisher);
 
+router.get('/statistic',  manageBookController.statistic);
 router.get('/:bookID',  manageBookController.detail);
 router.post('/add', manageBookController.create);
 router.post('/delete/:bookID', manageBookController.deleteBook);

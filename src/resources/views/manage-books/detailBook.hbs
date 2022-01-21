@@ -247,57 +247,82 @@
     pubName.attr('disabled', true)
     pubAddress.attr('disabled', true)
 
-
     fetchAuthor()
     .then(res => {
         inputAuthor.focusout(function() {
-        const authorID = $(this).val()
-        let author
-        if(authorID == '' && $(this).attr('disabled')){
-            author = true
-        }
-        else{
-            author = res.data.find( item => {
-                return item.authorID.trim() == authorID.trim()
-            })
-        }
-        if(!author){
-            alertCheckAuthor.show(300)
-            authorFN.val('')
-            authorLN.val('')
-        }
-        else{
-            alertCheckAuthor.hide()
-            authorFN.val(author.firstName)
-            authorLN.val(author.lastName)
-        }
+            const authorID = $(this).val()
+            let author
+            if(authorID == '' && $(this).attr('disabled')){
+                author = true
+            }
+            else{
+                author = res.data.find( item => {
+                    return item.authorID.trim() == authorID.trim()
+                })
+            }
+            if(!author){
+                alertCheckAuthor.show(300)
+                authorFN.val('')
+                authorLN.val('')
+            }
+            else{
+                alertCheckAuthor.hide()
+                authorFN.val(author.firstName)
+                authorLN.val(author.lastName)
+            }
     })
+        authorFN.focusout(function(){
+            const authorF = $(this).val()
+            if(authorF == '')
+                return
+            const authors = res.data.filter(item => {
+                return item.firstName.search(authorF.trim()) > -1
+            })
+            if(authors.length > 0){
+                const text = authors.reduce((init , item) => {
+                    return init + `Mã tác giả: ${item.authorID} - ${item.lastName} ${item.firstName}  `
+                }, '')
+                alert(`Đã có tác giả trùng tên! Vui lòng kiểm tra lại.  ${text}`)
+            }
+        })
+    
     })
 
     fetchPublisher()
     .then( res => {
         inputPublisher.focusout( function() {
-        const publisherID = $(this).val()
-        let publisher
-        if(publisherID == '' && $(this).attr('disabled')){
-            publisher = true
-        }
-        else{
-            publisher = res.data.find( item => {
-                return item.publisherID.trim() == publisherID.trim()
+            const publisherID = $(this).val()
+            let publisher
+            if(publisherID == '' && $(this).attr('disabled')){
+                publisher = true
+            }
+            else{
+                publisher = res.data.find( item => {
+                    return item.publisherID.trim() == publisherID.trim()
+                })
+            }
+            if(!publisher){
+                alertCheckPublisher.show(300)
+                pubName.val('')
+                pubAddress.val('')
+            }
+            else{
+                alertCheckPublisher.hide()
+                pubName.val(publisher.name)
+                pubAddress.val(publisher.address)
+            }
+        })
+        pubName.focusout(function() {
+            const name = $(this).val()
+            if(name == '')
+                return
+            const pub = res.data.find(item => {
+                return item.name.search(name.trim()) > -1
             })
-        }
-        if(!publisher){
-            alertCheckPublisher.show(300)
-            pubName.val('')
-            pubAddress.val('')
-        }
-        else{
-            alertCheckPublisher.hide()
-            pubName.val(publisher.name)
-            pubAddress.val(publisher.address)
-        }
-    })
+             if(pub){
+                alert(`Đã có tác giả trùng tên! Vui lòng kiểm tra lại.        Mã nhà xuất bản: ${pub.publisherID} - ${pub.name}`)
+            }
+        })
     })
 
 </script>
@@ -343,11 +368,11 @@
     btnAddAuthor.on('click', function(){
         if(!check1){
             inpuAuID.attr('disabled', true)
+            inpuAuID.val('')
             inputAuFn.removeAttr('disabled', true)
             inputAuLn.removeAttr('disabled', true)
             check1 = !check1
             alertCheckAuthor1.hide()
-            alertCheckPublisher1.hide()
         }
         else{
             inpuAuID.removeAttr('disabled', true)
@@ -360,9 +385,11 @@
     btnAddPub.on('click', function(){
         if(!check2){
             inpuPubID.attr('disabled', true)
+            inpuPubID.val('')
             inputPubName.removeAttr('disabled', true)
             inputPubAddress.removeAttr('disabled', true)
             check2 = !check2
+            alertCheckPublisher1.hide()
         }
         else{
             inpuPubID.removeAttr('disabled', true)

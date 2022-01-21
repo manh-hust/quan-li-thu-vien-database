@@ -3,11 +3,10 @@ const Title = require('../models/title')
 const Author = require('../models/author')
 const Client = require('../../config/pg_db/client');
 const Type = require('../models/type');
+const Book = require('../models/book');
 const Language = require('../models/language')
 const Position = require('../models/position')
 const Publisher = require('../models/publisher');
-const crypto = require("crypto");
-const { query } = require('express');
 
 
 class ManageBookController {
@@ -45,8 +44,7 @@ class ManageBookController {
             and publisher_id ilike ${pubID ? `'%${pubID}%'` : `'%%'` }
             `
             let books = await Client.query(query)
-            // res.send(books.rows)
-            // return
+           
             const types = await Type.findAll({
                 raw: true
             })
@@ -349,12 +347,31 @@ class ManageBookController {
         }
     }
 
+    async statistic(req, res, next) {
+        const totalTitle = await Title.count()
+        const totalBook = await Title.sum('quantity')
+        const totalBookInLib = await Title.sum('quan_in_lib')
+        const totalBorrow = totalBook - totalBookInLib
+        const totalAuthor = await Author.count()
+        const totalType = await Type.count()
+        const totalPub = await Publisher.count()
+        res.render('manage-books/statistic',{
+            totalTitle,
+            totalBook,
+            totalBookInLib,
+            totalBorrow,
+            totalType,
+            totalAuthor,
+            totalPub
+        })
+    }
 }
+
+
+module.exports = new ManageBookController();
 
 function pad(n, width, z) {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
-
-module.exports = new ManageBookController();
