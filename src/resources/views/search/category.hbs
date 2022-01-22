@@ -67,16 +67,11 @@
                 </div>
             </div>
         </div>
+        {{else}}
+        <div class="mt-5">
+            <h4 class="mt-3"> Chưa có sách thể loại này!</h4>
+        </div>
         {{/each}}
     </div>
 </div>
 
-{{!-- <script>
-    const btns = document.querySelectorAll('.btn-category')
-    const title = document.querySelector('.category-title').innerText
-    for(let i = 0 ; i < btns.length; i++) {
-        if(btns[i].innerText == title){
-            btns[i].classList.add('active')
-        }
-    }
-</script> --}}

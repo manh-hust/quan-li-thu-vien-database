@@ -22,9 +22,26 @@ class SearchController {
             const total = await Type.count({
                 distinct: true
             })
+            const q = req.query.q
+            let text
+            if(q){
+                text = `%${q}%`
+            }
+            else{
+                text = '%%'
+            }
             const books = await Title.findAll({
                 where: {
-                    typeID: id
+                    [Op.and]: [
+                        {
+                            typeID: id
+                        },
+                        {
+                            name: {
+                                [Op.like]: text
+                            }
+                        }
+                    ]
                 },
                 raw: true
             })
@@ -37,14 +54,38 @@ class SearchController {
                 category1: id != '00000004'
             })
         } catch (error) {
-            res.send(error.message)
+            res.render('error', {
+                message: error.message
+            })
         }
     }
     // GET /search/author
     async author(req, res, next) {
         const title = 'Tác giả'
+        const q = req.query.q
+        let text
+        if(q){
+            text = `%${q}%`
+        }
+        else{
+            text = '%%'
+        }
         const data = await Author.findAll({
-            raw: true
+            raw: true,
+            where: {
+                [Op.or]: [
+                    {
+                        firstName: {
+                            [Op.like]: text
+                        }
+                    },
+                    {
+                        lastName: {
+                            [Op.like]: text
+                        }
+                    }
+                ]
+            }
         })
         const types = await Type.findAll({
             raw: true,
@@ -64,13 +105,27 @@ class SearchController {
     async detailAuthor(req, res, next) {
         try {
             const authorID = req.params.authorID
+            const q = req.query.q
+            let text
+            if(q){
+                text = `%${q}%`
+            }
+            else{
+                text = '%%'
+            }
             const author = await Author.findByPk(authorID,{
                 raw: true
             })
             const name = `${author ? author.lastName : ''} ${author ? author.firstName : ''}`
             const data = await Title.findAll({
                 where: {
-                    authorID: authorID
+                    [Op.and]: [{
+                        authorID: authorID
+                    },{
+                        name: {
+                            [Op.like]: text
+                        }
+                    }]
                 },
                 raw: true
             })
@@ -92,13 +147,26 @@ class SearchController {
     }
     async mostBorrow(req, res, nex){
         try {
+            const q = req.query.q
+            let text
+            if(q){
+                text = `%${q}%`
+            }
+            else{
+                text = '%%'
+            }
             const mostBorrow = await Title.findAll({
                 raw: true,
                 limit: 20,
                 offset: 0,
                 order: [
                     ['quantityFt', 'DESC']
-                ]
+                ],
+                where: {
+                    name: {
+                        [Op.like]: text
+                    }
+                }
             })
             // res.send(mostBorrow)
             // return
@@ -165,54 +233,72 @@ class SearchController {
     }
     // GET /search/year/:slug
     async detailYear(req, res, next){
-        const slug = req.params.slug
-        let about = {
-            above: '0',
-            under: '',
-            name: ''
-        }
-        switch(slug){
-            case 'part1' :
-                about.above =  '1999'
-                about.name = 'Trước năm 2000'
-                break
-            case 'part2' :
-                about.above =  '2009'
-                about.under = '2000'
-                about.name = 'Từ năm 2000 đến năm 2009'
-                break
-            case 'part3' :
-                about.above =  '2019'
-                about.under = '2010'
-                about.name = 'Từ năm 2010 đến năm 2019'
-                break;
-            case 'part4' :
-                about.under =  '2020'
-                about.above = '2029'
-                about.name = 'Từ năm 2020 đến nay'
-                break;
-        }
-        const data = await Title.findAll({
-            raw: true,
-            where: {
-                publishDate: {
-                    [Op.between] : [about.under, about.above]
-                }
+        try {
+            const slug = req.params.slug
+            const q = req.query.q
+            let text
+            if(q){
+                text = `%${q}%`
             }
-        })
-        const total = await Title.count({
-            raw: true,
-            where: {
-                publishDate: {
-                    [Op.between] : [about.under, about.above]
-                }
+            else{
+                text = '%%'
             }
-        })
-        res.render('search/detailAuthor',{
-            data,
-            total,
-            name: about.name
-        })
+            let about = {
+                above: '0',
+                under: '',
+                name: ''
+            }
+            switch(slug){
+                case 'part1' :
+                    about.above =  '1999'
+                    about.name = 'Trước năm 2000'
+                    break
+                case 'part2' :
+                    about.above =  '2009'
+                    about.under = '2000'
+                    about.name = 'Từ năm 2000 đến năm 2009'
+                    break
+                case 'part3' :
+                    about.above =  '2019'
+                    about.under = '2010'
+                    about.name = 'Từ năm 2010 đến năm 2019'
+                    break;
+                case 'part4' :
+                    about.under =  '2020'
+                    about.above = '2029'
+                    about.name = 'Từ năm 2020 đến nay'
+                    break;
+            }
+            const data = await Title.findAll({
+                raw: true,
+                where: {
+                    [Op.and]: [{
+                        publishDate: {
+                            [Op.between] : [about.under, about.above]
+                        }
+                    },{
+                        name: {
+                            [Op.like]: text
+                        }
+                    }]
+                }
+            })
+            const total = await Title.count({
+                raw: true,
+                where: {
+                    publishDate: {
+                        [Op.between] : [about.under, about.above]
+                    }
+                }
+            })
+            res.render('search/detailAuthor',{
+                data,
+                total,
+                name: about.name
+            })
+        } catch (error) {
+            res.send(error.message)
+        }
     }
     // GET /search/detail/:titleID
     async detailID(req, res, next) {
