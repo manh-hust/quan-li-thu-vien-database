@@ -4,6 +4,7 @@
         <a href="/borrow/borrow-manage/W" class="btn btn-outline-success" data-state="W">Yêu cầu mượn</a>
         <a href="/borrow/borrow-manage/B" class="btn btn-outline-success" data-state="B">Đang mượn</a>
         <a href="/borrow/borrow-manage/O" class="btn btn-outline-success" data-state="O">Quá hạn</a>
+        <a href="/borrow/borrow-manage/R" class="btn btn-outline-success" data-state="R">Lịch sử mượn</a>
     </div>
 
     <table class="table table-dark table-striped">
@@ -17,7 +18,7 @@
             <th scope="col" class="confirm-borrow " data-borrowID="{{this.borrow_id}}">Số lượng còn lại</th>
             <th scope="col" class="return-borrow " data-borrowID="{{this.borrow_id}}">Số ngày còn</th>
             <th scope="col" class="warning-borrow " data-borrowID="{{this.borrow_id}}">Số số ngày trễ</th>
-            <th colspan="4">Xác nhận</th>
+            <th colspan="4" class="text-center">Xác nhận</th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
                 <td><button class="btn btn-success confirm-borrow btn-confirm-borrow " data-borrowID="{{this.borrow_id}}"> Chấp nhận</button></td>
                 <td><button class="btn btn-warning return-borrow btn-return-borrow" data-borrowID="{{this.borrow_id}}"> Đã trả</button></td>
                 <td><button class="btn btn-danger warning-borrow btn-warning-borrow" data-borrowID="{{this.borrow_id}}"> Cảnh báo</button></td>
+                <td><button class="btn btn-success  btn-return" disabled > Đã trả</button></td>
             </tr>
             {{else}}
             <tr>
@@ -85,9 +87,11 @@
     const  btnsConfirm  = $('.confirm-borrow')
     const  btnsReturn  = $('.return-borrow')
     const  btnsWarning  = $('.warning-borrow')
+    const btnsOK = $('.btn-return')
     btnsConfirm.hide()
     btnsReturn.hide()
     btnsWarning.hide()
+    btnsOK.hide()
     if(state == 'B'){
         btnsReturn.show()
     }
@@ -97,7 +101,9 @@
     else if(state == 'O'){
         btnsWarning.show()
     }
-
+    else if(state == 'R'){
+        btnsOK.show()
+    }
     const btnGroupControl = $('.container-manage-borrow .btn-group a')
 
 
