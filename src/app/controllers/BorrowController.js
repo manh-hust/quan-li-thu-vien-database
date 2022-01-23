@@ -107,6 +107,7 @@ class BorrowController {
                 day
             }
         })
+        // console.log(state == 'B')
         res.render('borrow/index',{
             data: borrow,
             state,
