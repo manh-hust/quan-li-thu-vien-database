@@ -58,7 +58,13 @@
                 </div>
             </div>
             <div class="row content-image">
-                <img src="https://www.dtv-ebook.com/images/banner/azbooks.jpg" alt="image">
+                <h2 class="mt-3 mb-3">Tóm tắt</h2>
+                {{#if book.title.summary}}
+                <p class="mb-5">{{book.title.summary}}</p>
+                {{else}}
+                <p class="mb-5">Chưa có tóm tắt!</p>
+                {{/if}}
+                {{!-- <img src="https://www.dtv-ebook.com/images/banner/azbooks.jpg" alt="image"> --}}
             </div>
             {{!-- Cung the loai --}}
             <h2 class="theloai">Cùng thể loại</h2>

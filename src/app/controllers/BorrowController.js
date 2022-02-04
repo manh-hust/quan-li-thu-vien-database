@@ -58,7 +58,6 @@ class BorrowController {
             const userID = res.locals.user.userID
             const query = `select * from borrow_infos
             where user_id = '${userID}'
-            and title_name ilike ${ q != false ? `'%${q}%'`: `'%%'`}
             order by borrow_date DESC
             `
             const dateNow = new Date()
