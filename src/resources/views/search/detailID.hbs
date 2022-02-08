@@ -130,11 +130,11 @@
                     </div>
                     <div class="mb-2">Số lượng: <b>1 </b> quyển</div>
                     <div class="mb-2">Ngày mượn: 
-                        <input  name="date" id="" value="{{book.date}}" class="input-modal-borrow" >
+                        <input  name="date" id="borrowDate" value="{{book.date}}" class="input-modal-borrow" >
                     </div>
                     <div class="mb-2">Thời hạn: <b>3 tháng</b> kể từ ngày mượn</div>
                     <div class="mb-2">Hạn trả dự kiến: 
-                        <input  name="returnDate" id="" value="{{book.returnDate}}" class="input-modal-borrow" >
+                        <input  name="exReturnDate" id="exReturnDate"  class="input-modal-borrow" >
                     </div>
                     <div class="mb-2">Người mượn: <b>{{this.user.lastName}} {{this.user.firstName}}</b></div>
                     <div class="mb-2 ">Số điện thoại: <b>{{this.user.SĐT}} </b></div>
@@ -158,6 +158,8 @@
     const formFavorite = document.forms['form-favorite']
     
     const titleID = btnFavorite.data('id')
+    
+    const exReturnDate = $('#exReturnDate')
 
     const btnBorrow = $('#btn-borrow')
     const quantity = $('#quantity-detail-book')

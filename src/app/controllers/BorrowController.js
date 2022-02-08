@@ -44,7 +44,7 @@ class BorrowController {
                 bookID: bookID,
                 userID: userID,
                 borrowDate: date,
-                returnDate: returnDate,
+                returnDate: null,
             })
             res.redirect('back')
         } catch (error) {
@@ -68,7 +68,7 @@ class BorrowController {
                 return{
                     name: item.title_name,
                     date: convertDate(item.borrow_date),
-                    returnDate: convertDate(item.return_date),
+                    return_Date: convertDate(item.return_date),
                     note: short(item.note),
                     day
                 }
@@ -221,7 +221,12 @@ module.exports = new BorrowController();
 
 
 function convertDate(date) {
-    return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
+    if(date){
+        return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
+    }
+    else{
+        return 'Không có thông tin'
+    }
 }
 function short(state) {
     if(state == 'W')
