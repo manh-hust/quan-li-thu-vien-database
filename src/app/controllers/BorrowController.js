@@ -11,7 +11,9 @@ class BorrowController {
             const titleID = req.params.titleID
             const {date, bookID} = req.body
             const userID = res.locals.user.userID
-
+            let newDate = new Date()
+            let dueDate = new Date()
+            dueDate.setMonth(newDate.getMonth() + 3)
             const checkRecord = await Client.query(`select * from borrow_infos 
             where user_id = '${userID}'
             and title_id = '${titleID}'
@@ -38,12 +40,12 @@ class BorrowController {
             else{
                 maxID = Number(maxRecord[0].borrowID)
             }
-            
             const newRecord = await Borrow.create({
                 borrowID: pad(maxID+1, 8),
                 bookID: bookID,
                 userID: userID,
                 borrowDate: date,
+                dueDate: dueDate,
                 returnDate: null,
             })
             res.redirect('back')
@@ -161,7 +163,8 @@ class BorrowController {
             })
             res.render('borrow/manage',{
                 data: data,
-                state
+                state,
+                history: state == 'R'
             })
         } catch (error) {
             res.send(error.message)

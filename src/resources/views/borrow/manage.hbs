@@ -14,7 +14,11 @@
             <th scope="col">Tên người dùng</th>
             <th scope="col">Sách mượn</th>
             <th scope="col">Ngày mượn</th>
+            {{#if history}}
+            <th scope="col">Ngày trả</th>
+            {{else}}
             <th scope="col">Hạn trả dự kiến</th>
+            {{/if}}
             <th scope="col" class="confirm-borrow " data-borrowID="{{this.borrow_id}}">Số lượng còn lại</th>
             <th scope="col" class="return-borrow " data-borrowID="{{this.borrow_id}}">Số ngày còn</th>
             <th scope="col" class="warning-borrow " data-borrowID="{{this.borrow_id}}">Số số ngày trễ</th>
@@ -28,7 +32,11 @@
                 <td>{{this.user_name}}</td>
                 <td>{{this.title_name}}</td>
                 <td>{{this.borrow_date}}</td>
+                {{#if ../ history}}
+                <td>{{this.return_date}}</td>
+                {{else}}
                 <td>{{this.exReturnDate}}</td>
+                {{/if}}
                 <td class="confirm-borrow " data-borrowID="{{this.borrow_id}}">{{this.quan_in_lib}} </td>
                 <td class="return-borrow " data-borrowID="{{this.borrow_id}}">{{this.remaining_days}}</td>
                 <td class="warning-borrow " data-borrowID="{{this.borrow_id}}">{{this.days_late}}</td>
