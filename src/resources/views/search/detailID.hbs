@@ -134,7 +134,7 @@
                     </div>
                     <div class="mb-2">Thời hạn: <b>3 tháng</b> kể từ ngày mượn</div>
                     <div class="mb-2">Hạn trả dự kiến: 
-                        <input  name="exReturnDate" id="exReturnDate"  class="input-modal-borrow" >
+                        <input id="exReturnDate"  class="input-modal-borrow" value="{{book.returnDate}}" >
                     </div>
                     <div class="mb-2">Người mượn: <b>{{this.user.lastName}} {{this.user.firstName}}</b></div>
                     <div class="mb-2 ">Số điện thoại: <b>{{this.user.SĐT}} </b></div>
@@ -159,7 +159,13 @@
     
     const titleID = btnFavorite.data('id')
     
-    const exReturnDate = $('#exReturnDate')
+    {{!-- const exReturnDate = $('#exReturnDate')
+    let date = new Date()
+    let returnDate = new Date()
+    returnDate.setMonth(date.getMonth() + 3)
+    console.log(convertDate(returnDate))
+
+    exReturnDate.val(convertDate(returnDate)) --}}
 
     const btnBorrow = $('#btn-borrow')
     const quantity = $('#quantity-detail-book')
@@ -173,4 +179,12 @@
         formFavorite.submit()
     }) 
 
+    function convertDate(date) {
+        if(date){
+            return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
+        }
+        else{
+            return 'Không có thông tin'
+        }
+    }
 </script>

@@ -9,7 +9,7 @@ class BorrowController {
     async borrow(req, res, next) {
         try {
             const titleID = req.params.titleID
-            const {date, returnDate, bookID} = req.body
+            const {date, bookID} = req.body
             const userID = res.locals.user.userID
 
             const checkRecord = await Client.query(`select * from borrow_infos 
@@ -63,12 +63,16 @@ class BorrowController {
             const dateNow = new Date()
             const data = await Client.query(query)
             const borrow = data.rows.map(item => {
-                const second = (item.return_date - dateNow)
+                let exReturnDate1 = JSON.parse(JSON.stringify(item.borrow_date))
+                let exReturnDate = new Date(exReturnDate1)
+                exReturnDate.setMonth(item.borrow_date.getMonth() + 3)
+                const second = (exReturnDate - dateNow)
                 const day = Math.floor(second / 3600 / 24 / 1000)
                 return{
                     name: item.title_name,
                     date: convertDate(item.borrow_date),
-                    return_Date: convertDate(item.return_date),
+                    exReturnDate: convertDate(exReturnDate),
+                    returnDate: convertDate(item.return_date),
                     note: short(item.note),
                     day
                 }
@@ -76,7 +80,8 @@ class BorrowController {
             res.render('borrow/index',{
                 data: borrow,
                 state: 'all',
-                visibleDate: false
+                visibleDate: false,
+                visibleReturnDate: true
             })
         } catch (error) {
             res.send(error.message)
@@ -96,11 +101,15 @@ class BorrowController {
         const dateNow = new Date()
         const data = await Client.query(query)
         const borrow = data.rows.map(item => {
-            const second = (item.return_date - dateNow)
+            let exReturnDate1 = JSON.parse(JSON.stringify(item.borrow_date))
+            let exReturnDate = new Date(exReturnDate1)
+            exReturnDate.setMonth(item.borrow_date.getMonth() + 3)
+            const second = (exReturnDate - dateNow)
             const day = Math.floor(second / 3600 / 24 / 1000)
             return{
                 name: item.title_name,
                 date: convertDate(item.borrow_date),
+                exReturnDate: convertDate(exReturnDate),
                 returnDate: convertDate(item.return_date),
                 note: short(item.note),
                 day
@@ -110,7 +119,8 @@ class BorrowController {
         res.render('borrow/index',{
             data: borrow,
             state,
-            visibleDate: state == 'B' 
+            visibleDate: state == 'B',
+            visibleReturnDate: state == 'R' 
         })
 
     }
@@ -128,7 +138,11 @@ class BorrowController {
             `
             const waitingRedcord = await Client.query(query)
             const data = waitingRedcord.rows.map( item => {
-                const days = (item.return_date - dateNow)/24/3600/1000
+                let exReturnDate1 = JSON.parse(JSON.stringify(item.borrow_date))
+                let exReturnDate = new Date(exReturnDate1)
+                exReturnDate.setMonth(item.borrow_date.getMonth() + 3)
+
+                const days = (exReturnDate - dateNow)/24/3600/1000
                 return {
                     user_id: item.user_id,
                     user_name: item.user_name,
@@ -138,6 +152,7 @@ class BorrowController {
                     borrow_id: item.borrow_id,
                     title_id: item.title_id,
                     borrow_date: convertDate(item.borrow_date),
+                    exReturnDate: convertDate(exReturnDate),
                     return_date: convertDate(item.return_date),
                     remaining_days: Math.floor(days),
                     days_late: days >= 0 ? 0 : -Math.floor(days) ,
@@ -188,6 +203,7 @@ class BorrowController {
         try {
             const borrowID = req.params.id
             const editRecord = await Borrow.update({
+                returnDate: new Date(),
                 note: 'R'
             }, {
                 where: {
@@ -225,7 +241,7 @@ function convertDate(date) {
         return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
     }
     else{
-        return 'Không có thông tin'
+        return null
     }
 }
 function short(state) {

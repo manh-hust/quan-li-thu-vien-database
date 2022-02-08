@@ -13,6 +13,9 @@
             <th scope="col">Tên</th>
             <th scope="col">Ngày mượn</th>
             <th scope="col">Hạn trả</th>
+            {{#if visibleReturnDate}}
+            <th scope="col">Ngày trả</th>
+            {{/if}}
             {{#if visibleDate}}
             <th scope="col">Còn lại</th>
             {{/if}}
@@ -25,7 +28,10 @@
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.date}}</td>
+                <td>{{this.exReturnDate}}</td>
+                {{#if ../ visibleReturnDate}}
                 <td>{{this.returnDate}}</td>
+                {{/if}}
                 {{#if ../ visibleDate}}
                 <td>{{this.day}} ngày</td>
                 {{/if}}
