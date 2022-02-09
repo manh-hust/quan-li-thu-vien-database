@@ -34,8 +34,8 @@
                 <td>{{this.borrow_date}}</td>
                 {{#if ../ history}}
                 <td>{{this.return_date}}</td>
-                {{else}}
-                <td>{{this.exReturnDate}}</td>
+                {{!-- {{else}}
+                <td>{{this.exReturnDate}}</td> --}}
                 {{/if}}
                 <td class="confirm-borrow " data-borrowID="{{this.borrow_id}}">{{this.quan_in_lib}} </td>
                 <td class="return-borrow " data-borrowID="{{this.borrow_id}}">{{this.remaining_days}}</td>
