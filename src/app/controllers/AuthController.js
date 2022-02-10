@@ -51,7 +51,7 @@ class AuthController {
             where: {
                 [Op.or]:[
                     {email: email},
-                    {MSSV: MSSV}
+                    {MSSV: MSSV ? MSSV : null}
                 ]
                 
             }
