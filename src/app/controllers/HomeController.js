@@ -51,11 +51,18 @@ class HomeController {
                 limit: 6,
                 offset: 0
             })
+            const news = await News.findAll({
+                raw: true,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
              res.render('home/home',{
                  newListBook,
                  mostBorrow,
                  author: bestAuthor.rows,
-                 bestBook
+                 bestBook,
+                 news
              }) 
          } catch (error) {
              res.send(error.message)

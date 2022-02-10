@@ -239,7 +239,7 @@ ul, li {
     display: flex; }
     .home-container .home-content .home-news {
       flex: 1;
-      background-color: aqua;
+      background-color: #bbbbbb;
       margin-right: 12px;
       height: 100%; }
       .home-container .home-content .home-news h4 {

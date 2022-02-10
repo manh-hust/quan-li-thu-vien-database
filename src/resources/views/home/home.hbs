@@ -39,8 +39,13 @@
     </button>
   </div>
   <div class="home-content">
-      <div class="home-news">
+      <div class="home-news ">
         <h4>TIN TỨC</h4>
+        <ul class="ms-2 mt-2">
+          {{#each news}}
+          <li><a href="http://localhost:3000/news">{{this.title}}</a></li>
+          {{/each}}
+        </ul>
       </div>
       <div class="home-activity">
         <h4>SẢN PHẨM - DỊCH VỤ</h4>

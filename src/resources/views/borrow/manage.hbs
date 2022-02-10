@@ -34,14 +34,14 @@
                 <td>{{this.borrow_date}}</td>
                 {{#if ../ history}}
                 <td>{{this.return_date}}</td>
-                {{!-- {{else}}
-                <td>{{this.exReturnDate}}</td> --}}
+                {{else}}
+                <td>{{this.exReturnDate}}</td>
                 {{/if}}
                 <td class="confirm-borrow " data-borrowID="{{this.borrow_id}}">{{this.quan_in_lib}} </td>
                 <td class="return-borrow " data-borrowID="{{this.borrow_id}}">{{this.remaining_days}}</td>
                 <td class="warning-borrow " data-borrowID="{{this.borrow_id}}">{{this.days_late}}</td>
                 <td><button class="btn btn-success confirm-borrow btn-confirm-borrow " data-borrowID="{{this.borrow_id}}"> Chấp nhận</button></td>
-                <td><button class="btn btn-warning return-borrow btn-return-borrow" data-borrowID="{{this.borrow_id}}"> Đã trả</button></td>
+                <td><button class="btn btn-warning return-borrow btn-return-borrow" data-borrowID="{{this.borrow_id}}"> Trả sách</button></td>
                 <td><button class="btn btn-danger warning-borrow btn-warning-borrow" data-borrowID="{{this.borrow_id}}"> Cảnh báo</button></td>
                 <td><button class="btn btn-success  btn-return" disabled > Đã trả</button></td>
             </tr>
